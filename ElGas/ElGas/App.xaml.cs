@@ -1,3 +1,6 @@
+using ElGas.Helpers;
+using ElGas.Pages;
+using ElGas.ViewModels;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,14 +10,37 @@ namespace ElGas
 {
 	public partial class App : Application
 	{
-		public App ()
+        public static NavigationPage Navigator { get; internal set; }
+        public App ()
 		{
 			InitializeComponent();
+            SetMainPage();
+			//MainPage = new NavigationPage( new LoginPage());
 
-			MainPage = new MainPage();
 		}
 
-		protected override void OnStart ()
+        private void SetMainPage()
+        {
+            if (!string.IsNullOrEmpty(Settings.AccessToken))
+            {
+                if (Settings.AccessTokenExpirationDate < DateTime.UtcNow.AddHours(1))
+                {
+                    var loginViewModel = new LoginViewModel();
+                    loginViewModel.LoginCommand.Execute(null);
+                }
+                MainPage = new NavigationPage(new MapaPage());
+            }
+            else if (!string.IsNullOrEmpty(Settings.Username)
+                  && !string.IsNullOrEmpty(Settings.Password))
+            {
+                MainPage = new NavigationPage(new LoginPage());
+            }
+            else
+            {
+                MainPage = new NavigationPage(new LoginPage());
+            }
+        }
+        protected override void OnStart ()
 		{
 			// Handle when your app starts
 		}

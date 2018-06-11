@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ElGas.Pages.RegisterPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" Padding="5">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                <Entry Placeholder="Nombres" Text="{Binding Cliente.Nombres}"></Entry>
+                <Entry Placeholder="Apellidos" Text="{Binding Cliente.Apellidos}"></Entry>
+            </StackLayout>
+
+            <Entry Placeholder="Teléfono" Keyboard="Telephone" Text="{Binding Cliente.Telefono}"></Entry>
+
+            <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Username}"></Entry>
+            <Entry Placeholder="Contraseña" IsPassword="True" Text="{Binding Password}" ></Entry>
+            <Entry Placeholder="Confirmar Contraseña" IsPassword="True" Text="{Binding ConfirmPassword}"></Entry>
+            
+            <Label Text="Dirección"></Label>
+            <Editor Text="{Binding Cliente.Direccion}"></Editor>
+
+            <Button Command="{Binding RegisterCommand}" 
+                Text="Registrarme"
+                TextColor="White"
+                FontSize="30"
+                BackgroundColor="DeepPink" 
+                    />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

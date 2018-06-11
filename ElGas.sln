@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElGas.iOS", "ElGas\ElGas.iO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElGas.UWP", "ElGas\ElGas.UWP\ElGas.UWP.csproj", "{90681A8B-BADB-4D22-9F02-A77421FEF98A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElGas", "ElGas\ElGas\ElGas.csproj", "{387901C1-4BA7-48CB-AD77-2BC78CC9DB39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElGas", "ElGas\ElGas\ElGas.csproj", "{387901C1-4BA7-48CB-AD77-2BC78CC9DB39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

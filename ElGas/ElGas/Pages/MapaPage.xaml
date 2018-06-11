@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
+             Title="El Gas"
+             x:Class="ElGas.Pages.MapaPage">
+    <ContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <tk:TKCustomMap 
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                MinimumHeightRequest="300"
+                MinimumWidthRequest="300"
+                IsShowingUser="True"                
+                MapType="Hybrid"
+                />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
