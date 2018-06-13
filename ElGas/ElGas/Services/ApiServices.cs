@@ -14,8 +14,7 @@ namespace ElGas.Services
 {
     internal class ApiServices
     {
-        public async Task<bool> RegisterUserAsync(
-            string email, string password, string confirmPassword, Cliente cliente)
+        public async Task<bool> RegisterUserAsync(string email, string password, string confirmPassword, Cliente cliente)
         {
             var client = new HttpClient();
 
@@ -38,6 +37,7 @@ namespace ElGas.Services
               var AspNetUSer = JsonConvert.DeserializeObject<AspNetUser>(result);
 
             cliente.IdAspNetUser = AspNetUSer.Id;
+            cliente.Correo = AspNetUSer.Email;
 
 
             Debug.WriteLine(result);

@@ -5,6 +5,5 @@
              x:Class="ElGas.App">
 	<Application.Resources>
         <infra:InstanceLocator x:Key="Locator"/>
-
     </Application.Resources>
 </Application>
