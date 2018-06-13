@@ -9,6 +9,8 @@ using ElGas.Helpers;
 using ElGas.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.ObjectModel;
+using System.Text;
 
 namespace ElGas.Services
 {
@@ -92,6 +94,36 @@ namespace ElGas.Services
             Debug.WriteLine(content);
 
             return accessToken;
+        }
+
+        public async Task<List<DistribuidorResponse>> DistribuidoresCercanos(Posicion posicion)
+        {
+          
+                try
+                {
+                    var request = JsonConvert.SerializeObject(posicion);
+                    var content = new StringContent(request, Encoding.UTF8, "application/json");
+                    var client = new HttpClient();
+                    client.BaseAddress = new Uri(Constants.BaseApiAddress);
+                    var url = "api/Distribuidors/NearDistribuidor";
+                    var response = await client.PostAsync(url, content);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return null;
+
+                    }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var distribuidores = JsonConvert.DeserializeObject<List<DistribuidorResponse>>(result);
+
+                return distribuidores;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    return null;
+                }
+            
         }
 
     }

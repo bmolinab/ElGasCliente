@@ -1,4 +1,5 @@
 ﻿using ElGas.Helpers;
+using ElGas.Services;
 using GalaSoft.MvvmLight.Views;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
@@ -16,8 +17,12 @@ namespace ElGas.ViewModels
 {
     public class MapaViewModel : INotifyPropertyChanged
     {
+
+        #region services
+        ApiServices apiService = new ApiServices();
+
+        #endregion
         #region Properties
-            public Plugin.Geolocator.Abstractions.Position MyLocation { get; set; }
         #endregion
      
         #region Events
@@ -68,11 +73,15 @@ namespace ElGas.ViewModels
                     Debug.WriteLine("null gps :(");
                         return;
                     }
-                    MyLocation = position;
 
                 CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(position.Latitude,position.Longitude)), Distance.FromMiles(.3)));
 
-                
+
+                var Distribuidores = await apiService.DistribuidoresCercanos(new Models.Posicion {Latitud=position.Latitude, Longitud= position.Longitude });
+
+                Debug.WriteLine(Distribuidores.Count);
+
+
             }
                 catch (Exception ex)
                 {
