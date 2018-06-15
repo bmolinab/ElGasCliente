@@ -2,21 +2,30 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
-             Title="El Gas"
              x:Class="ElGas.Pages.MapaPage">
     <ContentPage.Content>
-        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-            <tk:TKCustomMap 
+        <StackLayout BackgroundColor="Black">
+            <Label  Text="Confirme su ubicación" IsVisible="{Binding isVisible}" FontSize="Medium" VerticalTextAlignment="Center" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Start" HeightRequest="50"/>
+         
+            <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <tk:TKCustomMap 
                 x:Name="Mapa"
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand"
                 MinimumHeightRequest="300"  
                 MinimumWidthRequest="300"
-                MapRegion="{Binding CenterSearch}"                                   
+                MapRegion="{Binding CenterSearch}"
+                IsClusteringEnabled="True"
+                MapClickedCommand="{Binding MapClickedCommand}"
+                Pins="{Binding Locations}" 
                 IsShowingUser="True"
-                MapType="Street"
-                
+                MapType="Street"                
                 />
+                <Button BorderRadius="30" Text="Pedir Gas" VerticalOptions="End" HorizontalOptions="Center" WidthRequest="200"  HeightRequest="50" BackgroundColor="Blue" TextColor="White" TranslationY="-10" Command="{Binding BuyCommand}">
+                
+            </Button>
         </Grid>
+        </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>
