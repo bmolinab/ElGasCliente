@@ -5,8 +5,21 @@
              x:Class="ElGas.Pages.MapaPage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="Black">
-            <Label  Text="Confirme su ubicación" IsVisible="{Binding isVisible}" FontSize="Medium" VerticalTextAlignment="Center" TextColor="White" HorizontalOptions="Center"  VerticalOptions="Start" HeightRequest="50"/>
-         
+
+            <Grid IsVisible="{Binding isVisible}" >
+            <Label  Text="Confirme su ubicación" 
+                    IsVisible="{Binding isVisible}" 
+                    FontSize="Medium" 
+                    VerticalTextAlignment="Center" 
+                    TextColor="White" 
+                    HorizontalOptions="Center"  
+                    VerticalOptions="Start" 
+                    HeightRequest="50"/>
+                <StackLayout HorizontalOptions="End" Orientation="Horizontal" IsVisible="{Binding isVisible}">
+                    <Button Text="Ok" HorizontalOptions="End" IsVisible="{Binding isVisible}" Command="{Binding OkCommand}"></Button>
+                    <Button Text="Cancelar" HorizontalOptions="End" IsVisible="{Binding isVisible}" Command="{Binding CancelCommand}"></Button>
+                </StackLayout>
+            </Grid>
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                 <tk:TKCustomMap 
                 x:Name="Mapa"
