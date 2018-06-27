@@ -169,6 +169,7 @@
                         x:Name="UsernameEntry"
                         Grid.Row="2"
                         AutomationId="username"
+                        Keyboard="Email"
                         Text="{Binding Username, Mode=TwoWay}">
                         <Entry.TextColor>
                             <OnPlatform x:TypeArguments="Color">
