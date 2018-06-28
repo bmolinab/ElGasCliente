@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using ElGas.Helpers;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ElGas.Pages
@@ -9,6 +10,7 @@ namespace ElGas.Pages
         public MasterPage()
         {
             InitializeComponent();
+           
         }
 
         protected override void OnAppearing()
@@ -17,7 +19,12 @@ namespace ElGas.Pages
             App.Master = this;
             App.Navigator = Navigator;
 
+            Paginaprincipal();
             
+        }
+        public async void Paginaprincipal()
+        {
+            if (Settings.Pedidos) await Navigator.PushAsync(new SeguimientoPage());
         }
     }
 }

@@ -61,5 +61,17 @@ namespace ElGas.Helpers
                 AppSettings.AddOrUpdateValue("AccessTokenExpirationDate", value);
             }
         }
+
+        public static bool Pedidos 
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("Pedidos", false);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("Pedidos", value);
+            }
+        }
     }
 }

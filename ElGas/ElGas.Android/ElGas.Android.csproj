@@ -54,8 +54,14 @@
     <PackageReference Include="MvvmLightLibsStd10">
       <Version>5.4.1</Version>
     </PackageReference>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.1.4.158-pre</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfNumericUpDown">
       <Version>16.1.0.37</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfRating">
+      <Version>16.2.0.41</Version>
     </PackageReference>
     <PackageReference Include="TK.CustomMap">
       <Version>2.0.1</Version>

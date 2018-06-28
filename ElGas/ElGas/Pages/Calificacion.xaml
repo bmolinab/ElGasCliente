@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            
+    x:Class="ElGas.Pages.Calificacion">
+    <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20, 20, 20, 20" BackgroundColor="White">
+        
+        <Label Text="Notificación"
+               FontAttributes="Bold"
+               FontSize="Large"
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+        <Label Text="Gracias por confiar en nosotros, por favor califique el servicio brindado"   
+                LineBreakMode="WordWrap"
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+                
+        <rating:SfRating x:Name="rating" Value="3" HorizontalOptions="Center"/>
+
+        <StackLayout Orientation="Horizontal"
+                       HeightRequest="60">
+
+        </StackLayout>
+
+        
+        <Button HorizontalOptions="Center" VerticalOptions="End" Text="ACEPTAR"></Button>
+        
+    </StackLayout>
+</pages:PopupPage>

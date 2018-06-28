@@ -1,4 +1,5 @@
-﻿using ElGas.Pages;
+﻿using ElGas.Helpers;
+using ElGas.Pages;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using TK.CustomMap;
 
@@ -74,7 +76,7 @@ namespace ElGas.ViewModels
             Locations.Add(posicion);
 
         }
-
+        
 
         public ICommand OkCommand { get { return new RelayCommand(Ok); } }
         private async void Ok()
@@ -84,7 +86,14 @@ namespace ElGas.ViewModels
             if(action)
             {
                 await App.Current.MainPage.DisplayAlert("Gracias por hacer su pedido", "En breve le confirmaremos su entrega", "Aceptar");
+                await Task.Delay(2000);
+                await App.Current.MainPage.DisplayAlert("Notificación", "Su pedido ha sido confirmado, un distribuidor está en camino para realizar la entrega", "Aceptar");
+
+                Settings.Pedidos = true;
+
+                await App.Navigator.PushAsync(new SeguimientoPage());
             }
+
 
         }
 

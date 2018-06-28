@@ -7,12 +7,12 @@
         <StackLayout BackgroundColor="Black">
 
             <Grid IsVisible="{Binding isVisible}" >
-            <Label  Text="Confirme su ubicación" 
+                <Label  Text="Confirme su ubicación" 
                     IsVisible="{Binding isVisible}" 
                     FontSize="Medium" 
                     VerticalTextAlignment="Center" 
                     TextColor="White" 
-                    HorizontalOptions="Center"  
+                    HorizontalOptions="Start"  
                     VerticalOptions="Start" 
                     HeightRequest="50"/>
                 <StackLayout HorizontalOptions="End" Orientation="Horizontal" IsVisible="{Binding isVisible}">
@@ -35,10 +35,8 @@
                 MapType="Street"                
                 />
                 <Button BorderRadius="30" Text="Pedir Gas" VerticalOptions="End" HorizontalOptions="Center" WidthRequest="200"  HeightRequest="50" BackgroundColor="Blue" TextColor="White" TranslationY="-10" Command="{Binding BuyCommand}">
-                
-            </Button>
-        </Grid>
+                </Button>
+            </Grid>
         </StackLayout>
-
     </ContentPage.Content>
 </ContentPage>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
+             x:Class="ElGas.Pages.SeguimientoPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <tk:TKCustomMap HeightRequest="400"                 
+></tk:TKCustomMap>
+            <Label Text="Su pedido se encuentra a " FontSize="Medium"></Label>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
+                <Button Text="Contactar">
+                    
+                </Button>
+                <Button Text="Cancelar">
+                    
+                </Button>
+            </StackLayout>
+           
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

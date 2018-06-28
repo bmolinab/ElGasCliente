@@ -19,6 +19,7 @@ namespace ElGas.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             TKGoogleMaps.Init(this, bundle);
+            Rg.Plugins.Popup.Popup.Init(this,bundle);
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
