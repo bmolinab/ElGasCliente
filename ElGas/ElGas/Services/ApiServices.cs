@@ -55,9 +55,10 @@ namespace ElGas.Services
                 Constants.BaseApiAddress + "api/Clientes/PostClient", httpContent2);
 
                 if (response2.IsSuccessStatusCode)
-                {
+                {                  
                     return true;
                 }
+
             }
 
             return false;
@@ -89,6 +90,8 @@ namespace ElGas.Services
 
             Settings.AccessTokenExpirationDate = accessTokenExpiration;
 
+
+            
             Debug.WriteLine(accessTokenExpiration);
 
             Debug.WriteLine(content);
@@ -124,6 +127,63 @@ namespace ElGas.Services
                     return null;
                 }
             
+        }
+
+        public static async Task<Response> InsertarAsync<T>(T model, Uri baseAddress, string url)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var request = JsonConvert.SerializeObject(model);
+
+                    var content = new StringContent(request, Encoding.UTF8, "application/json");
+
+                    var uri = string.Format("{0}/{1}", baseAddress, url);
+
+                    var response = await client.PostAsync(new Uri(uri), content);
+
+                    var resultado = await response.Content.ReadAsStringAsync();
+                    var respuesta = JsonConvert.DeserializeObject<Response>(resultado);
+                    return respuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = ex.Message,
+                };
+            }
+        }
+
+        public static async Task<Response> InsertarAsync<T>(object model, Uri baseAddress, string url)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    var request = JsonConvert.SerializeObject(model);
+                    var content = new StringContent(request, Encoding.UTF8, "application/json");
+
+                    var uri = string.Format("{0}/{1}", baseAddress, url);
+
+                    var response = await client.PostAsync(new Uri(uri), content);
+
+                    var resultado = await response.Content.ReadAsStringAsync();
+                    var respuesta = JsonConvert.DeserializeObject<Response>(resultado);
+                    return respuesta;
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = ex.Message,
+                };
+            }
         }
 
     }

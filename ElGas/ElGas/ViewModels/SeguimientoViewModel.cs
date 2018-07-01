@@ -11,6 +11,8 @@ using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
 using System.Threading.Tasks;
+using Plugin.Messaging;
+using ElGas.Helpers;
 
 namespace ElGas.ViewModels
 {
@@ -36,8 +38,29 @@ namespace ElGas.ViewModels
         public ICommand ContactCommand { get { return new RelayCommand(Contact); } }
         public async void Contact()
         {
+            var PhoneCallTask = CrossMessaging.Current.PhoneDialer;
+            if (PhoneCallTask.CanMakePhoneCall)
+            {
+                PhoneCallTask.MakePhoneCall("0000000000","Nombre Vendedor");
+            }
+        }
+
+        public ICommand CancelCommand { get { return new RelayCommand(Cancel); } }
+        public async void Cancel()
+        {
+
+            var action = await App.Current.MainPage.DisplayAlert("Pedido a Cancelar", "N Tanques", "Confirmar", "Regresar");
+            if (action)
+            {
+                await App.Current.MainPage.DisplayAlert("Pedido a Cancelar", "Su pedido de N tanques ha sido cancelado", "Aceptar");
+
+                Settings.Pedidos = false;
+
+                await App.Navigator.Navigation.PopToRootAsync();
+            }
 
         }
+
         public async void Ok()
         {
             await Task.Delay(2000);
@@ -46,6 +69,8 @@ namespace ElGas.ViewModels
             var page = new Calificacion();
 
             await   PopupNavigation.PushAsync(page);
+
+
         }
         #endregion
     }

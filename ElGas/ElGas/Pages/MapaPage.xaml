@@ -34,8 +34,19 @@
                 IsShowingUser="True"
                 MapType="Street"                
                 />
-                <Button BorderRadius="30" Text="Pedir Gas" VerticalOptions="End" HorizontalOptions="Center" WidthRequest="200"  HeightRequest="50" BackgroundColor="Blue" TextColor="White" TranslationY="-10" Command="{Binding BuyCommand}">
+                
+                <Button BorderRadius="30" 
+                        Text="Pedir Gas" 
+                        VerticalOptions="End" 
+                        HorizontalOptions="Center" 
+                        WidthRequest="200"  
+                        HeightRequest="50" 
+                        BackgroundColor="Blue" 
+                        TextColor="White" 
+                        TranslationY="-10" 
+                        Command="{Binding BuyCommand}">
                 </Button>
+                
             </Grid>
         </StackLayout>
     </ContentPage.Content>

@@ -7,12 +7,14 @@
         <StackLayout>
             <tk:TKCustomMap HeightRequest="400"                 
 ></tk:TKCustomMap>
-            <Label Text="Su pedido se encuentra a " FontSize="Medium"></Label>
+            <Label Text="Su pedido fue atendido por:" FontSize="Medium"></Label>
+            <Label Text="Vendedor1" FontSize="Medium"></Label>
+
             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-                <Button Text="Contactar">
-                    
+                <Button Text="Contactar" Command="{Binding ContactCommand}">
                 </Button>
-                <Button Text="Cancelar">
+                
+                <Button Text="Cancelar" Command="{Binding CancelCommand}">
                     
                 </Button>
             </StackLayout>

@@ -1,4 +1,5 @@
-﻿using Plugin.Settings;
+﻿using ElGas.Models;
+using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 using System;
 
@@ -27,6 +28,19 @@ namespace ElGas.Helpers
                 AppSettings.AddOrUpdateValue("Username", value);
             }
         }
+
+        public static int idCliente
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("idCliente", 0);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("idCliente", value);
+            }
+        }
+
         public static string Password
         {
             get

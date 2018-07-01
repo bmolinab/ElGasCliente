@@ -1,6 +1,9 @@
 ﻿using ElGas.Helpers;
+using ElGas.Models;
 using ElGas.Pages;
+using ElGas.Services;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -81,17 +84,38 @@ namespace ElGas.ViewModels
         public ICommand OkCommand { get { return new RelayCommand(Ok); } }
         private async void Ok()
         {
+            ApiServices apiServices = new ApiServices();
           
                 var action = await App.Current.MainPage.DisplayAlert("Confirmar", "Confirmar la compra de "+cilindros+" cilindros por el valor de "+ Valor, "Confirmar", "Cancelar");
             if(action)
             {
-                await App.Current.MainPage.DisplayAlert("Gracias por hacer su pedido", "En breve le confirmaremos su entrega", "Aceptar");
-                await Task.Delay(2000);
-                await App.Current.MainPage.DisplayAlert("Notificación", "Su pedido ha sido confirmado, un distribuidor está en camino para realizar la entrega", "Aceptar");
+                Compra compra = new Compra
+                {
+                    IdCliente=(int?)Settings.idCliente,
+                    ValorTotal=(double?)double.Parse(Valor.Replace("$","")),
+                    Cantidad= (int?) int.Parse(Cilindros),
+                    Estado=0,
+                    Latitud=(double?) CenterSearch.Center.Latitude,
+                    Longitud=(double?) centerSearch.Center.Longitude,                    
+                };
 
-                Settings.Pedidos = true;
+                var response = await ApiServices.InsertarAsync<Compra>(compra, new Uri(Constants.BaseApiAddress), "/api/Compras/PostCompras");
 
-                await App.Navigator.PushAsync(new SeguimientoPage());
+                if (response.IsSuccess)
+                {
+                    await App.Current.MainPage.DisplayAlert("Gracias por hacer su pedido", "En breve le confirmaremos su entrega", "Aceptar");
+                    await Task.Delay(2000);
+                    await App.Current.MainPage.DisplayAlert("Notificación", "Su pedido ha sido confirmado, un distribuidor está en camino para realizar la entrega", "Aceptar");
+                    Settings.Pedidos = true;
+
+                    await App.Navigator.PushAsync(new SeguimientoPage());
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert("Tenemos un problema con su pedido", response.Message, "Aceptar");
+                }
+
+             
             }
 
 

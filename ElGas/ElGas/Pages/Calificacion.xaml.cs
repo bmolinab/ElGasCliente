@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Pages;
+﻿using ElGas.ViewModels;
+using Rg.Plugins.Popup.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,14 @@ namespace ElGas.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Calificacion : PopupPage
     {
-		public Calificacion ()
+        CalificacionViewModel viewModel;
+
+       
+        public Calificacion ()
 		{
-			InitializeComponent ();
+            viewModel = new CalificacionViewModel();
+            BindingContext = viewModel;
+            InitializeComponent ();
 		}
 	}
 }

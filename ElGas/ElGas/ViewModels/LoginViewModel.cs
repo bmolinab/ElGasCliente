@@ -1,7 +1,9 @@
 ﻿using ElGas.Helpers;
+using ElGas.Models;
 using ElGas.Pages;
 using ElGas.Services;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -48,6 +50,11 @@ namespace ElGas.ViewModels
                     if (accesstoken!= null)
                     {
                         Settings.AccessToken = accesstoken;
+                        var c = new Cliente {Correo= Username};
+                        var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
+                        var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString()) ;
+                        Settings.idCliente = cliente.IdCliente;
+
                         App.Current.MainPage = new NavigationPage(new MapaPage());
                     }
                    
