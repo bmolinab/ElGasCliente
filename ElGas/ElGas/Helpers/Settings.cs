@@ -29,6 +29,19 @@ namespace ElGas.Helpers
             }
         }
 
+        public static string DeviceID
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("DeviceID", "");
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("DeviceID", value);
+            }
+        }
+
+
         public static int idCliente
         {
             get

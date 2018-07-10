@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "5570742533",
+    "firebase_url": "https://elgas-f24e8.firebaseio.com",
+    "project_id": "elgas-f24e8",
+    "storage_bucket": "elgas-f24e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5570742533:android:ffec6647e41e060a",
+        "android_client_info": {
+          "package_name": "com.digitalstrategy.ElGas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5570742533-kviknio6csn7id0go90np2104dor9o8n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe6kfr9IaVKuUZG9wnRwHFIxxuB2Zsdcw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
