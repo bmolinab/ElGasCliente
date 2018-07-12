@@ -2,28 +2,264 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ElGas.Pages.RegisterPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="AccentColor">#BC4C1B</Color>
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
+            <Color x:Key="BlackColor">#000000</Color>
+            <Color x:Key="BlackTextColor">#253748</Color>
+            <Color x:Key="OrangeColor">#BC4C1B</Color>
+            <Color x:Key="BlueColor">#0072C6</Color>
+
+            <!-- FONT SIZES -->
+            <OnPlatform x:Key="LittleSize"
+                        x:TypeArguments="x:Double"
+                        iOS="11"
+                        Android="12"
+                        WinPhone="12"/>
+
+            <OnPlatform x:Key="MidMediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="12"
+                        Android="14"
+                        WinPhone="14"/>
+
+            <OnPlatform x:Key="MediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="14"
+                        Android="16"
+                        WinPhone="16"/>
+
+            <OnPlatform x:Key="LargeSize"
+                        x:TypeArguments="x:Double"
+                        iOS="16"
+                        Android="18"
+                        WinPhone="18"/>
+
+            <Style x:Key="LogoStyle" 
+                   TargetType="Image">
+                <Setter Property="Aspect" 
+                        Value="AspectFit" />
+                <Setter Property="HeightRequest" 
+                        Value="95" />
+                <Setter Property="Margin" 
+                        Value="30, 16" />
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="VerticalOptions"
+                        Value="Start" />
+            </Style>
+
+            <Style x:Key="HeaderTextStyle" 
+                   TargetType="Label">
+                <Setter Property="TextColor" 
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="HorizontalOptions" 
+                        Value="FillAndExpand" />
+                <Setter Property="FontSize" 
+                        Value="{StaticResource LittleSize}" />
+                <Setter Property="Margin" >
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5, 0, 0, 0" />
+                            <On Platform="iOS" Value="0, 8, 0, 0" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ForgotPwdLabelStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="TextColor"
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="HorizontalOptions"
+                        Value="End" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource LittleSize}" />
+                <Setter Property="Margin" >
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="0, -3, 5, 0" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SignUpPanelStyle"
+                   TargetType="{x:Type StackLayout}">
+                <Setter Property="Orientation"
+                        Value="Horizontal" />
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="VerticalOptions"
+                        Value="End" />
+                <Setter Property="Margin"
+                        Value="0, 0, 0, 36" />
+            </Style>
+
+            <Style x:Key="SignUpTextStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackTextColor}" />
+            </Style>
+
+            <Style x:Key="SignUpAccentTextStyle"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource SignUpTextStyle}">
+                <Setter Property="TextColor"
+                        Value="{StaticResource OrangeColor}" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand" Padding="5">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                <Entry Placeholder="Nombres" Text="{Binding Cliente.Nombres}"></Entry>
-                <Entry Placeholder="Apellidos" Text="{Binding Cliente.Apellidos}"></Entry>
-            </StackLayout>
 
-            <Entry Placeholder="Teléfono" Keyboard="Telephone" Text="{Binding Cliente.Telefono}"></Entry>
+        <Grid>
+            <Grid 
+                RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+                <!-- Top image -->
+                <Image 
+                    Grid.Row="0"
+                    Aspect="AspectFill">
+                    <Image.Source>
+                        <OnPlatform x:TypeArguments="ImageSource">
+                            <On Platform="Android, iOS" Value="img_header_background_1.png" />
+                            <On Platform="UWP" Value="Assets/img_header_background_1.png" />
+                        </OnPlatform>
+                    </Image.Source>
+                </Image>
+                <!-- Sign in form -->
+                <Grid
+                    Margin="38, 38, 38, 60"
+                    RowSpacing="0"
+                    VerticalOptions="Fill"
+                    Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
 
-            <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Username}"></Entry>
-            <Entry Placeholder="Contraseña" IsPassword="True" Text="{Binding Password}" ></Entry>
-            <Entry Placeholder="Confirmar Contraseña" IsPassword="True" Text="{Binding ConfirmPassword}"></Entry>
-            
-            <Label Text="Dirección"></Label>
-            <Editor Text="{Binding Cliente.Direccion}"></Editor>
+                    </Grid.RowDefinitions>
+                   
+                       
+                    
+                    <Grid
+                        Grid.Row="0">
+                        <StackLayout  Padding="5" >
+                            <Image
+                            Style="{StaticResource LogoStyle}">
+                                <Image.Source>
+                                    <OnPlatform x:TypeArguments="ImageSource">
+                                        <On Platform="Android, iOS" Value="ic_launcher.png" />
+                                        <On Platform="UWP" Value="Assets/ic_launcher.png" />
+                                    </OnPlatform>
+                                </Image.Source>
+                            </Image>
+                       
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                <Entry Placeholder="Nombres" 
+                                       Text="{Binding Cliente.Nombres}" 
+                                       PlaceholderColor="{StaticResource WhiteColor}"
+                                       TextColor="{StaticResource WhiteColor}"                       
+                                    />
+                                <Entry Placeholder="Apellidos" 
+                                       PlaceholderColor="{StaticResource WhiteColor}"
+                                       Text="{Binding Cliente.Apellidos}"
+                                       TextColor="{StaticResource WhiteColor}"
+                                    />
+                            </StackLayout>
 
-            <Button Command="{Binding RegisterCommand}" 
-                Text="Registrarme"
-                TextColor="White"
-                FontSize="30"
-                BackgroundColor="DeepPink" 
-                    />
-        </StackLayout>
+                            <Entry Placeholder="Teléfono" 
+                                   Keyboard="Telephone" 
+                                   Text="{Binding Cliente.Telefono}"
+                                   PlaceholderColor="{StaticResource WhiteColor}"
+                                   TextColor="{StaticResource WhiteColor}" 
+                                   ></Entry>
+
+                            <Entry Placeholder="Email" 
+                                   Keyboard="Email" 
+                                   Text="{Binding Username}"
+                                   PlaceholderColor="{StaticResource WhiteColor}"
+                                   TextColor="{StaticResource WhiteColor}" ></Entry>
+                            <Entry Placeholder="Contraseña" 
+                                   IsPassword="True" 
+                                   Text="{Binding Password}" 
+                                   PlaceholderColor="{StaticResource WhiteColor}"
+                                   TextColor="{StaticResource WhiteColor}" 
+                                   ></Entry>
+                            <Entry Placeholder="Confirmar Contraseña" 
+                                   IsPassword="True" 
+                                   Text="{Binding ConfirmPassword}"
+                                   PlaceholderColor="{StaticResource WhiteColor}"
+                                   TextColor="{StaticResource WhiteColor}" ></Entry>
+
+                            <Label Text="Dirección"  TextColor="{StaticResource WhiteColor}"></Label>
+                            
+                            <Editor Text="{Binding Cliente.Direccion}"
+                                       TextColor="{StaticResource WhiteColor}" ></Editor>
+                        </StackLayout>
+                    </Grid>
+
+                </Grid>
+                <!-- Sign up labels -->
+                <Grid
+                    Grid.Row="1"
+                    BackgroundColor="{StaticResource WhiteColor}">
+                    <StackLayout
+                        Style="{StaticResource SignUpPanelStyle}">
+                        <Label 
+                            Text="Al registrarte aceptas todos nuestros Terminos y condiciones"
+                            Style="{StaticResource SignUpAccentTextStyle}"
+                            FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="Large"/>
+                    </StackLayout>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer 
+                            Command="{Binding RegisterCommand}" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+                <!-- Sign in buttons -->
+                <StackLayout   
+                    Grid.Row="1"
+                    Margin="38, -4, 38, 0">
+                    <StackLayout.Spacing>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="1" />
+                            <On Platform="iOS, UWP" Value="8" />
+                        </OnPlatform>
+                    </StackLayout.Spacing>
+                  
+                    
+                    <Button 
+                        Text="Registrarme"
+                        BackgroundColor="{StaticResource BlueColor}"
+                        Command="{Binding RegisterCommand}"
+                        TextColor="{StaticResource WhiteColor}" />
+                    
+                    
+                </StackLayout>
+            </Grid>
+            <ActivityIndicator 
+                Color="{StaticResource AccentColor}"
+                IsRunning="{Binding IsBusy}" 
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+                <ActivityIndicator.WidthRequest>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="Android, iOS" Value="100" />
+                        <On Platform="UWP" Value="300" />
+                    </OnPlatform>
+                </ActivityIndicator.WidthRequest>
+            </ActivityIndicator>
+        </Grid>
+
+
     </ContentPage.Content>
 </ContentPage>

@@ -3,6 +3,7 @@ using ElGas.Pages;
 using ElGas.Services;
 using ElGas.ViewModels;
 using System;
+using TK.CustomMap.Api.Google;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,6 +20,10 @@ namespace ElGas
         public App ()
 		{
             InitializeComponent();
+
+            GmsPlace.Init("AIzaSyDAmhu79jCKlkE6KIVSqgxlIl83gJj_rkk");
+            GmsDirection.Init("AIzaSyDAmhu79jCKlkE6KIVSqgxlIl83gJj_rkk");
+
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjQzMkAzMTM2MmUzMjJlMzBiRXp6WjNDdFdzZTRjcmc4YWxJdXU2eVZ2OHhWOWJ0dHhQakVvZ0YvZmNZPQ==");
             //MainPage = new NavigationPage( new LoginPage());
             NavigationService navigationService = new NavigationService();

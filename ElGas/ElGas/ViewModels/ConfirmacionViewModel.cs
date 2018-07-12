@@ -104,11 +104,14 @@ namespace ElGas.ViewModels
                 if (response.IsSuccess)
                 {
                     await App.Current.MainPage.DisplayAlert("Gracias por hacer su pedido", "En breve le confirmaremos su entrega", "Aceptar");
-                    await Task.Delay(2000);
-                    await App.Current.MainPage.DisplayAlert("Notificación", "Su pedido ha sido confirmado, un distribuidor está en camino para realizar la entrega", "Aceptar");
-                    Settings.Pedidos = true;
+                    Settings.TanquesGas = int.Parse(Cilindros);
+                    await App.Navigator.Navigation.PopToRootAsync();
 
-                    await App.Navigator.PushAsync(new SeguimientoPage());
+
+                    //await Task.Delay(2000);
+                    //await App.Current.MainPage.DisplayAlert("Notificación", "Su pedido ha sido confirmado, un distribuidor está en camino para realizar la entrega", "Aceptar");
+                    //Settings.Pedidos = true;
+                    // await App.Navigator.PushAsync(new SeguimientoPage());
                 }
                 else
                 {

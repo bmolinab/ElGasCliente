@@ -11,7 +11,7 @@
 	<uses-permission android:name="android.permission.CAMERA" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<application android:label="ElGas.Android">
+	<application android:icon="@drawable/ic_launcher" android:label="ElGas.Android">
 		<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDAmhu79jCKlkE6KIVSqgxlIl83gJj_rkk" />
 		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver" android:exported="false" />
 		<receiver android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:exported="true" android:permission="com.google.android.c2dm.permission.SEND">

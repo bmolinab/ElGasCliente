@@ -39,12 +39,24 @@ namespace ElGas.Droid
                 string msg = message.Data["message"];
                 string tipo = message.Data["tipo"];
                 string idcompra = message.Data["idCompra"];
+                string iddistribuidor = message.Data["idDistribuidor"];
 
                 switch (tipo)
                 {
                     case "1":
-                        //Helpers.Settings.VenderGas = true;
-                       // Helpers.Settings.IdCompra = int.Parse(idcompra);
+                        Helpers.Settings.Pedidos = true;
+                        if (iddistribuidor != null && iddistribuidor!="")
+                        {
+                            Helpers.Settings.IdDistribuidor = int.Parse(iddistribuidor);
+                        }
+
+                         Helpers.Settings.IdCompra = int.Parse(idcompra);
+
+                        break;
+                    case "3":
+                        Helpers.Settings.Pedidos = false;
+                        Helpers.Settings.Calificar = true;
+                
 
                         break;
                 }

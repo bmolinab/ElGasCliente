@@ -41,6 +41,30 @@ namespace ElGas.Helpers
             }
         }
 
+        public static int TanquesGas
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("TanquesGas", 0);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("TanquesGas", value);
+            }
+        }
+
+        public static int IdCompra
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("IdCompra", 0);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("IdCompra", value);
+            }
+        }
+
 
         public static int idCliente
         {
@@ -53,6 +77,18 @@ namespace ElGas.Helpers
                 AppSettings.AddOrUpdateValue("idCliente", value);
             }
         }
+        public static int IdDistribuidor
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("IdDistribuidor", 0);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("IdDistribuidor", value);
+            }
+        }
+
 
         public static string Password
         {
@@ -98,6 +134,18 @@ namespace ElGas.Helpers
             set
             {
                 AppSettings.AddOrUpdateValue("Pedidos", value);
+            }
+        }
+
+        public static bool Calificar
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("Calificar", false);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("Calificar", value);
             }
         }
     }

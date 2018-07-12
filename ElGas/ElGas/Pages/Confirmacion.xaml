@@ -9,6 +9,7 @@
             <tk:TKCustomMap HeightRequest="300"                 
                             Pins="{Binding Locations}" 
                             MapRegion="{Binding CenterSearch}"
+                             IsClusteringEnabled="False"
 
 ></tk:TKCustomMap>
             <Label Text="Ingrese el número de tanques requeridos"></Label>
@@ -16,8 +17,17 @@
             <Label Text="Total del pedido"></Label>
             <Label FontSize="Large" FontAttributes="Bold" Text="{Binding Valor}"></Label>
 
-            <Button Text="Confirmar" Command="{Binding OkCommand}"></Button>
-
+            <Button BorderRadius="30" 
+                        Text="Confirmar" 
+                        VerticalOptions="End" 
+                        HorizontalOptions="Center" 
+                        WidthRequest="200"  
+                        HeightRequest="50" 
+                        BackgroundColor="Blue" 
+                        TextColor="White" 
+                        TranslationY="-10" 
+                        Command="{Binding OkCommand}">
+            </Button>
 
 
 

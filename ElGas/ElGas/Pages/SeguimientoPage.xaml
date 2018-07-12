@@ -4,21 +4,52 @@
              xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
              x:Class="ElGas.Pages.SeguimientoPage">
     <ContentPage.Content>
-        <StackLayout>
-            <tk:TKCustomMap HeightRequest="400"                 
-></tk:TKCustomMap>
-            <Label Text="Su pedido fue atendido por:" FontSize="Medium"></Label>
-            <Label Text="Vendedor1" FontSize="Medium"></Label>
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" >
-                <Button Text="Contactar" Command="{Binding ContactCommand}">
-                </Button>
-                
-                <Button Text="Cancelar" Command="{Binding CancelCommand}">
+        <Grid 
+                RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*" />
+                <RowDefinition Height="3*" />
+            </Grid.RowDefinitions>
+
+            <tk:TKCustomMap  
+                Pins="{Binding Locations}" 
+                IsClusteringEnabled="False"
+                MapRegion="{Binding CenterSearch}"
+                IsShowingUser="True"
+                MapType="Street" 
+                            Grid.Row="0"
+></tk:TKCustomMap>
+
+            <StackLayout Grid.Row="1">
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Su pedido fue atendido por: " FontSize="Medium"></Label>
+                    <Label Text="{Binding Distribuidor.Nombres}" FontSize="Medium"></Label>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="En el vehiculo con placas: " FontSize="Medium"></Label>
+                    <Label Text="{Binding Distribuidor.PlacaVehiculo}" FontSize="Medium"></Label>
+                </StackLayout>
+
+                <Button BorderRadius="30" 
+                        Text="Contactar" 
+                        VerticalOptions="End" 
+                        HorizontalOptions="Center" 
+                        WidthRequest="200"  
+                        HeightRequest="50" 
+                        BackgroundColor="Blue" 
+                        TextColor="White" 
+                        Command="{Binding ContactCommand}"/>
+
+                <!--<Button Text="Cancelar" Command="{Binding CancelCommand}">
                     
-                </Button>
+                </Button>-->
+
             </StackLayout>
-           
-        </StackLayout>
+
+
+        </Grid>
+        
     </ContentPage.Content>
 </ContentPage>

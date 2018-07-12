@@ -17,8 +17,8 @@
                 LineBreakMode="WordWrap"
                 VerticalOptions="Start" 
                 HorizontalOptions="Start" />
-                
-        <rating:SfRating x:Name="rating" Value="3" HorizontalOptions="Center"/>
+
+        <rating:SfRating x:Name="rating" Value="{Binding Valor}" HorizontalOptions="Center"/>
 
         <StackLayout Orientation="Horizontal"
                        HeightRequest="60">

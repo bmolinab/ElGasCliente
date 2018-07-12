@@ -34,6 +34,22 @@ namespace ElGas.ViewModels
                 return _isRemember;
             }
         }
+        private bool isBusy = false;
+        public bool IsBusy
+        {
+            set
+            {
+                if (isBusy != value)
+                {
+                    isBusy = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("IsBusy"));
+                }
+            }
+            get
+            {
+                return isBusy;
+            }
+        }
 
         public string Username { get; set; }
         public string Password { get; set; }
@@ -45,6 +61,7 @@ namespace ElGas.ViewModels
             {
                 return new Command(async () =>
                 {
+                    IsBusy = true;
                     var accesstoken = await _apiServices.LoginAsync(Username, Password);
 
                     if (accesstoken!= null)
@@ -54,6 +71,7 @@ namespace ElGas.ViewModels
                         var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
                         var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString()) ;
                         Settings.idCliente = cliente.IdCliente;
+                        IsBusy = false;
 
                         App.Current.MainPage = new NavigationPage(new MapaPage());
                     }

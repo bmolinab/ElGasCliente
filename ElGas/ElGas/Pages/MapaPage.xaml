@@ -9,6 +9,7 @@
             <Grid IsVisible="{Binding isVisible}" >
                 <Label  Text="Confirme su ubicación" 
                     IsVisible="{Binding isVisible}" 
+                        
                     FontSize="Medium" 
                     VerticalTextAlignment="Center" 
                     TextColor="White" 
@@ -27,8 +28,8 @@
                 HorizontalOptions="FillAndExpand"
                 MinimumHeightRequest="300"  
                 MinimumWidthRequest="300"
+                IsClusteringEnabled="False"
                 MapRegion="{Binding CenterSearch}"
-                IsClusteringEnabled="True"
                 MapClickedCommand="{Binding MapClickedCommand}"
                 Pins="{Binding Locations}" 
                 IsShowingUser="True"

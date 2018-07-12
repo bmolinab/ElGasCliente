@@ -113,11 +113,12 @@ namespace ElGas.ViewModels
                 {
                     var Pindistribuidor = new TKCustomMapPin
                     {
-                        Image = "camion01",
+                        Image = "pincamion.png",
                         Position = new TK.CustomMap.Position((double)distribuidor.Latitud,(double) distribuidor.Longitud),
                         Anchor = p,
                         ShowCallout = true,
-                    };                   
+                    };
+                    Debug.WriteLine(Pindistribuidor.Image);
                     Locations.Add(Pindistribuidor);
                 }
                 Debug.WriteLine(Distribuidores.Count);
@@ -144,7 +145,8 @@ namespace ElGas.ViewModels
         {
             if(Locations.Count>0)
             {
-                var ubicacion=Locations[0];
+                isVisible = false;
+                var ubicacion =Locations[0];
                 Debug.WriteLine("Latitud:{0} Longitud:{1}",ubicacion.Position.Latitude, ubicacion.Position.Longitude);
                 await App.Navigator.PushAsync(new Confirmacion(ubicacion));
             }
@@ -161,7 +163,7 @@ namespace ElGas.ViewModels
                         Locations.Clear();               
                         
                         Locations.Add(new TKCustomMapPin {
-                            Image = "cliente01",
+                            Image = "pincliente",
                             Position = positon,
                             Anchor = new Point(0.48, 0.96),
                             ShowCallout = true, });

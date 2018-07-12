@@ -1,4 +1,5 @@
 ﻿using ElGas.Helpers;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,6 +26,11 @@ namespace ElGas.Pages
         public async void Paginaprincipal()
         {
             if (Settings.Pedidos) await Navigator.PushAsync(new SeguimientoPage());
+            if(Settings.Calificar)
+            {
+                var page = new Calificacion();
+                await   PopupNavigation.PushAsync(page);
+            }
         }
     }
 }

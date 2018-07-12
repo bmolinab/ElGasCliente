@@ -136,13 +136,9 @@ namespace ElGas.Services
                 using (HttpClient client = new HttpClient())
                 {
                     var request = JsonConvert.SerializeObject(model);
-
                     var content = new StringContent(request, Encoding.UTF8, "application/json");
-
                     var uri = string.Format("{0}/{1}", baseAddress, url);
-
                     var response = await client.PostAsync(new Uri(uri), content);
-
                     var resultado = await response.Content.ReadAsStringAsync();
                     var respuesta = JsonConvert.DeserializeObject<Response>(resultado);
                     return respuesta;
