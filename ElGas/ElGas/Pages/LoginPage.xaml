@@ -154,8 +154,8 @@
                             Style="{StaticResource LogoStyle}">
                             <Image.Source>
                                 <OnPlatform x:TypeArguments="ImageSource">
-                                    <On Platform="Android, iOS" Value="splashLogo.png" />
-                                    <On Platform="UWP" Value="Assets/splashLogo.png" />
+                                    <On Platform="Android, iOS" Value="ElGas.png" />
+                                    <On Platform="UWP" Value="Assets/ElGas.png" />
                                 </OnPlatform>
                             </Image.Source>
                         </Image>
@@ -239,12 +239,13 @@
                     <Frame
                         HasShadow="True"
                         Padding="0"
-                        CornerRadius="2">
+                        CornerRadius="30">
                         <Button 
                             Text="Ingresar"
                             Command="{Binding LoginCommand}"
                             BackgroundColor="{StaticResource WhiteColor}"
-                            TextColor="{StaticResource OrangeColor}" />
+                            TextColor="{StaticResource OrangeColor}" 
+                            BorderRadius="30"/>
                     </Frame>
                     <Label 
                         Text="o"
@@ -255,7 +256,8 @@
                         Text="Registrate"
                         BackgroundColor="{StaticResource BlueColor}"
                         Command="{Binding RegisterCommand}"
-                        TextColor="{StaticResource WhiteColor}" />
+                        TextColor="{StaticResource WhiteColor}" 
+                        BorderRadius="30"/>
                 </StackLayout>
             </Grid>
             <ActivityIndicator 

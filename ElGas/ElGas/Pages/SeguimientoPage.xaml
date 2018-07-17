@@ -38,13 +38,22 @@
                         HorizontalOptions="Center" 
                         WidthRequest="200"  
                         HeightRequest="50" 
-                        BackgroundColor="Blue" 
+                        BackgroundColor="#0072C6" 
                         TextColor="White" 
                         Command="{Binding ContactCommand}"/>
 
-                <!--<Button Text="Cancelar" Command="{Binding CancelCommand}">
+                <Button Text="Cancelar" 
+                        Command="{Binding CancelCommand}"
+                        BorderRadius="30"
+                        BackgroundColor="#0072C6"
+                        TextColor="White" 
+                        VerticalOptions="End" 
+                        HorizontalOptions="Center" 
+                        WidthRequest="200"  
+                        HeightRequest="50" 
+                        >
                     
-                </Button>-->
+                </Button>
 
             </StackLayout>
 

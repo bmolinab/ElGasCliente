@@ -86,7 +86,7 @@ namespace ElGas.ViewModels
         {
             ApiServices apiServices = new ApiServices();
           
-                var action = await App.Current.MainPage.DisplayAlert("Confirmar", "Confirmar la compra de "+cilindros+" cilindros por el valor de "+ Valor, "Confirmar", "Cancelar");
+                var action = await App.Current.MainPage.DisplayAlert("Confirmar", "Por favor confirmar la compra de "+cilindros+" cilindros por el valor de "+ Valor, "Confirmar", "Cancelar");
             if(action)
             {
                 Compra compra = new Compra

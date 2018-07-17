@@ -23,7 +23,7 @@ namespace ElGas.ViewModels
 
         
 
-        public int valor = 3 ;
+        public int valor = 0 ;
         public int Valor
         {
             get { return valor; }

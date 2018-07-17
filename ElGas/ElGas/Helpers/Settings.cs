@@ -65,7 +65,6 @@ namespace ElGas.Helpers
             }
         }
 
-
         public static int idCliente
         {
             get
@@ -89,7 +88,6 @@ namespace ElGas.Helpers
             }
         }
 
-
         public static string Password
         {
             get
@@ -112,7 +110,6 @@ namespace ElGas.Helpers
                 AppSettings.AddOrUpdateValue("AccessToken", value);
             }
         }
-
         public static DateTime AccessTokenExpirationDate
         {
             get
@@ -124,7 +121,6 @@ namespace ElGas.Helpers
                 AppSettings.AddOrUpdateValue("AccessTokenExpirationDate", value);
             }
         }
-
         public static bool Pedidos 
         {
             get

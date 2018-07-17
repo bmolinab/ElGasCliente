@@ -28,7 +28,6 @@ namespace ElGas.Droid
             var refreshedToken = FirebaseInstanceId.Instance.Token;
             Log.Debug(TAG, "FCM token: " + refreshedToken);
 
-            Helpers.Settings.DeviceID = refreshedToken;
 
             SendRegistrationToServer(refreshedToken);
 
@@ -39,6 +38,7 @@ namespace ElGas.Droid
         void SendRegistrationToServer(string token)
         {
             // Register with Notification Hubs
+
             hub = new NotificationHub(Constants.NotificationHubName,
                                       Constants.ListenConnectionString, this);
 
@@ -49,6 +49,9 @@ namespace ElGas.Droid
             var regID = hub.Register(token, tags.ToArray()).RegistrationId;
 
             Log.Debug(TAG, $"Successful registration of ID {regID}");
+
+            Helpers.Settings.DeviceID = token;
+
         }
     }
 }

@@ -121,8 +121,8 @@
             <Grid 
                 RowSpacing="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="8*" />
-                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="9*" />
+                    <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
                 <!-- Top image -->
                 <Image 
@@ -157,32 +157,29 @@
                             Style="{StaticResource LogoStyle}">
                                 <Image.Source>
                                     <OnPlatform x:TypeArguments="ImageSource">
-                                        <On Platform="Android, iOS" Value="ic_launcher.png" />
-                                        <On Platform="UWP" Value="Assets/ic_launcher.png" />
+                                        <On Platform="Android, iOS" Value="ElGas.png" />
+                                        <On Platform="UWP" Value="Assets/ElGas.png" />
                                     </OnPlatform>
                                 </Image.Source>
                             </Image>
-                       
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
-                                <Entry Placeholder="Nombres" 
+                            <ScrollView>
+                            <StackLayout>
+                            <Entry Placeholder="Nombres" 
                                        Text="{Binding Cliente.Nombres}" 
                                        PlaceholderColor="{StaticResource WhiteColor}"
-                                       TextColor="{StaticResource WhiteColor}"                       
+                                       TextColor="{StaticResource WhiteColor}"   
                                     />
-                                <Entry Placeholder="Apellidos" 
+                            <Entry Placeholder="Apellidos" 
                                        PlaceholderColor="{StaticResource WhiteColor}"
                                        Text="{Binding Cliente.Apellidos}"
                                        TextColor="{StaticResource WhiteColor}"
                                     />
-                            </StackLayout>
-
                             <Entry Placeholder="Teléfono" 
                                    Keyboard="Telephone" 
                                    Text="{Binding Cliente.Telefono}"
                                    PlaceholderColor="{StaticResource WhiteColor}"
                                    TextColor="{StaticResource WhiteColor}" 
                                    ></Entry>
-
                             <Entry Placeholder="Email" 
                                    Keyboard="Email" 
                                    Text="{Binding Username}"
@@ -199,50 +196,40 @@
                                    Text="{Binding ConfirmPassword}"
                                    PlaceholderColor="{StaticResource WhiteColor}"
                                    TextColor="{StaticResource WhiteColor}" ></Entry>
-
                             <Label Text="Dirección"  TextColor="{StaticResource WhiteColor}"></Label>
-                            
                             <Editor Text="{Binding Cliente.Direccion}"
                                        TextColor="{StaticResource WhiteColor}" ></Editor>
+                            </StackLayout>
+                            </ScrollView>
+                            <Label Text="{Binding Message}" TextColor="Red" IsVisible="{Binding IsError}"></Label>
                         </StackLayout>
                     </Grid>
 
                 </Grid>
                 <!-- Sign up labels -->
-                <Grid
-                    Grid.Row="1"
-                    BackgroundColor="{StaticResource WhiteColor}">
-                    <StackLayout
-                        Style="{StaticResource SignUpPanelStyle}">
-                        <Label 
-                            Text="Al registrarte aceptas todos nuestros Terminos y condiciones"
-                            Style="{StaticResource SignUpAccentTextStyle}"
-                            FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="Large"/>
-                    </StackLayout>
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer 
-                            Command="{Binding RegisterCommand}" />
-                    </Grid.GestureRecognizers>
-                </Grid>
+          
                 <!-- Sign in buttons -->
                 <StackLayout   
                     Grid.Row="1"
-                    Margin="38, -4, 38, 0">
+                    Margin="38, 0, 38, 0">
                     <StackLayout.Spacing>
                         <OnPlatform x:TypeArguments="x:Double">
                             <On Platform="Android" Value="1" />
                             <On Platform="iOS, UWP" Value="8" />
                         </OnPlatform>
                     </StackLayout.Spacing>
-                  
-                    
                     <Button 
                         Text="Registrarme"
                         BackgroundColor="{StaticResource BlueColor}"
                         Command="{Binding RegisterCommand}"
-                        TextColor="{StaticResource WhiteColor}" />
-                    
-                    
+                        TextColor="{StaticResource WhiteColor}"
+                        BorderRadius="30"/>
+                    <Label 
+                            Text="Al registrarte aceptas todos nuestros Terminos y condiciones"
+                            Style="{StaticResource SignUpAccentTextStyle}"
+                            FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="Default"/>
+
+
                 </StackLayout>
             </Grid>
             <ActivityIndicator 
