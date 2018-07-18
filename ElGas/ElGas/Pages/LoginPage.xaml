@@ -129,8 +129,8 @@
                     Aspect="AspectFill">
                     <Image.Source>
                         <OnPlatform x:TypeArguments="ImageSource">
-                            <On Platform="Android, iOS" Value="img_header_background_1.png" />
-                            <On Platform="UWP" Value="Assets/img_header_background_1.png" />
+                            <On Platform="Android, iOS" Value="imgheaderbackground1.png" />
+                            <On Platform="UWP" Value="Assets/imgheaderbackground1.png" />
                         </OnPlatform>
                     </Image.Source>
                 </Image>
