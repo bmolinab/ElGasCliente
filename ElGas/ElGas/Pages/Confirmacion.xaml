@@ -12,12 +12,13 @@
                              IsClusteringEnabled="False"
 
 ></tk:TKCustomMap>
-            <Label Text="Ingrese el número de tanques requeridos"></Label>
-            <Entry Placeholder="Cantidad" Text="{Binding Cilindros,Mode=TwoWay}" Keyboard="Numeric" ></Entry>
-            <Label Text="Total del pedido"></Label>
-            <Label FontSize="Large" FontAttributes="Bold" Text="{Binding Valor}"></Label>
+            <Label Text="Ingrese el número de tanques requeridos" FontFamily="calibril.ttf#Calibri Light"></Label>
+            <Entry Placeholder="Cantidad" Text="{Binding Cilindros,Mode=TwoWay}" FontFamily="calibril.ttf#Calibri Light" Keyboard="Numeric" ></Entry>
+            <Label Text="Total del pedido" FontFamily="calibril.ttf#Calibri Light" ></Label>
+            <Label FontSize="Large" FontAttributes="Bold" Text="{Binding Valor}" FontFamily="calibril.ttf#Calibri Light"></Label>
 
             <Button BorderRadius="30" 
+                        FontFamily="calibril.ttf#Calibri Light"
                         Text="Confirmar" 
                         VerticalOptions="End" 
                         HorizontalOptions="Center" 

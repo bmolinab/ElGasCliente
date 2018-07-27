@@ -10,6 +10,12 @@ using TK.CustomMap.Droid;
 using Plugin.Permissions;
 using WindowsAzure.Messaging;
 using Android.Util;
+using Android;
+using System.Threading.Tasks;
+using Plugin.Geolocator;
+using Android.Support.Design.Widget;
+using Android.Support.V4.Content;
+using Android.Support.V4.App;
 
 namespace ElGas.Droid
 {
@@ -19,6 +25,7 @@ namespace ElGas.Droid
         public const string TAG = "MainActivity";
         const string TAG2 = "MyFirebaseIIDService";
         NotificationHub hub;
+  
 
 
         protected override void OnCreate(Bundle bundle)
@@ -41,16 +48,39 @@ namespace ElGas.Droid
             }
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            LeoJHarris.FormsPlugin.Droid.EnhancedEntryRenderer.Init(this);
+
+            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
             Xamarin.FormsMaps.Init(this, bundle);
             TKGoogleMaps.Init(this, bundle);
-
-
-            LoadApplication(new App());
+            LoadApplication(new App());           
         }
+
+
+
+        protected override void OnStart()
+        {
+            base.OnStart();
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessCoarseLocation) != Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation }, 0);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Permission Granted!!!");
+            }
+        }
+
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+
+
+
     }
 }
 

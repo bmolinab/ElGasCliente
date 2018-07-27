@@ -20,6 +20,12 @@ namespace ElGas.ViewModels
         public string Username { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+        public string CalleUno { get; set; }
+        public string Numero { get; set; }
+
+        public string CalleDos { get; set; }
+        public string Sector { get; set; }
+
         public string message = "";
         public string Message
         {
@@ -73,12 +79,20 @@ namespace ElGas.ViewModels
         }
 
         #region Cosntructor
-        public RegisterViewModel()
+        public RegisterViewModel(Cliente cliente)
         {
             isError = false;
             IsError = false;
 
-            Cliente = new Cliente();
+            Cliente = cliente;
+            Username = cliente.Correo;
+            Password = cliente.Identificacion;
+            ConfirmPassword = cliente.Identificacion;
+
+            cliente.Identificacion = "";
+
+           
+
         }
         #endregion
 
@@ -90,18 +104,12 @@ namespace ElGas.ViewModels
                 return new Command(async () =>
                 {
                     IsBusy = true;
-                    var hasStrong = new Regex(@"^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!*@#$%^&+=_]).*$");
                     if (Password == ConfirmPassword)
                     {
-                        if (Password == null) Password = "";
-                        var isValidated = hasStrong.IsMatch(Password);
-                        if (isValidated)
-                        {
-
+                        Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}",CalleUno,Numero,CalleDos,Sector);
+                      
                             var isRegistered = await _apiServices.RegisterUserAsync
                             (Username, Password, ConfirmPassword, Cliente);
-
-
                             Settings.Username = Username;
                             Settings.Password = Password;
 
@@ -119,13 +127,13 @@ namespace ElGas.ViewModels
                                 Message = "No  pudimos registrar su cuenta, reintentelo";
                                 await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
                             }
-                        }
-                        else
-                        {
-                            IsBusy = false;
-                            Message = "La contraseña debe tener 8-16 caracteres e incluir al menos una minúscula, una mayúscula, un número y un caracter especial";
-                            IsError = true;
-                        }
+                        
+                        //else
+                        //{
+                        //    IsBusy = false;
+                        //    Message = "La contraseña debe tener 8-16 caracteres e incluir al menos una minúscula, una mayúscula, un número y un caracter especial";
+                        //    IsError = true;
+                        //}
 
                     }
                     else
@@ -141,6 +149,50 @@ namespace ElGas.ViewModels
                 });
             }
         }
+
+        public ICommand NextCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    if(Password!=null&&Password!="")
+                    {
+                        if (ConfirmPassword == Password )
+                        {
+                            if (Password.Length>3)
+                            {
+                                Cliente.Correo = Username;
+                                Cliente.Identificacion = Password;
+                                App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));
+                            }
+                            else
+                            {
+                                await App.Current.MainPage.DisplayAlert("Error", "Las contraseña debe tener al menos 4 caracteres", "Aceptar");
+
+                            }
+
+
+
+                        }
+                        else
+                        {
+                            await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
+                        }
+
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Error", "Todos los campos son obligatorios", "Aceptar");
+
+                    }
+
+
+
+                });
+            }
+        }
+
 
         #endregion
     }

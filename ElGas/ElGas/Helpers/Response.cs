@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ElGas.Helpers
-{
+{/// <summary>
+/// Clase para enviar mensajes genericos
+/// </summary>
     public class Response
     {
         public bool IsSuccess { get; set; }

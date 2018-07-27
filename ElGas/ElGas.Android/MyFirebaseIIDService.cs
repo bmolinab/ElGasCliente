@@ -12,6 +12,7 @@ using Android.Widget;
 using Android.Util;
 using WindowsAzure.Messaging;
 using Firebase.Iid;
+using Plugin.DeviceInfo;
 
 namespace ElGas.Droid
 {
@@ -39,10 +40,13 @@ namespace ElGas.Droid
         {
             // Register with Notification Hubs
 
+            Helpers.Settings.DeviceID =  CrossDeviceInfo.Current.Id;
+
             hub = new NotificationHub(Constants.NotificationHubName,
                                       Constants.ListenConnectionString, this);
 
             var tags = new List<string>() { };
+            tags.Add(Helpers.Settings.DeviceID);
             tags.Add("cliente");
 
 
@@ -50,7 +54,6 @@ namespace ElGas.Droid
 
             Log.Debug(TAG, $"Successful registration of ID {regID}");
 
-            Helpers.Settings.DeviceID = token;
 
         }
     }

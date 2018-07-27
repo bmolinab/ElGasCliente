@@ -19,7 +19,8 @@
             TextColor="White"
             BorderRadius="30"
             VerticalOptions="Center"
-            Command="{Binding LogoutCommand}"           
+            Command="{Binding LogoutCommand}"     
+            FontFamily="calibril.ttf#Calibri Light"
            />
     </Grid>
 </ContentPage>

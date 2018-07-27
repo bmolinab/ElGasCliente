@@ -50,7 +50,6 @@ namespace ElGas.ViewModels
         #region Events
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         public MapSpan centerSearch = null;
         public MapSpan CenterSearch
         {
@@ -81,47 +80,91 @@ namespace ElGas.ViewModels
         bool tracking;
         public MapaViewModel()
         {
+
             Locations = new ObservableCollection<TKCustomMapPin>();
             locations = new ObservableCollection<TKCustomMapPin>();
+           
 
             centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
 
             LoadVendedores();
             
         }
+
+        public void OnAppearing()
+        {
+
+            Locations = new ObservableCollection<TKCustomMapPin>();
+            locations = new ObservableCollection<TKCustomMapPin>();
+
+
+            centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
+
+            LoadVendedores();
+            //Do whatever you like in here
+
+        }
+
+
         public async void LoadVendedores()
         {        
                 try
                 {
-                    var hasPermission = await Utils.CheckPermissions(Permission.Location);
-                    if (!hasPermission)
-                        return;
-                    var locator = CrossGeolocator.Current;
+                //     await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                if (status != PermissionStatus.Granted)
+                {
+                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
+                    {
+                        Debug.WriteLine("Need location", "Gunna need that location", "OK");
+                    }
+
+                    var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+                    status = results[Permission.Location];
+                }
+
+                if (status == PermissionStatus.Granted)
+                {
+                    //Permission granted, do what you want do.
+                }
+                else if (status != PermissionStatus.Unknown)
+                {
+                    Debug.WriteLine("Location Denied", "Can not continue, try again.", "OK");
+                }
+
+
+
+
+
+                var locator = CrossGeolocator.Current;
                     locator.DesiredAccuracy = 10;//DesiredAccuracy.Value;
-                    Debug.WriteLine( "Getting gps...");
+                    Debug.WriteLine("Getting gps...");
                     var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(3), null, true);
                     if (position == null)
                     {
-                    Debug.WriteLine("null gps :(");
+                        Debug.WriteLine("null gps :(");
                         return;
                     }
-                CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(position.Latitude,position.Longitude)), Distance.FromMiles(.5)));
-                var Distribuidores = await apiService.DistribuidoresCercanos(new Models.Posicion {Latitud=position.Latitude, Longitud= position.Longitude });
-                Locations.Clear();
-                Point p = new Point(0.48, 0.96);
-                foreach (var distribuidor in Distribuidores)
-                {
-                    var Pindistribuidor = new TKCustomMapPin
+                    CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(position.Latitude, position.Longitude)), Distance.FromMiles(.5)));
+                    var Distribuidores = await apiService.DistribuidoresCercanos(new Models.Posicion { Latitud = position.Latitude, Longitud = position.Longitude });
+                    Locations.Clear();
+                    Point p = new Point(0.48, 0.96);
+
+                    foreach (var distribuidor in Distribuidores)
                     {
-                        Image = "pincamion.png",
-                        Position = new TK.CustomMap.Position((double)distribuidor.Latitud,(double) distribuidor.Longitud),
-                        Anchor = p,
-                        ShowCallout = true,
-                    };
-                    Debug.WriteLine(Pindistribuidor.Image);
-                    Locations.Add(Pindistribuidor);
-                }
-                Debug.WriteLine(Distribuidores.Count);
+                        var Pindistribuidor = new TKCustomMapPin
+                        {
+                            Image = "pincamion.png",
+                            Position = new TK.CustomMap.Position((double)distribuidor.Latitud, (double)distribuidor.Longitud),
+                            Anchor = p,
+                            ShowCallout = true,
+                        };
+                        Debug.WriteLine(Pindistribuidor.Image);
+                        Locations.Add(Pindistribuidor);
+                    }
+                   Debug.WriteLine(Distribuidores.Count);
+                
+
             }
             catch (Exception ex)
              {

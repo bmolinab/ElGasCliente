@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="White"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:enhancedEntry="clr-namespace:LeoJHarris.FormsPlugin.Abstractions;assembly=LeoJHarris.FormsPlugin.Abstractions"
+             x:Class="ElGas.Pages.RegisterPage2">
+    <ContentPage.Content>
+        <StackLayout Margin="3" Padding="3">
+            
+           
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <enhancedEntry:EnhancedEntry BorderColor="#0072C6"  Grid.Column="0" BorderWidth="2" LeftIcon="person" CornerRadius="2" Placeholder="Nombre" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding Cliente.Nombres}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
+                <enhancedEntry:EnhancedEntry BorderColor="#0072C6"  Grid.Column="1" BorderWidth="2" LeftIcon="person" CornerRadius="2" Placeholder="Apellido" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding  Cliente.Apellidos}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
+            </Grid>
+
+            <enhancedEntry:EnhancedEntry BorderColor="#0072C6"  BorderWidth="2" LeftIcon="phone" CornerRadius="2" Placeholder="Teléfono" Keyboard="Numeric" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding Cliente.Telefono}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
+
+            <Label Text="Dirección:" FontFamily="calibril.ttf#Calibri Light"></Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <enhancedEntry:EnhancedEntry BorderColor="#0072C6"  Grid.Column="0" BorderWidth="2" LeftIcon="routes" CornerRadius="2" Placeholder="Calle principal" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"  Text="{Binding CalleUno}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
+                <enhancedEntry:EnhancedEntry BorderColor="#0072C6"  Grid.Column="1" BorderWidth="2" LeftIcon="routes" CornerRadius="2" Placeholder="Nº" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"    Text="{Binding Numero}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
+
+            </Grid>
+
+            <enhancedEntry:EnhancedEntry BorderColor="#0072C6" BorderWidth="2" LeftIcon="routes" CornerRadius="2" Placeholder="Calle Secundaria" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"    Text="{Binding CalleDos}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
+            <enhancedEntry:EnhancedEntry BorderColor="#0072C6" BorderWidth="2" LeftIcon="routes" CornerRadius="2" Placeholder="Sector" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"    Text="{Binding Sector}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
+
+
+            <Button 
+                Grid.Row="4" 
+                        Text="Registrarme"
+                        BackgroundColor="#0072C6"
+                        Command="{Binding RegisterCommand}"
+                        TextColor="#FFFFFF"
+                FontFamily="calibril.ttf#Calibri Light"
+                        BorderRadius="30"/>
+
+            <ActivityIndicator 
+                Color="#0072C6"
+                IsRunning="{Binding IsBusy}" 
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+                <ActivityIndicator.WidthRequest>
+                    <OnPlatform x:TypeArguments="x:Double">
+                        <On Platform="Android, iOS" Value="100" />
+                        <On Platform="UWP" Value="300" />
+                    </OnPlatform>
+                </ActivityIndicator.WidthRequest>
+            </ActivityIndicator>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>

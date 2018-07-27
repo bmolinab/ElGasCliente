@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
              NavigationPage.HasBackButton="True"
+             NavigationPage.HasNavigationBar="True"
              x:Class="ElGas.Pages.MapaPage">
     <ContentPage.Content>
         <StackLayout BackgroundColor="Black">
@@ -10,7 +11,7 @@
             <Grid IsVisible="{Binding isVisible}" >
                 <Label  Text="Confirme su ubicación" 
                     IsVisible="{Binding isVisible}" 
-                        
+                        FontFamily="calibril.ttf#Calibri Light"
                     FontSize="Medium" 
                     VerticalTextAlignment="Center" 
                     TextColor="White" 
@@ -18,8 +19,8 @@
                     VerticalOptions="Start" 
                     HeightRequest="50"/>
                 <StackLayout HorizontalOptions="End" Orientation="Horizontal" IsVisible="{Binding isVisible}">
-                    <Button Text="Ok" HorizontalOptions="End" IsVisible="{Binding isVisible}" Command="{Binding OkCommand}"></Button>
-                    <Button Text="Cancelar" HorizontalOptions="End" IsVisible="{Binding isVisible}" Command="{Binding CancelCommand}"></Button>
+                    <Button Text="Ok" HorizontalOptions="End" IsVisible="{Binding isVisible}" Command="{Binding OkCommand}" FontFamily="calibril.ttf#Calibri Light"></Button>
+                    <Button Text="Cancelar" HorizontalOptions="End" IsVisible="{Binding isVisible}" Command="{Binding CancelCommand}" FontFamily="calibril.ttf#Calibri Light"></Button>
                 </StackLayout>
             </Grid>
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
@@ -46,6 +47,7 @@
                         BackgroundColor="#0072C6" 
                         TextColor="White" 
                         TranslationY="-10" 
+                        FontFamily="calibril.ttf#Calibri Light"
                         Command="{Binding BuyCommand}">
                 </Button>
                 

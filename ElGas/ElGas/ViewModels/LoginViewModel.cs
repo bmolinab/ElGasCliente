@@ -4,7 +4,13 @@ using ElGas.Pages;
 using ElGas.Services;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
+using Plugin.Geolocator;
+using Plugin.Permissions;
+using Plugin.Permissions.Abstractions;
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -19,7 +25,7 @@ namespace ElGas.ViewModels
 
         #region Propieties
         private bool _isRemember = false;
-        public bool  isRemember
+        public bool isRemember
         {
             set
             {
@@ -64,23 +70,54 @@ namespace ElGas.ViewModels
                     IsBusy = true;
                     var accesstoken = await _apiServices.LoginAsync(Username, Password);
 
-                    if (accesstoken!= null)
+                    if (accesstoken != null)
                     {
                         Settings.AccessToken = accesstoken;
-                        var c = new Cliente {Correo= Username, DeviceID = Settings.DeviceID };
+                        var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID };
                         var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
-                        var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString()) ;
+                        var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
                         Settings.idCliente = cliente.IdCliente;
                         IsBusy = false;
 
                         App.Current.MainPage = new NavigationPage(new MapaPage());
                     }
-                   
+
                 });
             }
         }
 
-     
+        public async  void permisos()
+        {
+            try
+            {
+                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                if (status != PermissionStatus.Granted)
+                {
+                    var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+
+                    Debug.WriteLine(results.Count.ToString());
+
+                    if (status != PermissionStatus.Unknown)
+                    {
+                         Debug.WriteLine("Location Denied");
+                    }
+                }
+
+              
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                throw;
+            }
+        }
+
+    
+
+
+
         public ICommand RegisterCommand { get { return new RelayCommand(Register); } }
 
         private async void Register()
@@ -96,6 +133,7 @@ namespace ElGas.ViewModels
         {
             Username = Settings.Username;
             Password = Settings.Password;
+          //  permisos();
         }
         #endregion
     }

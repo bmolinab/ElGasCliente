@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             NavigationPage.HasNavigationBar="False"
              x:Class="ElGas.Pages.LoginPage">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -164,12 +165,14 @@
                         Grid.Row="1"
                         Text="Correo"
                         TextColor="{StaticResource WhiteColor}"
-                        Style="{StaticResource HeaderTextStyle}"/>
+                        Style="{StaticResource HeaderTextStyle}"
+                        FontFamily="calibril.ttf#Calibri Light"/>
                     <Entry
                         x:Name="UsernameEntry"
                         Grid.Row="2"
                         AutomationId="username"
                         Keyboard="Email"
+                        FontFamily="calibril.ttf#Calibri Light"
                         Text="{Binding Username, Mode=TwoWay}">
                         <Entry.TextColor>
                             <OnPlatform x:TypeArguments="Color">
@@ -181,6 +184,7 @@
                     <Label 
                         Grid.Row="3"
                         Text="Contraseña"
+                        FontFamily="calibril.ttf#Calibri Light"
                         TextColor="{StaticResource WhiteColor}"
                         Style="{StaticResource HeaderTextStyle}"/>
                     <Entry
@@ -188,6 +192,7 @@
                         x:Name="PasswordEntry"
                         IsPassword="True" 
                         AutomationId="password"
+                        FontFamily="calibril.ttf#Calibri Light"
                         Text="{Binding Password, Mode=TwoWay}">
                         <Entry.TextColor>
                             <OnPlatform x:TypeArguments="Color">
@@ -196,14 +201,14 @@
                             </OnPlatform>
                         </Entry.TextColor>
                     </Entry>
-                    <Label 
+                    <!--<Label 
                         Grid.Row="5"
                         Text="Olvido la contraseña?"
                         VerticalOptions="Center"
                         Style="{StaticResource ForgotPwdLabelStyle}">
-                    </Label>
+                    </Label>-->
                     <StackLayout Orientation="Horizontal" Grid.Row="5">
-                        <Label Text="Recordarme" HorizontalOptions="Start" VerticalOptions="Center" Style="{StaticResource ForgotPwdLabelStyle}">
+                        <Label Text="Recordarme" FontFamily="calibril.ttf#Calibri Light" HorizontalOptions="Start" VerticalOptions="Center"  Style="{StaticResource ForgotPwdLabelStyle}">
                         </Label>
                         <Switch IsToggled="True" HorizontalOptions="End" ></Switch>
                     </StackLayout>
@@ -215,10 +220,12 @@
                     <StackLayout
                         Style="{StaticResource SignUpPanelStyle}">
                         <Label 
-                            Text="No tienes una cuenta?"
+                            Text="Power by"
+                            FontFamily="calibril.ttf#Calibri Light"
                             Style="{StaticResource SignUpTextStyle}"/>
                         <Label
-                            Text="Registrate"
+                            Text="Digital Strategy"
+                            FontFamily="calibril.ttf#Calibri Light"
                             Style="{StaticResource SignUpAccentTextStyle}"/>
                     </StackLayout>
                     <Grid.GestureRecognizers>
@@ -242,6 +249,8 @@
                         CornerRadius="30">
                         <Button 
                             Text="Ingresar"
+                            FontFamily="calibril.ttf#Calibri Light"
+                            FontSize="Large"
                             Command="{Binding LoginCommand}"
                             BackgroundColor="{StaticResource WhiteColor}"
                             TextColor="{StaticResource OrangeColor}" 
@@ -249,13 +258,17 @@
                     </Frame>
                     <Label 
                         Text="o"
+                        FontFamily="calibril.ttf#Calibri Light"
+                        FontSize="Large"
                         HorizontalOptions="Center"
                         TextColor="{StaticResource BlackTextColor}"
-                        FontSize="{StaticResource MediumSize}" />
+                        />
                     <Button 
                         Text="Registrate"
+                        FontFamily="calibril.ttf#Calibri Light"
                         BackgroundColor="{StaticResource BlueColor}"
                         Command="{Binding RegisterCommand}"
+                        FontSize="Large"
                         TextColor="{StaticResource WhiteColor}" 
                         BorderRadius="30"/>
                 </StackLayout>

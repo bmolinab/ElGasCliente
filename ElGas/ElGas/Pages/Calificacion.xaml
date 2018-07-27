@@ -12,11 +12,11 @@
                FontAttributes="Bold"
                FontSize="Large"
                 VerticalOptions="Start" 
-                HorizontalOptions="Start" />
+                HorizontalOptions="Start"  FontFamily="calibril.ttf#Calibri Light" />
         <Label Text="Gracias por confiar en nosotros, por favor califique el servicio brindado"   
                 LineBreakMode="WordWrap"
                 VerticalOptions="Start" 
-                HorizontalOptions="Start" />
+                HorizontalOptions="Start"  FontFamily="calibril.ttf#Calibri Light"  />
 
         <rating:SfRating x:Name="rating" Value="{Binding Valor}" HorizontalOptions="Center"/>
 
@@ -30,6 +30,7 @@
                 VerticalOptions="End" 
                 Text="ACEPTAR" 
                 Command="{Binding CalificarCommand}"
+                 FontFamily="calibril.ttf#Calibri Light"
         >
             
         </Button>

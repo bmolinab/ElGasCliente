@@ -24,12 +24,12 @@
             <StackLayout Grid.Row="1">
 
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Su pedido fue atendido por: " FontSize="Medium"></Label>
-                    <Label Text="{Binding Distribuidor.Nombres}" FontSize="Medium"></Label>
+                    <Label Text="Su pedido fue atendido por: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                    <Label Text="{Binding Distribuidor.Nombres}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="En el vehiculo con placas: " FontSize="Medium"></Label>
-                    <Label Text="{Binding Distribuidor.PlacaVehiculo}" FontSize="Medium"></Label>
+                    <Label Text="En el vehiculo con placas: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                    <Label Text="{Binding Distribuidor.PlacaVehiculo}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
                 </StackLayout>
 
                 <Button BorderRadius="30" 
@@ -40,6 +40,7 @@
                         HeightRequest="50" 
                         BackgroundColor="#0072C6" 
                         TextColor="White" 
+                        FontFamily="calibril.ttf#Calibri Light"
                         Command="{Binding ContactCommand}"/>
 
                 <Button Text="Cancelar" 
@@ -51,6 +52,7 @@
                         HorizontalOptions="Center" 
                         WidthRequest="200"  
                         HeightRequest="50" 
+                        FontFamily="calibril.ttf#Calibri Light"
                         >
                     
                 </Button>

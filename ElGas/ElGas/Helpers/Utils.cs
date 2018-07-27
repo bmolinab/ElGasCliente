@@ -10,7 +10,7 @@ namespace ElGas.Helpers
 {
     public static class Utils
     {
-        public static async Task<bool> CheckPermissions(Permission permission)
+        public static async Task<PermissionStatus> CheckPermissions(Permission permission)
         {
             var permissionStatus = await CrossPermissions.Current.CheckPermissionStatusAsync(permission);
             bool request = false;
@@ -23,9 +23,9 @@ namespace ElGas.Helpers
                     var question = $"To use this plugin the {permission} permission is required. Please go into Settings and turn on {permission} for the app.";
                     var positive = "Settings";
                     var negative = "Maybe Later";
-                    var task = App.Current?.MainPage?.DisplayAlert(title, question, positive, negative);
+                    var task = Application.Current?.MainPage?.DisplayAlert(title, question, positive, negative);
                     if (task == null)
-                        return false;
+                        return permissionStatus;
 
                     var result = await task;
                     if (result)
@@ -33,7 +33,7 @@ namespace ElGas.Helpers
                         CrossPermissions.Current.OpenAppSettings();
                     }
 
-                    return false;
+                    return permissionStatus;
                 }
 
                 request = true;
@@ -43,26 +43,36 @@ namespace ElGas.Helpers
             if (request || permissionStatus != PermissionStatus.Granted)
             {
                 var newStatus = await CrossPermissions.Current.RequestPermissionsAsync(permission);
-                if (newStatus.ContainsKey(permission) && newStatus[permission] != PermissionStatus.Granted)
+
+                if (!newStatus.ContainsKey(permission))
                 {
+                    return permissionStatus;
+                }
+
+                permissionStatus = newStatus[permission];
+
+                if (newStatus[permission] != PermissionStatus.Granted)
+                {
+                    permissionStatus = newStatus[permission];
                     var title = $"{permission} Permission";
                     var question = $"To use the plugin the {permission} permission is required.";
                     var positive = "Settings";
                     var negative = "Maybe Later";
-                    var task = App.Current?.MainPage?.DisplayAlert(title, question, positive, negative);
+                    var task = Application.Current?.MainPage?.DisplayAlert(title, question, positive, negative);
                     if (task == null)
-                        return false;
+                        return permissionStatus;
 
                     var result = await task;
                     if (result)
                     {
                         CrossPermissions.Current.OpenAppSettings();
                     }
-                    return false;
+                    return permissionStatus;
                 }
             }
 
-            return true;
+            return permissionStatus;
         }
     }
 }
+

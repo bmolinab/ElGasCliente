@@ -11,13 +11,16 @@ using Xamarin.Forms.Xaml;
 namespace ElGas.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RegisterPage : ContentPage
+	public partial class RegisterPage2 : ContentPage
 	{
-        RegisterViewModel ViewModels = new RegisterViewModel( new Models.Cliente());
-		public RegisterPage ()
+        RegisterViewModel ViewModels ;
+
+        public RegisterPage2( Models.Cliente cliente)
 		{
-			InitializeComponent ();
+            ViewModels = new RegisterViewModel(cliente);
+            InitializeComponent ();
             BindingContext = ViewModels;
-		}       
+
+        }
     }
 }

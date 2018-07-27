@@ -88,6 +88,7 @@ namespace ElGas.Helpers
             }
         }
 
+
         public static string Password
         {
             get
@@ -144,5 +145,19 @@ namespace ElGas.Helpers
                 AppSettings.AddOrUpdateValue("Calificar", value);
             }
         }
+
+
+        public static Double Precio
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("Precio", 3.5);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("Precio", value);
+            }
+        }
+
     }
 }

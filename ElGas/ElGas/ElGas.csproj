@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="LeoJHarris.XForms.Plugin.EnhancedEntry" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNet.SignalR.Client" Version="2.3.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1" />
@@ -13,6 +14,7 @@
     <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.158-pre" />
     <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="16.2.0.41" />
     <PackageReference Include="TK.CustomMap" Version="2.0.1" />
+    <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.0.0.13" />
     <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
     <PackageReference Include="Xam.Plugins.Messaging" Version="5.2.0" />
     <PackageReference Include="Xam.Plugins.Settings" Version="4.0.0.10-beta" />
@@ -49,6 +51,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\RegisterPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\RegisterPage2.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\SeguimientoPage.xaml">
