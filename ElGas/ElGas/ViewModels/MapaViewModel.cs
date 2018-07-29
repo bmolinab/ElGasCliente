@@ -43,6 +43,7 @@ namespace ElGas.ViewModels
                 return _isVisible;
             }
         }
+        bool tracking;
 
 
         #endregion
@@ -77,19 +78,21 @@ namespace ElGas.ViewModels
 
         #endregion
 
-        bool tracking;
+        #region Constructor
         public MapaViewModel()
         {
 
             Locations = new ObservableCollection<TKCustomMapPin>();
             locations = new ObservableCollection<TKCustomMapPin>();
-           
+
 
             centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
 
             LoadVendedores();
-            
+
         }
+
+        #endregion
 
         public void OnAppearing()
         {

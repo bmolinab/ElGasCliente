@@ -17,6 +17,7 @@ namespace ElGas.Models
         public string Correo { get; set; }
         public string IdAspNetUser { get; set; }
         public string DeviceID { get; set; }
+        public bool Habilitado { get; set; }
 
     }
 }

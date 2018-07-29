@@ -18,7 +18,7 @@ namespace ElGas.ViewModels
 {
     public class ConfirmacionViewModel : INotifyPropertyChanged
     {
-
+        #region Properties
         public string cilindros = "1";
         public string Cilindros
         {
@@ -31,21 +31,19 @@ namespace ElGas.ViewModels
                     this.cilindros = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Cilindros"));
                 }
-                if (cilindros!=""&& cilindros != null)
+                if (cilindros != "" && cilindros != null)
                 {
                     Valor = (int.Parse(cilindros) * 3.5) + "$";
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Valor"));
                 }
                 else
                 {
-                    Valor =  "0$";
+                    Valor = "0$";
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Valor"));
                 }
             }
         }
-
         public string Valor { get; set; }
-
         public event PropertyChangedEventHandler PropertyChanged;
         public MapSpan centerSearch = null;
         public MapSpan CenterSearch
@@ -71,6 +69,11 @@ namespace ElGas.ViewModels
             }
             get { return locations; }
         }
+
+        #endregion
+
+
+        #region Constructor
         public ConfirmacionViewModel(TKCustomMapPin posicion)
         {
             centerSearch = (MapSpan.FromCenterAndRadius(posicion.Position, Distance.FromMiles(.3)));
@@ -79,8 +82,10 @@ namespace ElGas.ViewModels
             Locations.Add(posicion);
 
         }
-        
+        #endregion
 
+
+        #region commands 
         public ICommand OkCommand { get { return new RelayCommand(Ok); } }
         private async void Ok()
         {
@@ -123,7 +128,7 @@ namespace ElGas.ViewModels
 
 
         }
-
+        #endregion
 
 
     }

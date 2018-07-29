@@ -20,9 +20,7 @@ namespace ElGas.ViewModels
         #endregion
         #region Properties
         public event PropertyChangedEventHandler PropertyChanged;
-
-        
-
+       
         public int valor = 0 ;
         public int Valor
         {
@@ -39,7 +37,6 @@ namespace ElGas.ViewModels
             }
         }
         #endregion
-
         #region commands
         public ICommand CalificarCommand { get { return new RelayCommand(Calificar); } }
         public async void Calificar()
@@ -62,5 +59,6 @@ namespace ElGas.ViewModels
 
         }
         #endregion
+
     }
 }

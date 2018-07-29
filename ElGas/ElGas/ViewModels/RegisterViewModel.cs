@@ -14,9 +14,13 @@ namespace ElGas.ViewModels
 {
     public class RegisterViewModel: INotifyPropertyChanged
     {
+        #region Services
         private readonly ApiServices _apiServices = new ApiServices();
         public event PropertyChangedEventHandler PropertyChanged;
 
+        #endregion
+
+        #region Properties
         public string Username { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
@@ -42,7 +46,7 @@ namespace ElGas.ViewModels
                 return message;
             }
         }
-        public Cliente Cliente{get;set;}
+        public Cliente Cliente { get; set; }
 
         private bool isBusy = false;
         public bool IsBusy
@@ -77,6 +81,7 @@ namespace ElGas.ViewModels
                 return isError;
             }
         }
+        #endregion
 
         #region Cosntructor
         public RegisterViewModel(Cliente cliente)
