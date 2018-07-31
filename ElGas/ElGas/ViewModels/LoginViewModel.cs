@@ -4,6 +4,9 @@ using ElGas.Pages;
 using ElGas.Services;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Plugin.FacebookClient;
+using Plugin.FacebookClient.Abstractions;
 using Plugin.Geolocator;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
@@ -18,9 +21,17 @@ namespace ElGas.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Agregar referencias
+        /// y agegar ciudad
+        /// </summary>
+
+
         #region Services
         public event PropertyChangedEventHandler PropertyChanged;
         private readonly ApiServices _apiServices = new ApiServices();
+
+        string[] permisions = new string[] { "email", "public_profile" };
         #endregion
 
         #region Propieties
@@ -114,7 +125,45 @@ namespace ElGas.ViewModels
             }
         }
 
-    
+
+        public ICommand LoginFB
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await LoginAsyncFB();                   
+
+                });
+            }
+        }
+
+        public async Task LoginAsyncFB()         {
+            FacebookResponse<bool> response = await CrossFacebookClient.Current.LoginAsync(permisions);             switch (response.Status)
+            {
+                case FacebookActionStatus.Completed:
+                    await App.Current.MainPage.DisplayAlert("Loggeado", response.Message, "Ok"); await LoadData();//App.Current.MainPage.Navigation.PushAsync(new MyProfilePage());
+                    break;
+                case FacebookActionStatus.Canceled:
+                    break;
+                case FacebookActionStatus.Unauthorized:
+                    await App.Current.MainPage.DisplayAlert("Unauthorized", response.Message, "Ok");
+                    break;
+                case FacebookActionStatus.Error:
+                    await App.Current.MainPage.DisplayAlert("Error", response.Message, "Ok");
+                    break;
+            }
+
+        }
+
+        public async Task LoadData()         {
+
+            var jsonData = await CrossFacebookClient.Current.RequestUserDataAsync             (
+                  new string[] { "id", "name", "email"}, new string[] { }             );
+
+            var data = JObject.Parse(jsonData.Data);
+            Debug.WriteLine(data.Count);
+        }
 
 
 

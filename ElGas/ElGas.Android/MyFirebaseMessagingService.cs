@@ -55,9 +55,7 @@ namespace ElGas.Droid
                         break;
                     case "3":
                         Helpers.Settings.Pedidos = false;
-                        Helpers.Settings.Calificar = true;
-                
-
+                        Helpers.Settings.Calificar = true;               
                         break;
                 }
 

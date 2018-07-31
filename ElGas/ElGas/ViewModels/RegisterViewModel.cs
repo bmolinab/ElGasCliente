@@ -112,7 +112,8 @@ namespace ElGas.ViewModels
                     if (Password == ConfirmPassword)
                     {
                         Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}",CalleUno,Numero,CalleDos,Sector);
-                      
+                        Cliente.Habilitado = true;
+
                             var isRegistered = await _apiServices.RegisterUserAsync
                             (Username, Password, ConfirmPassword, Cliente);
                             Settings.Username = Username;

@@ -16,10 +16,12 @@ using Plugin.Geolocator;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Content;
 using Android.Support.V4.App;
+using Plugin.FacebookClient;
+using Android.Content;
 
 namespace ElGas.Droid
 {
-    [Activity(Label = "ElGas", Icon = "@mipmap/icon", Theme = "@style/MyTheme.Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "El Gas", Icon = "@drawable/iclauncher", Theme = "@style/MyTheme.Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         public const string TAG = "MainActivity";
@@ -46,7 +48,7 @@ namespace ElGas.Droid
                     }
                 }
             }
-
+            FacebookClientManager.Initialize(this);
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LeoJHarris.FormsPlugin.Droid.EnhancedEntryRenderer.Init(this);
 
@@ -77,6 +79,13 @@ namespace ElGas.Droid
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
+        {
+            base.OnActivityResult(requestCode, resultCode, intent);
+            FacebookClientManager.OnActivityResult(requestCode, resultCode, intent);
+        }
+
 
 
 

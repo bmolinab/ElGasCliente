@@ -256,13 +256,7 @@
                             TextColor="{StaticResource OrangeColor}" 
                             BorderRadius="30"/>
                     </Frame>
-                    <Label 
-                        Text="o"
-                        FontFamily="calibril.ttf#Calibri Light"
-                        FontSize="Large"
-                        HorizontalOptions="Center"
-                        TextColor="{StaticResource BlackTextColor}"
-                        />
+                   
                     <Button 
                         Text="Registrate"
                         FontFamily="calibril.ttf#Calibri Light"
@@ -271,6 +265,9 @@
                         FontSize="Large"
                         TextColor="{StaticResource WhiteColor}" 
                         BorderRadius="30"/>
+
+                    <!--<Button Text="Ingresar con Facebook" BackgroundColor="#3b5998" TextColor="White" WidthRequest="250" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Command="{Binding LoginFB}"></Button>-->
+
                 </StackLayout>
             </Grid>
             <ActivityIndicator 
