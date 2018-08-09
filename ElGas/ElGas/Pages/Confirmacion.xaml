@@ -2,16 +2,19 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
-             xmlns:numeric="clr-namespace:Syncfusion.SfNumericUpDown.XForms;assembly=Syncfusion.SfNumericUpDown.XForms"
              x:Class="ElGas.Pages.Confirmacion">
     <ContentPage.Content>
         <StackLayout>
+            
             <tk:TKCustomMap HeightRequest="300"                 
                             Pins="{Binding Locations}" 
                             MapRegion="{Binding CenterSearch}"
                              IsClusteringEnabled="False"
 
 ></tk:TKCustomMap>
+            <Label Text="Dirección" FontFamily="calibril.ttf#Calibri Light"></Label>
+            <Label Text="{Binding Direccion}" FontFamily="calibril.ttf#Calibri Light" FontSize="Large" FontAttributes="Bold" ></Label>
+
             <Label Text="Ingrese el número de tanques requeridos" FontFamily="calibril.ttf#Calibri Light"></Label>
             <Entry Placeholder="Cantidad" Text="{Binding Cilindros,Mode=TwoWay}" FontFamily="calibril.ttf#Calibri Light" Keyboard="Numeric" ></Entry>
             <Label Text="Total del pedido" FontFamily="calibril.ttf#Calibri Light" ></Label>
@@ -24,7 +27,7 @@
                         HorizontalOptions="Center" 
                         WidthRequest="200"  
                         HeightRequest="50" 
-                        BackgroundColor="Blue" 
+                        BackgroundColor="#0072C6" 
                         TextColor="White" 
                         TranslationY="-10" 
                         Command="{Binding OkCommand}">

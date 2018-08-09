@@ -1,21 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BackgroundColor="White"
-             NavigationPage.HasNavigationBar="False"
-             xmlns:enhancedEntry="clr-namespace:LeoJHarris.FormsPlugin.Abstractions;assembly=LeoJHarris.FormsPlugin.Abstractions"
-             x:Class="ElGas.Pages.RegisterPage2">
+                          xmlns:enhancedEntry="clr-namespace:LeoJHarris.FormsPlugin.Abstractions;assembly=LeoJHarris.FormsPlugin.Abstractions"
+BackgroundColor="White"
+             x:Class="ElGas.Pages.AfterFBPage">
     <ContentPage.Content>
         <StackLayout Margin="3" Padding="3">
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <enhancedEntry:EnhancedEntry BorderColor="#0072C6"  Grid.Column="0" BorderWidth="2" LeftIcon="person" CornerRadius="2" Placeholder="Nombre" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding Cliente.Nombres}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
-                <enhancedEntry:EnhancedEntry BorderColor="#0072C6"  Grid.Column="1" BorderWidth="2" LeftIcon="person" CornerRadius="2" Placeholder="Apellido" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding  Cliente.Apellidos}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
-            </Grid>
+            <Label x:Name="Message" Text="{Binding Message}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium">
+                
+            </Label>
+           
             <enhancedEntry:EnhancedEntry BorderColor="#0072C6"  BorderWidth="2" LeftIcon="phone" CornerRadius="2" Placeholder="Teléfono" Keyboard="Numeric" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding Cliente.Telefono}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
             <Label Text="Dirección:" FontFamily="calibril.ttf#Calibri Light"></Label>
             <Grid>
@@ -31,7 +25,7 @@
             <enhancedEntry:EnhancedEntry BorderColor="#0072C6" BorderWidth="2" LeftIcon="routes" CornerRadius="2" Placeholder="Sector" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"    Text="{Binding Sector}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
             <Button 
                 Grid.Row="4" 
-                        Text="Registrarme"
+                        Text="Guardar"
                         BackgroundColor="#0072C6"
                         Command="{Binding RegisterCommand}"
                         TextColor="#FFFFFF"
@@ -50,6 +44,7 @@
                     </OnPlatform>
                 </ActivityIndicator.WidthRequest>
             </ActivityIndicator>
+
         </StackLayout>
 
     </ContentPage.Content>

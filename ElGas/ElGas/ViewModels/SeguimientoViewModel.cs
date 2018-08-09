@@ -74,14 +74,11 @@ namespace ElGas.ViewModels
         public SeguimientoViewModel()
         {
             distribuidor = new Distribuidor();
-
             Locations = new ObservableCollection<TKCustomMapPin>();
             locations = new ObservableCollection<TKCustomMapPin>();
             centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.5)));
-
             SeguirA();
             DatosVendedor();
-
         }
         #endregion
 
@@ -106,29 +103,29 @@ namespace ElGas.ViewModels
             if (action)
             {
                 var compra = new Compra { IdCompra = Settings.IdCompra, IdDistribuidor=Settings.IdDistribuidor};
-
-                var response = await ApiServices.InsertarAsync<Compra>(compra, new Uri(Constants.BaseApiAddress), "/api/Compras/Cancelar");
-
+                var compracancelada = new CompraCancelada
+                {
+                    IdCompra = Settings.IdCompra,
+                    IdDistribuidor = Settings.IdDistribuidor,
+                    CanceladaPor = 1,
+                    IdCliente = Settings.idCliente
+                };
+                var response = await ApiServices.InsertarAsync<CompraCancelada>(compracancelada, new Uri(Constants.BaseApiAddress), "/api/Compras/Cancelar");
                 if(response.IsSuccess)
                 {
                     await App.Current.MainPage.DisplayAlert("Pedido a Cancelar", string.Format("Su pedido de {0} tanque(s) ha sido cancelado", Settings.TanquesGas), "Aceptar");
-
                     Settings.Pedidos = false;
-
                     await App.Navigator.Navigation.PopToRootAsync();
                 }
                 else
                 {
                     await App.Current.MainPage.DisplayAlert("Problemas", string.Format("Tenemos problemas para cancelarsu pedido de {0} tanque(s), trabajamos para solucionarlo", Settings.TanquesGas), "Aceptar");
-
                     //Settear las variables globales
                     Settings.Pedidos = false;
                     Settings.IdCompra = 0;
                     Settings.IdDistribuidor = 0;
                     Settings.TanquesGas = 0;
                     Settings.Pedidos = false;
-                
-
                     await App.Navigator.Navigation.PopToRootAsync();
 
                 }
@@ -158,7 +155,7 @@ namespace ElGas.ViewModels
 
                 Locations.Add(new TKCustomMapPin
                 {
-                    Image = "pincamion.png",
+                    Image = "camion.png",
                     Position = new TK.CustomMap.Position((double)ruta.Latitud, (double)ruta.Longitud),
                     Anchor = p,
                     ShowCallout = true,

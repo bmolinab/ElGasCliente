@@ -79,18 +79,18 @@ namespace ElGas.ViewModels
                 return new Command(async () =>
                 {
                     IsBusy = true;
-                    var accesstoken = await _apiServices.LoginAsync(Username, Password);
+                        var accesstoken = await _apiServices.LoginAsync(Username, Password);
 
-                    if (accesstoken != null)
-                    {
-                        Settings.AccessToken = accesstoken;
-                        var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID };
-                        var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
-                        var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
-                        Settings.idCliente = cliente.IdCliente;
-                        IsBusy = false;
+                        if (accesstoken != null)
+                        {
+                            Settings.AccessToken = accesstoken;
+                            var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID };
+                            var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
+                            var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
+                            Settings.idCliente = cliente.IdCliente;
+                            IsBusy = false;
+                            Application.Current.MainPage = new NavigationPage(new MasterPage());
 
-                        App.Current.MainPage = new NavigationPage(new MapaPage());
                     }
 
                 });
@@ -138,11 +138,14 @@ namespace ElGas.ViewModels
             }
         }
 
-        public async Task LoginAsyncFB()         {
-            FacebookResponse<bool> response = await CrossFacebookClient.Current.LoginAsync(permisions);             switch (response.Status)
+        public async Task LoginAsyncFB()
+        {
+            FacebookResponse<bool> response = await CrossFacebookClient.Current.LoginAsync(permisions);
+            switch (response.Status)
             {
                 case FacebookActionStatus.Completed:
-                    await App.Current.MainPage.DisplayAlert("Loggeado", response.Message, "Ok"); await LoadData();//App.Current.MainPage.Navigation.PushAsync(new MyProfilePage());
+                    await LoadData(); 
+                    //App.Current.MainPage.DisplayAlert("Loggeado", response.Message, "Ok"); 
                     break;
                 case FacebookActionStatus.Canceled:
                     break;
@@ -156,19 +159,46 @@ namespace ElGas.ViewModels
 
         }
 
-        public async Task LoadData()         {
+        public async Task LoadData()
+        {
 
-            var jsonData = await CrossFacebookClient.Current.RequestUserDataAsync             (
-                  new string[] { "id", "name", "email"}, new string[] { }             );
+            var jsonData = await CrossFacebookClient.Current.RequestUserDataAsync
+            (
+                  new string[] { "id", "name", "email"}, new string[] { }
+            );
 
             var data = JObject.Parse(jsonData.Data);
-            Debug.WriteLine(data.Count);
+
+          var  Profile = new FacebookProfile()
+            {
+              Id = data["id"].ToString(),
+              FullName = data["name"].ToString(),
+             Email= data["email"].ToString()
+            };
+
+            var accesstoken = await _apiServices.LoginAsync(Profile.Email, Profile.Id);
+
+            if (accesstoken != null)
+            {
+                Settings.AccessToken = accesstoken;
+                var c = new Cliente { Correo = Profile.Email, DeviceID = Settings.DeviceID };
+                var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
+                var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
+                Settings.idCliente = cliente.IdCliente;
+                Settings.Username = Profile.Email;
+                Settings.Password = Profile.Id;
+                IsBusy = false;
+                Application.Current.MainPage = new NavigationPage(new MasterPage());
+
+            }
+            else
+            {
+                await App.Current.MainPage.Navigation.PushAsync(new AfterFBPage(Profile));
+            }
+            //   Debug.WriteLine(data.Count);
         }
 
-
-
         public ICommand RegisterCommand { get { return new RelayCommand(Register); } }
-
         private async void Register()
         {
             App.Current.MainPage = new NavigationPage(new RegisterPage());

@@ -6,6 +6,6 @@ namespace ElGas
 {
     public class Constants
     {
-        public static string BaseApiAddress => "http://webapielgas.azurewebsites.net/";
+        public static string BaseApiAddress => "http://52.224.8.198:58/";
     }
 }

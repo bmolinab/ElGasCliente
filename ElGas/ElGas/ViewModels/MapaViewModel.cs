@@ -1,8 +1,10 @@
 ﻿using ElGas.Helpers;
+using ElGas.Models;
 using ElGas.Pages;
 using ElGas.Services;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
+using Newtonsoft.Json;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using Plugin.Permissions;
@@ -43,11 +45,27 @@ namespace ElGas.ViewModels
                 return _isVisible;
             }
         }
+
+        private bool oneButton = true;
+        public bool OneButton
+        {
+            set
+            {
+                if (oneButton != value)
+                {
+                    oneButton = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("OneButton"));
+                }
+            }
+            get
+            {
+                return oneButton;
+            }
+        }
         bool tracking;
 
 
         #endregion
-
         #region Events
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -78,20 +96,30 @@ namespace ElGas.ViewModels
 
         #endregion
 
+        Xamarin.Forms.Maps.Geocoder geoCoder;
+
+        public string direccion = "";
+        public string Direccion
+        {
+            get { return direccion; }
+            set { direccion = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Direccion")); }
+
+        }
+
         #region Constructor
         public MapaViewModel()
         {
-
+            geoCoder = new Xamarin.Forms.Maps.Geocoder();
             Locations = new ObservableCollection<TKCustomMapPin>();
             locations = new ObservableCollection<TKCustomMapPin>();
 
 
             centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
+            loadParametros();
 
             LoadVendedores();
 
         }
-
         #endregion
 
         public void OnAppearing()
@@ -108,7 +136,41 @@ namespace ElGas.ViewModels
 
         }
 
+     
+        async void ObtenerDireccion(double lat, double lon)
+        {
+            var position = new Xamarin.Forms.Maps.Position(lat, lon);
+            var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
 
+            foreach (var address in possibleAddresses)
+            {
+                Direccion = address;
+                break;
+            }
+        }
+
+        public async void loadParametros()
+        {
+            Cliente cliente = new Cliente
+            {
+                IdCliente = Settings.idCliente,
+            };
+
+            var response = await ApiServices.InsertarAsync<Cliente>(cliente, new Uri(Constants.BaseApiAddress), "/api/Parametroes/GetAllParameters");
+            var parametros = JsonConvert.DeserializeObject<List<Parametro>>(response.Result.ToString());
+            if (parametros!=null)
+            {
+                foreach (var item in parametros)
+                {
+                    if (item.Nombre== "valor")
+                    {
+                        Settings.Precio =(double) item.Valor;
+                    }
+                }
+            }
+            
+
+        }
         public async void LoadVendedores()
         {        
                 try
@@ -153,19 +215,19 @@ namespace ElGas.ViewModels
                     Locations.Clear();
                     Point p = new Point(0.48, 0.96);
 
-                    foreach (var distribuidor in Distribuidores)
-                    {
-                        var Pindistribuidor = new TKCustomMapPin
+                        foreach (var distribuidor in Distribuidores)
                         {
-                            Image = "pincamion.png",
-                            Position = new TK.CustomMap.Position((double)distribuidor.Latitud, (double)distribuidor.Longitud),
-                            Anchor = p,
-                            ShowCallout = true,
-                        };
-                        Debug.WriteLine(Pindistribuidor.Image);
-                        Locations.Add(Pindistribuidor);
-                    }
-                   Debug.WriteLine(Distribuidores.Count);
+                            var Pindistribuidor = new TKCustomMapPin
+                            {
+                                Image = "camion",
+                                Position = new TK.CustomMap.Position((double)distribuidor.Latitud, (double)distribuidor.Longitud),
+                                Anchor = p,
+                                ShowCallout = true,
+                            };
+                            Debug.WriteLine(Pindistribuidor.Image);
+                            Locations.Add(Pindistribuidor);
+                        }
+                        Debug.WriteLine(Distribuidores.Count);
                 
 
             }
@@ -178,12 +240,40 @@ namespace ElGas.ViewModels
         public ICommand BuyCommand { get { return new RelayCommand(Buy); } }
         private async void Buy()
         {
+
+            var lat = CenterSearch.Center.Latitude;
+            var lon = CenterSearch.Center.Longitude;
+             CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(lat, lon)), Distance.FromMiles(.10)));
+
+            Locations.Clear();
+
+            Locations.Add(new TKCustomMapPin
+            {
+                Image = "casa",
+                Position = CenterSearch.Center,
+                Anchor = new Point(0.48, 0.96),
+                ShowCallout = true,
+            });
+
+           
+            
+
+
+            ObtenerDireccion(CenterSearch.Center.Latitude, CenterSearch.Center.Longitude);
+
             isVisible = true;
+            OneButton = false;
+            
+
+
         }
         public ICommand CancelCommand { get { return new RelayCommand(Cancel); } }
         private async void Cancel()
         {
+            LoadVendedores();
             isVisible = false;
+            OneButton = true;
+
         }
 
         public ICommand OkCommand { get { return new RelayCommand(Ok); } }
@@ -192,7 +282,9 @@ namespace ElGas.ViewModels
             if(Locations.Count>0)
             {
                 isVisible = false;
+                OneButton = true;
                 var ubicacion =Locations[0];
+                Settings.Direccion = Direccion;
                 Debug.WriteLine("Latitud:{0} Longitud:{1}",ubicacion.Position.Latitude, ubicacion.Position.Longitude);
                 await App.Navigator.PushAsync(new Confirmacion(ubicacion));
             }
@@ -209,14 +301,18 @@ namespace ElGas.ViewModels
                         Locations.Clear();               
                         
                         Locations.Add(new TKCustomMapPin {
-                            Image = "pincliente",
+                            Image = "casa",
                             Position = positon,
                             Anchor = new Point(0.48, 0.96),
                             ShowCallout = true, });
+
+                        ObtenerDireccion(positon.Latitude, positon.Longitude);
+
                     }
                 });
             }
         }
+      
         #endregion
     }
 }

@@ -159,5 +159,18 @@ namespace ElGas.Helpers
             }
         }
 
+        public static string Direccion
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("Direccion", "");
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("Direccion", value);
+            }
+        }
+
+
     }
 }

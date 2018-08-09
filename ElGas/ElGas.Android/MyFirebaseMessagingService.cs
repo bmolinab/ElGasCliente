@@ -57,6 +57,11 @@ namespace ElGas.Droid
                         Helpers.Settings.Pedidos = false;
                         Helpers.Settings.Calificar = true;               
                         break;
+                    case "5":
+                        Helpers.Settings.Pedidos = false;
+                        Helpers.Settings.IdDistribuidor = new int();
+
+                        break;
                 }
 
                 SendNotification(msg);

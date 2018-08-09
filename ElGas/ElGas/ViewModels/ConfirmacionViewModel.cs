@@ -33,16 +33,25 @@ namespace ElGas.ViewModels
                 }
                 if (cilindros != "" && cilindros != null)
                 {
-                    Valor = (int.Parse(cilindros) * 3.5) + "$";
+                    Valor = "$"+(int.Parse(cilindros) * Settings.Precio).ToString("N2");
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Valor"));
                 }
                 else
                 {
-                    Valor = "0$";
+                    Valor = "$0";
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Valor"));
                 }
             }
         }
+
+        public string direccion = "";
+        public string Direccion
+        {
+            get { return direccion; }
+            set { direccion = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Direccion")); }
+
+        }
+
         public string Valor { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public MapSpan centerSearch = null;
@@ -80,6 +89,7 @@ namespace ElGas.ViewModels
             CenterSearch = centerSearch;
             locations = new ObservableCollection<TKCustomMapPin>();
             Locations.Add(posicion);
+            Direccion = Settings.Direccion;
 
         }
         #endregion
@@ -91,13 +101,13 @@ namespace ElGas.ViewModels
         {
             ApiServices apiServices = new ApiServices();
           
-                var action = await App.Current.MainPage.DisplayAlert("Confirmar", "Por favor confirmar la compra de "+cilindros+" cilindros por el valor de "+ Valor, "Confirmar", "Cancelar");
+                var action = await App.Current.MainPage.DisplayAlert("Confirmar", "Por favor confirmar la compra de "+cilindros+ " cilindros \nValor de " + Valor+ "\nDirección " + Direccion, "Confirmar", "Cancelar");
             if(action)
             {
                 Compra compra = new Compra
                 {
                     IdCliente=(int?)Settings.idCliente,
-                    ValorTotal=(double?)double.Parse(Valor.Replace("$","")),
+                    ValorTotal=(double?)double.Parse(Valor.Replace("$", "")),
                     Cantidad= (int?) int.Parse(Cilindros),
                     Estado=0,
                     Latitud=(double?) CenterSearch.Center.Latitude,
