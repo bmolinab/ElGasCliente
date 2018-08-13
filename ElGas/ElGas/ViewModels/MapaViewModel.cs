@@ -2,6 +2,8 @@
 using ElGas.Models;
 using ElGas.Pages;
 using ElGas.Services;
+using Firebase.Xamarin.Database;
+using Firebase.Xamarin.Database.Streaming;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using Newtonsoft.Json;
@@ -14,6 +16,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using TK.CustomMap;
@@ -65,6 +68,11 @@ namespace ElGas.ViewModels
         bool tracking;
 
 
+        private readonly string ElGAS_FIREBASE = "https://elgas-f24e8.firebaseio.com/-LJVkHULelfySFjNF9-Q/Equipo-ElGas/";
+        private readonly FirebaseClient _firebaseClient;
+
+  
+
         #endregion
         #region Events
 
@@ -83,12 +91,36 @@ namespace ElGas.ViewModels
                 }
             }
         }
+
+        //private ObservableCollection<DistribuidorFirebase> camiones=new ObservableCollection<DistribuidorFirebase>();
+
+        //public ObservableCollection<DistribuidorFirebase> Camiones
+        //{
+        //    get { return camiones; }
+        //    set
+        //    {
+        //        camiones = value; PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Camiones"));
+        //    }
+        //}
+
+
+        public ObservableCollection<DistribuidorFirebase> camiones;
+        public ObservableCollection<DistribuidorFirebase> Camiones
+        {
+            protected set
+            {
+                camiones = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Camiones"));
+            }
+            get { return camiones; }
+        }
+
         public ObservableCollection<TKCustomMapPin> locations;
         public ObservableCollection<TKCustomMapPin> Locations
         {
             protected set
             {
-                locations = Locations;
+                locations = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Locations"));
             }
             get { return locations; }
@@ -109,6 +141,10 @@ namespace ElGas.ViewModels
         #region Constructor
         public MapaViewModel()
         {
+            _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
+            camiones = new ObservableCollection<DistribuidorFirebase>();
+            Camiones = new ObservableCollection<DistribuidorFirebase>();
+
             geoCoder = new Xamarin.Forms.Maps.Geocoder();
             Locations = new ObservableCollection<TKCustomMapPin>();
             locations = new ObservableCollection<TKCustomMapPin>();
@@ -211,31 +247,120 @@ namespace ElGas.ViewModels
                         return;
                     }
                     CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(position.Latitude, position.Longitude)), Distance.FromMiles(.5)));
-                    var Distribuidores = await apiService.DistribuidoresCercanos(new Models.Posicion { Latitud = position.Latitude, Longitud = position.Longitude });
-                    Locations.Clear();
-                    Point p = new Point(0.48, 0.96);
+                #region Forma Antigua
 
-                        foreach (var distribuidor in Distribuidores)
-                        {
-                            var Pindistribuidor = new TKCustomMapPin
-                            {
-                                Image = "camion",
-                                Position = new TK.CustomMap.Position((double)distribuidor.Latitud, (double)distribuidor.Longitud),
-                                Anchor = p,
-                                ShowCallout = true,
-                            };
-                            Debug.WriteLine(Pindistribuidor.Image);
-                            Locations.Add(Pindistribuidor);
-                        }
-                        Debug.WriteLine(Distribuidores.Count);
-                
+                //var Distribuidores = await apiService.DistribuidoresCercanos(new Models.Posicion { Latitud = position.Latitude, Longitud = position.Longitude });
+                //    Locations.Clear();
+                //    Point p = new Point(0.48, 0.96);
+
+                //        foreach (var distribuidor in Distribuidores)
+                //        {
+                //            var Pindistribuidor = new TKCustomMapPin
+                //            {
+                //                Image = "camion",
+                //                Position = new TK.CustomMap.Position((double)distribuidor.Latitud, (double)distribuidor.Longitud),
+                //                Anchor = p,
+                //                ShowCallout = true,
+                //            };
+                //            Debug.WriteLine(Pindistribuidor.Image);
+                //            Locations.Add(Pindistribuidor);
+                //        }
+                //        Debug.WriteLine(Distribuidores.Count);
+                #endregion
+
+                #region Forma Firebase
+
+                    Locations.Clear();
+                   // Point p = new Point(0.48, 0.96);
+
+                _firebaseClient
+                .Child("Distribuidores")
+                .AsObservable<DistribuidorFirebase>()
+                .Subscribe(d =>
+                {
+                    if (d.EventType == FirebaseEventType.InsertOrUpdate)
+                    {
+                        Device.BeginInvokeOnMainThread(() => {
+                            AdicionarPedido(d.Key, d.Object);
+                        });
+
+                    }
+                    if (d.EventType == FirebaseEventType.Delete)
+                    {
+                        //accion para borrar
+                    }
+
+                });
+                #endregion
+
+
 
             }
             catch (Exception ex)
              {
                 Debug.WriteLine("Uh oh", "Something went wrong, but don't worry we captured for analysis! Thanks.", "OK");
              }            
+        }
+
+
+        #region Tareas
+
+        private void AdicionarPedido(string key, DistribuidorFirebase pedido)
+        {
+           // Locations.Clear();
+            Point p = new Point(0.48, 0.96);
+
+
+            var found = Camiones.FirstOrDefault(x => x.id == pedido.id);
+            if (found != null)
+            {
+                int i = Camiones.IndexOf(found);
+                Camiones[i] = pedido;
+
+                int y = Locations.IndexOf( Locations.FirstOrDefault(x => x.ID == pedido.id.ToString()));
+
+                Locations.RemoveAt(y);
+                var Pindistribuidor = new TKCustomMapPin
+                {
+                    Image = "camion",
+                    Position = new TK.CustomMap.Position((double)pedido.Latitud, (double)pedido.Longitud),
+                    Anchor = p,
+                    ShowCallout = true,
+                    ID = pedido.id.ToString()
+                };
+                Locations.Add(Pindistribuidor);
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Locations"));
+
             }
+
+            else
+            {
+
+                Camiones.Add(new DistribuidorFirebase()
+                {
+                    id = pedido.id,
+                    Latitud = pedido.Latitud,
+                    Longitud = pedido.Longitud,
+                });
+                var Pindistribuidor = new TKCustomMapPin
+                {
+                    Image = "camion",
+                    Position = new TK.CustomMap.Position((double)pedido.Latitud, (double)pedido.Longitud),
+                    Anchor = p,
+                    ShowCallout = true,
+                    ID = pedido.id.ToString()
+                };
+                Locations.Add(Pindistribuidor);
+
+            }
+
+
+        }
+
+        #endregion
+
+
+
         #region commands
         public ICommand BuyCommand { get { return new RelayCommand(Buy); } }
         private async void Buy()

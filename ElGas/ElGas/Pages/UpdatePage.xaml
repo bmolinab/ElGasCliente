@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ElGas.Pages.UpdatePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Actualizacion disponible"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Descarga la nueva app para continuar usando nuestro servicio"/>
+            <Button Text="Actualizar"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
