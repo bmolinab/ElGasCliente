@@ -49,7 +49,10 @@ namespace ElGas.Droid
                 }
             }
             FacebookClientManager.Initialize(this);
+
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+
             LeoJHarris.FormsPlugin.Droid.EnhancedEntryRenderer.Init(this);
 
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Plugin.FacebookClient;
+using TK.CustomMap.iOSUnified;
 using UIKit;
+
 
 namespace ElGas.iOS
 {
@@ -22,10 +25,37 @@ namespace ElGas.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Rg.Plugins.Popup.Popup.Init();
+
             global::Xamarin.Forms.Forms.Init();
+            LeoJHarris.FormsPlugin.iOS.EnhancedEntryRenderer.Init();
+            Xamarin.FormsMaps.Init();
+
+            var renderer = new TKCustomMapRenderer();
+
             LoadApplication(new App());
+
+
+            FacebookClientManager.Initialize(app, options);
 
             return base.FinishedLaunching(app, options);
         }
+
+        public override void OnActivated(UIApplication uiApplication)
+        {
+            base.OnActivated(uiApplication);
+            FacebookClientManager.OnActivated();
+        }
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            return FacebookClientManager.OpenUrl(app, url, options);
+        }
+
+        public override bool OpenUrl(UIApplication application, NSUrl url, string sourceApplication, NSObject annotation)
+        {
+            return FacebookClientManager.OpenUrl(application, url, sourceApplication, annotation);
+        }
+
     }
 }

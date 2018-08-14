@@ -1,14 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="White"
+             NavigationPage.HasBackButton="False"
+             
+             NavigationPage.HasNavigationBar="False"
              x:Class="ElGas.Pages.UpdatePage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Actualizacion disponible"
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+           
+            <Label Text="Actualización disponible"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Label Text="Descarga la nueva app para continuar usando nuestro servicio"/>
-            <Button Text="Actualizar"></Button>
+                HorizontalOptions="CenterAndExpand"
+                       FontFamily="calibril.ttf#Calibri Light"
+                       TextColor="#0072C6"
+                       FontSize="Large"
+                       />
+            <Image Source="ElGas.png" WidthRequest="90" HeightRequest="90"/>
+            <Label Text="Descarga la nueva app para continuar usando nuestro servicio" 
+                       FontFamily="calibril.ttf#Calibri Light"
+                       TextColor="#0072C6"
+                       FontSize="Medium"/>
+            <Button Text="Actualizar" 
+                        BackgroundColor="#0072C6" 
+                        TextColor="White"
+                        FontFamily="calibril.ttf#Calibri Light"
+                        Clicked="Button_Clicked"    
+                        ></Button>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -18,6 +18,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using TK.CustomMap;
 using Xamarin.Forms;
@@ -151,7 +152,11 @@ namespace ElGas.ViewModels
 
 
             centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
-            loadParametros();
+
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await loadParametros();
+            }); 
 
             LoadVendedores();
 
@@ -170,9 +175,7 @@ namespace ElGas.ViewModels
             LoadVendedores();
             //Do whatever you like in here
 
-        }
-
-     
+        }     
         async void ObtenerDireccion(double lat, double lon)
         {
             var position = new Xamarin.Forms.Maps.Position(lat, lon);
@@ -185,7 +188,7 @@ namespace ElGas.ViewModels
             }
         }
 
-        public async void loadParametros()
+        public async Task<bool> loadParametros()
         {
             Cliente cliente = new Cliente
             {
@@ -195,16 +198,34 @@ namespace ElGas.ViewModels
             var response = await ApiServices.InsertarAsync<Cliente>(cliente, new Uri(Constants.BaseApiAddress), "/api/Parametroes/GetAllParameters");
             var parametros = JsonConvert.DeserializeObject<List<Parametro>>(response.Result.ToString());
             if (parametros!=null)
+
             {
+                bool Actualizado = true;
                 foreach (var item in parametros)
                 {
                     if (item.Nombre== "valor")
                     {
                         Settings.Precio =(double) item.Valor;
                     }
+                    if(item.Nombre== "versioncliente")
+                    {
+                        if(Constants.VersionCliente >= item.Valor)
+                        {
+                            Actualizado = true;
+                        }
+                        else
+                        {
+                            Actualizado = false;
+                        }
+                    }
                 }
+                if(!Actualizado) await App.Navigator.PushAsync(new UpdatePage());
+
+
             }
-            
+            return true;
+
+
 
         }
         public async void LoadVendedores()
@@ -239,7 +260,7 @@ namespace ElGas.ViewModels
 
                 var locator = CrossGeolocator.Current;
                     locator.DesiredAccuracy = 10;//DesiredAccuracy.Value;
-                    Debug.WriteLine("Getting gps...");
+                    Debug.WriteLine("Consiguiendo localización...");
                     var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(3), null, true);
                     if (position == null)
                     {
@@ -298,19 +319,20 @@ namespace ElGas.ViewModels
             }
             catch (Exception ex)
              {
-                Debug.WriteLine("Uh oh", "Something went wrong, but don't worry we captured for analysis! Thanks.", "OK");
+                Debug.WriteLine("Uh oh", "Algo salió mal, ¡pero no te preocupes capturamos para el análisis! Gracias.", "OK");
              }            
         }
-
-
         #region Tareas
 
         private void AdicionarPedido(string key, DistribuidorFirebase pedido)
         {
            // Locations.Clear();
+
+           if (!isVisible)
+            {
+
+            
             Point p = new Point(0.48, 0.96);
-
-
             var found = Camiones.FirstOrDefault(x => x.id == pedido.id);
             if (found != null)
             {
@@ -332,7 +354,6 @@ namespace ElGas.ViewModels
                 //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Locations"));
 
             }
-
             else
             {
 
@@ -353,7 +374,7 @@ namespace ElGas.ViewModels
                 Locations.Add(Pindistribuidor);
 
             }
-
+            }
 
         }
 
@@ -371,6 +392,7 @@ namespace ElGas.ViewModels
              CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(lat, lon)), Distance.FromMiles(.10)));
 
             Locations.Clear();
+            Camiones.Clear();
 
             Locations.Add(new TKCustomMapPin
             {
