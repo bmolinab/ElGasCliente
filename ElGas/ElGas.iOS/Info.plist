@@ -34,11 +34,6 @@
 	<string>ElGas</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
-	<key>CFBundleShortVersionString</key>
-<string></string>
-<key>NSLocationAlwaysUsageDescription</key>
-<string>Your message goes here</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Can we use your position?</string>
+
 </dict>
 </plist>
