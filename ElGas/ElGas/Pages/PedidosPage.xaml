@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ElGas.Pages.PedidosPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Mis Pedidos"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+
+            <ScrollView  Margin="20,10,20,10">
+                <ListView x:Name="ListLocation" ItemsSource="{Binding ListaCompra}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout 
+                                        Orientation="Horizontal"  >
+                                    <Image Source="{Binding Estado}"></Image>
+                                    <StackLayout  WidthRequest="200"
+                                        Orientation="Vertical">
+                                        <Label Text="{Binding Valor}" 
+                                         TextColor="Black" />
+                                        <Label Text="{Binding Fecha}" FontSize="Small"
+                                         TextColor="Black" />
+                                    </StackLayout>
+                                    <StackLayout>
+                                    <Button Text="Detalle" 
+                                            Command="{Binding Source={x:Reference ListLocation}, Path=BindingContext.TapCommand}" 
+                                            CommandParameter="{Binding}" 
+                                            BackgroundColor="{StaticResource AccentColor1}"  
+                                            TextColor="White"/>
+                                        <Button Text="Cancelar"></Button>
+                                    </StackLayout>
+                                    
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
