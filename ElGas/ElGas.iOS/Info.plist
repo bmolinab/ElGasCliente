@@ -32,8 +32,11 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>ElGas</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Permiso</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
-
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>permiso</string>
 </dict>
 </plist>
