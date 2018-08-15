@@ -216,4 +216,82 @@
       <Name>ElGas</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\camion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\casa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\closecircle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ElGas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\iccall.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\iccheck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icdate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icdirection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\iclauncher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icpay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\imgheaderbackground1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\imgheaderbackground2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\lastpass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\menucircle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\outercircle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\phone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pincamion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pincliente.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\routes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\splash_background.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\splashLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\TabElGas.png" />
+  </ItemGroup>
 </Project>
