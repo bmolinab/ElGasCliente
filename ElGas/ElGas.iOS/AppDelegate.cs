@@ -25,6 +25,8 @@ namespace ElGas.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            FacebookClientManager.Initialize(app, options);
+
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();
             
@@ -37,7 +39,6 @@ namespace ElGas.iOS
             LoadApplication(new App());
 
 
-            FacebookClientManager.Initialize(app, options);
 
 
 

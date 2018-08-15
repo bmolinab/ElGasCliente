@@ -14,7 +14,6 @@
     <PackageReference Include="Plugin.FacebookClient" Version="1.4.0" />
     <PackageReference Include="Plugin.Permissions" Version="3.0.0.12" />
     <PackageReference Include="Plugin.Share" Version="7.1.1" />
-    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.158-pre" />
     <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="16.2.0.41" />
     <PackageReference Include="System.Security.Cryptography.Cng" Version="4.5.0" />
     <PackageReference Include="TK.CustomMap" Version="2.0.1" />
@@ -24,6 +23,7 @@
     <PackageReference Include="Xam.Plugins.Settings" Version="4.0.0.10-beta" />
     <PackageReference Include="Xamarin.Forms" Version="3.0.0.482510" />
     <PackageReference Include="Xamarin.Forms.Maps" Version="3.0.0.482510" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="1.1.4.168" />
   </ItemGroup>
 
   <ItemGroup>
