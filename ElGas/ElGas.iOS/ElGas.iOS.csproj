@@ -196,11 +196,17 @@
     <PackageReference Include="Xamarin.Forms.Maps">
       <Version>3.0.0.482510</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Azure.NotificationHubs.iOS-updated">
+      <Version>1.2.5.3</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\ElGas\ElGas.csproj">
-      <Project>{1F9FAD21-BAD1-4A92-B358-73EC449DAC0B}</Project>
+      <Project>{387901C1-4BA7-48CB-AD77-2BC78CC9DB39}</Project>
       <Name>ElGas</Name>
     </ProjectReference>
   </ItemGroup>

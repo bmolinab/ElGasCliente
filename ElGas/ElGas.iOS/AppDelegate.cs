@@ -25,18 +25,21 @@ namespace ElGas.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            Rg.Plugins.Popup.Popup.Init();
-
             global::Xamarin.Forms.Forms.Init();
-            LeoJHarris.FormsPlugin.iOS.EnhancedEntryRenderer.Init();
             Xamarin.FormsMaps.Init();
+            
+            Rg.Plugins.Popup.Popup.Init();
+            LeoJHarris.FormsPlugin.iOS.EnhancedEntryRenderer.Init();
 
             var renderer = new TKCustomMapRenderer();
+          
 
             LoadApplication(new App());
 
 
             FacebookClientManager.Initialize(app, options);
+
+
 
             return base.FinishedLaunching(app, options);
         }
