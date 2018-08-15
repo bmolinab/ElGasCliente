@@ -34,6 +34,7 @@
 	<string>ElGas</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+<<<<<<< HEAD
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -55,5 +56,13 @@
 	<array>
 		<string>location</string>
 	</array>
+=======
+	<key>CFBundleShortVersionString</key>
+<string></string>
+<key>NSLocationAlwaysUsageDescription</key>
+<string>Your message goes here</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Can we use your position?</string>
+>>>>>>> 5feacc208d44aa5c4a39e25cd3c45a52cc1e0f08
 </dict>
 </plist>
