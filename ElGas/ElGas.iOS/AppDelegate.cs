@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using LeoJHarris.FormsPlugin.iOS;
 using Plugin.FacebookClient;
 using TK.CustomMap.iOSUnified;
 using UIKit;
@@ -26,21 +27,12 @@ namespace ElGas.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            Xamarin.FormsMaps.Init();
-            
+            Xamarin.FormsMaps.Init();            
             Rg.Plugins.Popup.Popup.Init();
-            LeoJHarris.FormsPlugin.iOS.EnhancedEntryRenderer.Init();
-
-            var renderer = new TKCustomMapRenderer();
-          
-
+           EnhancedEntryRenderer.Init();
+            var renderer = new TKCustomMapRenderer();          
             LoadApplication(new App());
-
-
             FacebookClientManager.Initialize(app, options);
-
-
-
             return base.FinishedLaunching(app, options);
         }
 
