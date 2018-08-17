@@ -52,6 +52,8 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <CodesignProvision />
+    <MtouchLink>None</MtouchLink>
+    <OptimizePNGs>false</OptimizePNGs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -202,9 +204,6 @@
     <PackageReference Include="Xamarin.Azure.NotificationHubs.iOS-updated">
       <Version>1.2.5.3</Version>
     </PackageReference>
-    <PackageReference Include="Rg.Plugins.Popup">
-      <Version>1.1.4.168</Version>
-    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRating">
       <Version>16.2.0.46</Version>
     </PackageReference>
@@ -213,6 +212,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms.Maps">
       <Version>3.1.0.697729</Version>
+    </PackageReference>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.1.4.168</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

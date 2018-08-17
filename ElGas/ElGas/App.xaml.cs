@@ -7,7 +7,7 @@ using TK.CustomMap.Api.Google;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-//[assembly: XamlCompilation (XamlCompilationOptions.Compile)]
+[assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace ElGas
 {
 	public partial class App : Application

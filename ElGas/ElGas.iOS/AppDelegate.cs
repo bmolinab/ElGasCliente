@@ -30,7 +30,6 @@ namespace ElGas.iOS
                 Forms.Init();
             Xamarin.FormsMaps.Init();
             
-            Rg.Plugins.Popup.Popup.Init();
             LeoJHarris.FormsPlugin.iOS.EnhancedEntryRenderer.Init();
 
             var renderer = new TKCustomMapRenderer();          

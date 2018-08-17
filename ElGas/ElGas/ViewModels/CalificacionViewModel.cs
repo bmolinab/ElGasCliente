@@ -2,13 +2,13 @@
 using ElGas.Models;
 using ElGas.Services;
 using GalaSoft.MvvmLight.Command;
-using Rg.Plugins.Popup.Services;
 using Syncfusion.SfRating.XForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
+using Rg.Plugins.Popup.Services;
 
 namespace ElGas.ViewModels
 {

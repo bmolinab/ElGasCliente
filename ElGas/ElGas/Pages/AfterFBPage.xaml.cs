@@ -11,7 +11,7 @@ using Xamarin.Forms.Xaml;
 
 namespace ElGas.Pages
 {
-	//[XamlCompilation(XamlCompilationOptions.Compile)]
+	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AfterFBPage : ContentPage
 	{
 		public AfterFBPage (FacebookProfile facebookProfile)
