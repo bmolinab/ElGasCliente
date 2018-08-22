@@ -173,6 +173,8 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\drawable\LoginFacebook.png" />
+    <AndroidResource Include="Resources\drawable\facebook_login.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\imgheaderbackground1.png" />

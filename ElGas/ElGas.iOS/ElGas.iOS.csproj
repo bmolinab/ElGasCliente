@@ -239,5 +239,7 @@
     <BundleResource Include="Resources\routes.png" />
     <BundleResource Include="Resources\splashLogo.png" />
     <BundleResource Include="Resources\TabElGas.png" />
+    <BundleResource Include="Resources\LoginFacebook.png" />
+    <BundleResource Include="Resources\facebook_login.png" />
   </ItemGroup>
 </Project>
