@@ -12,11 +12,18 @@ namespace ElGas.ViewModels
             get;
             set;        
         }
+
+        public MapaViewModel Mapa
+        {
+            get;
+            set;
+        }
         #endregion
         #region Constructor
         public MainViewModel()
         {
-            this.Login = new LoginViewModel();
+            //this.Login = new LoginViewModel();
+            this.Mapa = new MapaViewModel();
 
         }
         #endregion

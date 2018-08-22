@@ -150,10 +150,10 @@ namespace ElGas.ViewModels
                 case FacebookActionStatus.Canceled:
                     break;
                 case FacebookActionStatus.Unauthorized:
-                    await App.Current.MainPage.DisplayAlert("Unauthorized", response.Message, "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Unauthorized", response.Message, "Ok");
                     break;
                 case FacebookActionStatus.Error:
-                    await App.Current.MainPage.DisplayAlert("Error", response.Message, "Ok");
+                    await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Ok");
                     break;
             }
 
@@ -193,7 +193,7 @@ namespace ElGas.ViewModels
             }
             else
             {
-                await App.Current.MainPage.Navigation.PushAsync(new AfterFBPage(Profile));
+                await Application.Current.MainPage.Navigation.PushAsync(new AfterFBPage(Profile));
             }
             //   Debug.WriteLine(data.Count);
         }
@@ -201,8 +201,23 @@ namespace ElGas.ViewModels
         public ICommand RegisterCommand { get { return new RelayCommand(Register); } }
         private async void Register()
         {
-            App.Current.MainPage = new NavigationPage(new RegisterPage());
+            await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
         }
+
+       
+        ICommand tapCommand;
+       
+        public ICommand TapCommand
+        {
+            get { return tapCommand; }
+        }
+        private async  void OnTapped(object s)
+        {
+            
+            await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+        }
+
+
 
         #endregion
 
@@ -212,8 +227,14 @@ namespace ElGas.ViewModels
         {
             Username = Settings.Username;
             Password = Settings.Password;
-          //  permisos();
+            tapCommand = new Command(OnTapped);
+           
+           // permisos();
         }
         #endregion
+
+
+
+
     }
 }

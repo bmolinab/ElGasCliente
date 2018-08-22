@@ -32,7 +32,28 @@
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
 	<string>ElGas</string>
+	<key>FacebookDisplayName</key>
+	<string></string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb271035156827517</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbauth2</string>
+	</array>
+	<key>FacebookAppID</key>
+	<string>271035156827517</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>New Entry</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>New Entry</string>
 </dict>
 </plist>

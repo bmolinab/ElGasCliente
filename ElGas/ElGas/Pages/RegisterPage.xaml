@@ -1,17 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ElGas.Pages.RegisterPage"
              NavigationPage.HasNavigationBar="False"
-             xmlns:enhancedEntry="clr-namespace:LeoJHarris.FormsPlugin.Abstractions;assembly=LeoJHarris.FormsPlugin.Abstractions"
              BackgroundColor="White">
     <ContentPage.Content>
 
         <StackLayout Margin="3" Padding="3">
 
-            <enhancedEntry:EnhancedEntry BorderColor="#0072C6" BorderWidth="2" LeftIcon="email" CornerRadius="2" Placeholder="Correo" Keyboard="Email" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding Username}" Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
-            <enhancedEntry:EnhancedEntry BorderColor="#0072C6" LeftIcon="lastpass" Text="{Binding Password}" BorderWidth="2" CornerRadius="2" IsPassword="True"  Placeholder="Contraseña" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"     Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
-            <enhancedEntry:EnhancedEntry BorderColor="#0072C6" LeftIcon="lastpass" Text="{Binding ConfirmPassword}" BorderWidth="2" CornerRadius="2" IsPassword="True"  Placeholder="Confirmar contraseña" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"  Margin="5,3,5,3"></enhancedEntry:EnhancedEntry>
+            <Entry  Placeholder="Correo" Keyboard="Email" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding Username}" Margin="5,3,5,3"/>
+            <Entry Text="{Binding Password}"  IsPassword="True"  Placeholder="Contraseña" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"     Margin="5,3,5,3"/>
+            <Entry Text="{Binding ConfirmPassword}" IsPassword="True"  Placeholder="Confirmar contraseña" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"  Margin="5,3,5,3"/>
             <Button 
                         Text="Siguiente"
                         BackgroundColor="#0072C6"

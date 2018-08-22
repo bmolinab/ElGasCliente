@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 
 using Foundation;
-using LeoJHarris.FormsPlugin.iOS;
 using Plugin.FacebookClient;
 using TK.CustomMap.iOSUnified;
 using UIKit;
@@ -29,7 +26,7 @@ namespace ElGas.iOS
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();            
             Rg.Plugins.Popup.Popup.Init();
-           EnhancedEntryRenderer.Init();
+         //  EnhancedEntryRenderer.Init();
             var renderer = new TKCustomMapRenderer();          
             LoadApplication(new App());
             FacebookClientManager.Initialize(app, options);

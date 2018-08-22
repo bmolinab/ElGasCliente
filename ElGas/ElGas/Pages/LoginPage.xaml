@@ -1,7 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BindingContext="{Binding Main, Source={StaticResource Locator}}"
              NavigationPage.HasNavigationBar="False"
              x:Class="ElGas.Pages.LoginPage">
     <ContentPage.Resources>
@@ -117,7 +116,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <Grid BindingContext="{Binding Login}">
+        <Grid>
             <Grid 
                 RowSpacing="0">
                 <Grid.RowDefinitions>
@@ -217,21 +216,45 @@
                 <Grid
                     Grid.Row="1"
                     BackgroundColor="{StaticResource WhiteColor}">
+
                     <StackLayout
-                        Style="{StaticResource SignUpPanelStyle}">
+                        Style="{StaticResource SignUpPanelStyle}" >
+                       <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RegisterCommand}" 
+                                      NumberOfTapsRequired="1" />
+                        </StackLayout.GestureRecognizers>
+                        
                         <Label 
-                            Text="Power by"
+                            Text="¿No tienes cuenta?"
                             FontFamily="calibril.ttf#Calibri Light"
                             Style="{StaticResource SignUpTextStyle}"/>
-                        <Label
-                            Text="Digital Strategy"
+                        
+                       <Label
+                            Text="Crear una"
                             FontFamily="calibril.ttf#Calibri Light"
-                            Style="{StaticResource SignUpAccentTextStyle}"/>
+                            Style="{StaticResource SignUpAccentTextStyle}"
+                            x:Name="RegisterLabel"
+                            > 
+                            <Label.GestureRecognizers>
+                                
+                                <TapGestureRecognizer
+                Command="{Binding TapCommand}"
+                                    CommandParameter="Register"
+                NumberOfTapsRequired="1" />
+                            </Label.GestureRecognizers>
+                            </Label> 
+
+                        
+                        <Image Source="camion.png">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding RegisterCommand}"
+                                CommandParameter="Image1" />
+                        </Image.GestureRecognizers>
+                    </Image>
+
+                        
                     </StackLayout>
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer 
-                            Command="{Binding RegisterCommand}" />
-                    </Grid.GestureRecognizers>
                 </Grid>
                 <!-- Sign in buttons -->
                 <StackLayout   
