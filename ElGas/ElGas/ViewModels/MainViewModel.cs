@@ -13,6 +13,12 @@ namespace ElGas.ViewModels
             set;        
         }
 
+        public RegisterViewModel Register
+        {
+            get;
+            set;
+        }
+
         public MapaViewModel Mapa
         {
             get;

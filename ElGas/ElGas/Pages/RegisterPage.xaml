@@ -2,25 +2,191 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ElGas.Pages.RegisterPage"
-             NavigationPage.HasNavigationBar="False"
-             BackgroundColor="White">
+             NavigationPage.HasNavigationBar="True"
+             BackgroundColor="White"
+             Title="Crear Cuenta"
+             >
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+             <Color x:Key="AccentColor">#BC4C1B</Color>
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
+            <Color x:Key="BlackColor">#000000</Color>
+            <Color x:Key="BlackTextColor">#253748</Color>
+            <Color x:Key="OrangeColor">#BC4C1B</Color>
+            <Color x:Key="BlueColor">#0072C6</Color>
+            <!-- FONT SIZES -->
+            <OnPlatform x:Key="LittleSize"
+                        x:TypeArguments="x:Double"
+                        iOS="11"
+                        Android="12"
+                        WinPhone="12"/>
+
+            <OnPlatform x:Key="MidMediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="12"
+                        Android="14"
+                        WinPhone="14"/>
+
+            <OnPlatform x:Key="MediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="14"
+                        Android="16"
+                        WinPhone="16"/>
+
+            <OnPlatform x:Key="LargeSize"
+                        x:TypeArguments="x:Double"
+                        iOS="16"
+                        Android="18"
+                        WinPhone="18"/>
+    
+    <Style x:Key="NormalStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackTextColor}" />
+            </Style>
+            
+           <Style x:Key="SignUpTextStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackTextColor}" />
+            </Style>
+
+            <Style x:Key="SignUpAccentTextStyle"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource SignUpTextStyle}">
+                <Setter Property="TextColor"
+                        Value="{StaticResource OrangeColor}" />
+            </Style>
+            
+            
+            
+            </ResourceDictionary>
+    </ContentPage.Resources>
+            
     <ContentPage.Content>
+    
 
-        <StackLayout Margin="3" Padding="3">
+        <StackLayout Margin="0,10,0,10" >
+            <StackLayout Margin="0,10,0,0">
+             <Image Source="facebook_login.png"
+                    
+                    VerticalOptions = "Center"
+                    WidthRequest = "280"
+                    
+                    >
+                   <Image.GestureRecognizers>
+                     <TapGestureRecognizer
+                        Command="{Binding LoginFB}"
+                        CommandParameter="ImageFB" 
+                    />
+                   </Image.GestureRecognizers>
+              </Image>
+                </StackLayout>
+            
+            <StackLayout Margin="15,30,15,30">
+             <Entry  Placeholder="Nombre" 
+                    
+                    FontFamily="calibril.ttf#Calibri Light"   
+                    Text="{Binding Cliente.Nombres}"
+                     HeightRequest = "40"
+                     
+            />
+            
+            <Entry  Placeholder="Apellido" 
+                    
+                    FontFamily="calibril.ttf#Calibri Light"   
+                    Text="{Binding  Cliente.Apellidos}"
+                     HeightRequest = "40"
+            />
 
-            <Entry  Placeholder="Correo" Keyboard="Email" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding Username}" Margin="5,3,5,3"/>
-            <Entry Text="{Binding Password}"  IsPassword="True"  Placeholder="Contraseña" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"     Margin="5,3,5,3"/>
-            <Entry Text="{Binding ConfirmPassword}" IsPassword="True"  Placeholder="Confirmar contraseña" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"  Margin="5,3,5,3"/>
-            <Button 
-                        Text="Siguiente"
-                        BackgroundColor="#0072C6"
-                        TextColor="#FFFFFF"
-                FontSize="Large"
-                        BorderRadius="30"
- Margin="5,3,5,3"
-                FontFamily="calibril.ttf#Calibri Light"
-                Command="{Binding NextCommand}"
-                />
+            <Entry  Placeholder="Email" 
+                    Keyboard="Email" 
+                    FontFamily="calibril.ttf#Calibri Light"   
+                    Text="{Binding Username}" 
+                     HeightRequest = "40"
+            />
+            
+            <Entry Text="{Binding Password}"  
+                   IsPassword="True"  
+                   Placeholder="Contraseña" 
+                   Keyboard="Chat" 
+                   FontFamily="calibril.ttf#Calibri Light" 
+                    HeightRequest = "40"
+                  
+                   
+             />
+            
+            <Entry 
+                    Text="{Binding ConfirmPassword}" 
+                    IsPassword="True"  
+                    Placeholder="Confirmar contraseña" 
+                    Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"  
+                 HeightRequest = "40"
+                    
+            
+            />
+            
+            </StackLayout>
+            
+            <StackLayout
+                    Margin="8,0"
+                    Orientation="Horizontal"
+                    VerticalOptions="CenterAndExpand">
+                
+                <Switch
+                        IsToggled="{Binding AcceptPolicy, Mode=TwoWay}"
+                        HorizontalOptions="End">
+                </Switch>
+                
+                <Label
+                        HorizontalOptions="StartAndExpand"
+                        Text="He leído y estoy de acuerdo con los Términos y condiciones y las Políticas y tratamiento de datos personales"
+                        VerticalOptions="Center"
+                        FontFamily="calibril.ttf#Calibri Light"
+                        Style="{StaticResource SignUpAccentTextStyle}"
+                        FontSize = "Micro"
+                 >
+                    <Label.GestureRecognizers>
+                                
+                   <TapGestureRecognizer
+                         Command="{Binding Policy}"
+                         CommandParameter="Register"
+                         NumberOfTapsRequired="1" 
+                        
+                    />
+                    </Label.GestureRecognizers>
+                   
+                    </Label>
+                 
+                   
+              </StackLayout>
+            
+            <Label
+                       Text="Siguiente"
+                       FontFamily="calibril.ttf#Calibri Light"
+                       Style="{StaticResource SignUpAccentTextStyle}"
+                        x:Name="Login"
+                     HorizontalOptions="CenterAndExpand"
+                     FontSize = "Medium"
+                  VerticalOptions="FillAndExpand"
+                   > 
+                   <Label.GestureRecognizers>
+                                
+                   <TapGestureRecognizer
+                         Command="{Binding NextCommand}"
+                         CommandParameter="Register"
+                         NumberOfTapsRequired="1" 
+                        
+                    />
+                    </Label.GestureRecognizers>
+                    </Label>
+            
+           
         </StackLayout>
     </ContentPage.Content>    
 </ContentPage>

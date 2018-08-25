@@ -22,5 +22,7 @@ namespace ElGas.Pages
             BindingContext = ViewModels;
 
         }
+
+       
     }
 }

@@ -2,40 +2,135 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="White"
-             NavigationPage.HasNavigationBar="False"
-             x:Class="ElGas.Pages.RegisterPage2">
-    <ContentPage.Content>
-        <StackLayout Margin="3" Padding="3">
+             NavigationPage.HasNavigationBar="True"
+             x:Class="ElGas.Pages.RegisterPage2"
+             Title="Contacto"
+             >
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+             <Color x:Key="AccentColor">#BC4C1B</Color>
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
+            <Color x:Key="BlackColor">#000000</Color>
+            <Color x:Key="BlackTextColor">#253748</Color>
+            <Color x:Key="OrangeColor">#BC4C1B</Color>
+            <Color x:Key="BlueColor">#0072C6</Color>
+            <!-- FONT SIZES -->
+            <OnPlatform x:Key="LittleSize"
+                        x:TypeArguments="x:Double"
+                        iOS="11"
+                        Android="12"
+                        WinPhone="12"/>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Entry Grid.Column="0"  Placeholder="Nombre" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding Cliente.Nombres}" Margin="5,3,5,3"/>
-                <Entry  Grid.Column="1"  Placeholder="Apellido" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding  Cliente.Apellidos}" Margin="5,3,5,3"/>
-            </Grid>
-            <Entry  Placeholder="Teléfono" Keyboard="Numeric" FontFamily="calibril.ttf#Calibri Light"   Text="{Binding Cliente.Telefono}" Margin="5,3,5,3"/>
-            <Label Text="Dirección:" FontFamily="calibril.ttf#Calibri Light"></Label>
+            <OnPlatform x:Key="MidMediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="12"
+                        Android="14"
+                        WinPhone="14"/>
+
+            <OnPlatform x:Key="MediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="14"
+                        Android="16"
+                        WinPhone="16"/>
+
+            <OnPlatform x:Key="LargeSize"
+                        x:TypeArguments="x:Double"
+                        iOS="16"
+                        Android="18"
+                        WinPhone="18"/>
+    
+    <Style x:Key="NormalStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackTextColor}" />
+            </Style>
+            
+           <Style x:Key="SignUpTextStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackTextColor}" />
+            </Style>
+
+            <Style x:Key="SignUpAccentTextStyle"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource SignUpTextStyle}">
+                <Setter Property="TextColor"
+                        Value="{StaticResource OrangeColor}" />
+            </Style>
+            
+            
+            
+            </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    
+    <ContentPage.Content>
+        <StackLayout Margin="0,10,0,10" >
+              <StackLayout Margin="15,30,15,30"> 
+            <Picker   
+                ItemsSource = "{Binding Ciudades}"
+                HeightRequest="40"
+                Title="Ciudad"  
+                SelectedIndexChanged="{Binding CiudadSeleccionadaCommand}" 
+                
+                >
+            </Picker>
+                
+            <Picker   
+                ItemsSource = "{Binding Sectores}"
+                HeightRequest="40"
+                Title="Sector"    
+                >
+            </Picker>
+
+        
+           
+           
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="7*" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
-                <Entry Grid.Column="0"  Placeholder="Calle principal" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"  Text="{Binding CalleUno}" Margin="5,3,5,3"/>
-                <Entry Grid.Column="1"  Placeholder="Nº" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"    Text="{Binding Numero}" Margin="5,3,5,3"/>
+                <Entry Grid.Column="0"  
+                       Placeholder="Calle principal" 
+                       Keyboard="Chat" 
+                       FontFamily="calibril.ttf#Calibri Light"  
+                       Text="{Binding CalleUno}" 
+                       HeightRequest = "40"/>
+                
+                <Entry Grid.Column="1"  
+                       Placeholder="Nº" 
+                       Keyboard="Chat" 
+                       FontFamily="calibril.ttf#Calibri Light"    
+                       Text="{Binding Numero}" 
+                       HeightRequest = "40"/>
 
             </Grid>
-            <Entry  Placeholder="Calle Secundaria" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"    Text="{Binding CalleDos}" Margin="5,3,5,3"/>
-            <Entry  Placeholder="Sector" Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"    Text="{Binding Sector}" Margin="5,3,5,3"/>
-            <Button 
-                Grid.Row="4" 
-                        Text="Registrarme"
-                        BackgroundColor="#0072C6"
-                        Command="{Binding RegisterCommand}"
-                        TextColor="#FFFFFF"
-                FontFamily="calibril.ttf#Calibri Light"
-                        BorderRadius="30"/>
+            
+            <Entry  
+                Placeholder="Calle Secundaria" 
+                Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"    
+                Text="{Binding CalleDos}" 
+                HeightRequest = "40"/>
+            
+             <Entry  
+                Placeholder="Teléfono" 
+                Keyboard="Numeric" 
+                FontFamily="calibril.ttf#Calibri Light"   
+                Text="{Binding Cliente.Telefono}" 
+                HeightRequest = "40"
+            />
+            <Entry  Placeholder="Sector" 
+                    Keyboard="Chat" 
+                    FontFamily="calibril.ttf#Calibri Light"    
+                    Text="{Binding Sector}" 
+                    HeightRequest = "40"/>
+            
             <ActivityIndicator 
                 Color="#0072C6"
                 IsRunning="{Binding IsBusy}" 
@@ -49,6 +144,29 @@
                     </OnPlatform>
                 </ActivityIndicator.WidthRequest>
             </ActivityIndicator>
+            
+           
+            
+             <Label
+                       Text="Crear Cuenta"
+                       FontFamily="calibril.ttf#Calibri Light"
+                       Style="{StaticResource SignUpAccentTextStyle}"
+                        x:Name="Login"
+                     HorizontalOptions="CenterAndExpand"
+                     FontSize = "Medium"
+                  VerticalOptions="FillAndExpand"
+                   > 
+                   <Label.GestureRecognizers>
+                                
+                   <TapGestureRecognizer
+                         Command="{Binding RegisterCommand}"
+                         CommandParameter="Register"
+                         NumberOfTapsRequired="1" 
+                        
+                    />
+                    </Label.GestureRecognizers>
+                    </Label>
+            </StackLayout>
         </StackLayout>
 
     </ContentPage.Content>

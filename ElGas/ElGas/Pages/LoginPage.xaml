@@ -125,8 +125,11 @@
     </ContentPage.Resources>
     
     <ContentPage.Content>
+   
+        
         <StackLayout
-            Margin="20,40,20,20"
+            Margin="8,40,8,20"
+            BackgroundColor="White"
             >
            <!-- <Grid Margin="0,30,0,0">
                 
@@ -146,7 +149,7 @@
                         <Image
                      
                     VerticalOptions="Start"
-                WidthRequest="200"
+                WidthRequest="150"
                            >
                             <Image.Source>
                                 <OnPlatform x:TypeArguments="ImageSource">
@@ -169,7 +172,7 @@
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>-->
             
-            <StackLayout Margin="0,40,0,0">
+            <StackLayout Margin="0,30,0,0">
              <Image Source="facebook_login.png"
                     
                     VerticalOptions = "Center"
@@ -186,7 +189,7 @@
                 </StackLayout>
                 
            <!-- </Grid>-->
-            <StackLayout Margin="0,20,0,0">
+            <StackLayout Margin="0,15,0,0">
             <Label
                       Text="O ingresa con tu cuenta:"
                       FontFamily="calibril.ttf#Calibri Light"
@@ -221,7 +224,8 @@
                         Keyboard="Email"
                         FontFamily="calibril.ttf#Calibri Light"
                         Text="{Binding Username, Mode=TwoWay}"
-                        Placeholder="Correo Electrónico"
+                        Placeholder="Email"
+                        HeightRequest = "40"
                 
                 
                 >
@@ -242,7 +246,8 @@
                         Text="{Binding Password, Mode=TwoWay}"
                         Placeholder="Contraseña"
                         Grid.Row="2"
-                        Grid.Column ="0"    
+                        Grid.Column ="0" 
+                    HeightRequest = "40"
                     >
                         
                         <Entry.TextColor>
@@ -254,12 +259,12 @@
                     </Entry>
                 
                  <StackLayout
-                    Margin="10,0"
+                    Margin="8,0"
                     Orientation="Horizontal"
                     VerticalOptions="CenterAndExpand">
                 <Label
                         HorizontalOptions="StartAndExpand"
-                        Text="Recuérdame en este dispositivo"
+                        Text="Recuérdame aquí"
                         VerticalOptions="Center"
                     FontFamily="calibril.ttf#Calibri Light"
                       Style="{StaticResource SignUpTextStyle}"
@@ -406,5 +411,6 @@
             
            
             </StackLayout>
+            
     </ContentPage.Content>
 </ContentPage>
