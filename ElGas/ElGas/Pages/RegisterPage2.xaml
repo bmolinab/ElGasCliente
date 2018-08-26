@@ -76,15 +76,19 @@
                 ItemsSource = "{Binding Ciudades}"
                 HeightRequest="40"
                 Title="Ciudad"  
-                SelectedIndexChanged="{Binding CiudadSeleccionadaCommand}"
+                    SelectedItem = "{Binding CiudadSeleccionada}"
+                
                 
                 >
             </Picker>
                 
             <Picker   
-                ItemsSource = "{Binding Sectores}"
+                ItemsSource = "{Binding SectoresPorCiudad}"
+                ItemDisplayBinding="{Binding Nombre}"
                 HeightRequest="40"
-                Title="Sector"    
+                Title="Sector" 
+                SelectedItem = "{Binding SectorSeleccionado}"
+                
                 >
             </Picker>
 
