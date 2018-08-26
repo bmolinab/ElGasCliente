@@ -15,6 +15,13 @@ namespace ElGas.Pages
 	{
         RegisterViewModel ViewModels ;
 
+        public RegisterPage2()
+        {
+           
+            InitializeComponent();
+            BindingContext = ViewModels;
+
+        }
         public RegisterPage2( Models.Cliente cliente)
 		{
             ViewModels = new RegisterViewModel(cliente);
@@ -23,6 +30,9 @@ namespace ElGas.Pages
 
         }
 
-       
+        private void Picker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

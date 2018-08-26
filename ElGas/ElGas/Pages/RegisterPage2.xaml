@@ -76,7 +76,7 @@
                 ItemsSource = "{Binding Ciudades}"
                 HeightRequest="40"
                 Title="Ciudad"  
-                SelectedIndexChanged="{Binding CiudadSeleccionadaCommand}" 
+                SelectedIndexChanged="{Binding CiudadSeleccionadaCommand}"
                 
                 >
             </Picker>
