@@ -4,6 +4,7 @@
              xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              x:Class="ElGas.Pages.PedidosPage">
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <ScrollView>
         <syncfusion:SfListView x:Name="ListaCompra" 
                    ItemsSource="{Binding ListaCompra}"
                    ItemSize="170">
@@ -70,5 +71,6 @@
                 </DataTemplate>
             </syncfusion:SfListView.ItemTemplate>
         </syncfusion:SfListView>
+        </ScrollView>
     </StackLayout>
 </ContentPage>

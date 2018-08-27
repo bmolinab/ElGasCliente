@@ -22,7 +22,8 @@
                 
             </tk:TKCustomMap>
 
-            <StackLayout Grid.Row="1" Margin="10,10,10,10">
+            <ScrollView Grid.Row="1">
+            <StackLayout  Margin="10,10,10,10">
 
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Dirección: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
@@ -63,6 +64,7 @@
                 </Button>
 
             </StackLayout>
+            </ScrollView>
 
 
         </Grid>
