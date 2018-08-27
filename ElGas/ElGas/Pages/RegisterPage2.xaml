@@ -67,6 +67,7 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Margin="0,10,0,10" >
+            <ScrollView>
               <StackLayout Margin="15,30,15,30"> 
             <Picker   
                 ItemsSource = "{Binding Ciudades}"
@@ -163,6 +164,7 @@
                     </Label.GestureRecognizers>
                     </Label>
             </StackLayout>
+            </ScrollView>
         </StackLayout>
 
     </ContentPage.Content>
