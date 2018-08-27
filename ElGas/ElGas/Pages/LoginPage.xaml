@@ -358,11 +358,12 @@
                        HorizontalOptions="CenterAndExpand"
                        FontSize = "Medium"
                        VerticalOptions="CenterAndExpand"
+                          
                    > 
                    <Label.GestureRecognizers>
                                 
                    <TapGestureRecognizer
-                         Command="{Binding TapCommand}"
+                         Command="{Binding RecoveryCommand}"
                          CommandParameter="Register"
                          NumberOfTapsRequired="1"                         
                     />

@@ -216,6 +216,11 @@ namespace ElGas.ViewModels
         }
 
 
+        public ICommand RecoveryCommand { get { return new RelayCommand(Recovery); } }
+        private async void Recovery()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new RecoveryPassPage());
+        }
 
         #endregion
         #region Constructor
