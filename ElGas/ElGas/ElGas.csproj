@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <Compile Remove="Pages\PolicyPage.cs" />
+    <Compile Remove="Pages\PolicyPage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Pages\Calificacion.xaml.cs">
@@ -35,6 +36,9 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Remove="Pages\PolicyPage.xaml" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Controls\FilterMenu.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

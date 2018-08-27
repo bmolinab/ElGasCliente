@@ -6,12 +6,17 @@
              >
     <ContentPage.Content>
         
-        <StackLayout Margin="20,20,20,20">
-            
-            <WebView x:Name="Browser" WidthRequest="1000" HeightRequest="1000" 
-                     Source="http://www.xamarin.com/"
-                     />
-        </StackLayout>
+      <StackLayout>
+      <Label x:Name="LoadingLabel"
+        Text="Loading..."
+        HorizontalOptions="Center"
+        IsVisible="false" />
+      <WebView x:Name="Browser"
+      HeightRequest="1000"
+      WidthRequest="1000"
+      Navigating="webOnNavigating"
+      Navigated="webOnEndNavigating" />
+    </StackLayout> 
         
     </ContentPage.Content>
 </ContentPage>

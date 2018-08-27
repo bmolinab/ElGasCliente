@@ -237,7 +237,7 @@ namespace ElGas.ViewModels
             {
                 return new Command(async () =>
                 {
-                    await Application.Current.MainPage.Navigation.PushAsync(new PolicyPage());
+                    await Application.Current.MainPage.Navigation.PushAsync(new TermsAndPolicyPage());
                 });
             }
         }
