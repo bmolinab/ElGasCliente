@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             BackgroundColor="White"
+             x:Class="ElGas.Pages.RecoveryPassPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Ingrese el correo del registro para recuperar la contraseña"></Label>
+            
+            <Entry  Placeholder="Email" 
+                    Keyboard="Email" 
+                    FontFamily="calibril.ttf#Calibri Light"   
+                    Text="{Binding Username}" 
+                     HeightRequest = "40" />
+
+            <Button Text="Recuperar Contraseña"></Button>
+            
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

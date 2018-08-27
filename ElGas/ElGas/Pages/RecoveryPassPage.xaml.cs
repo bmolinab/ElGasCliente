@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using ElGas.ViewModels;
 
 namespace ElGas.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class PedidosPage : ContentPage
+	public partial class RecoveryPassPage : ContentPage
 	{
-
-        public PedidosPage ()
+		public RecoveryPassPage ()
 		{
 			InitializeComponent ();
-            BindingContext = new PedidosViewModel();
 		}
 	}
 }

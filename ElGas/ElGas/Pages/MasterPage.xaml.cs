@@ -11,7 +11,7 @@ namespace ElGas.Pages
         public MasterPage()
         {
             InitializeComponent();
-           
+            MasterBehavior = MasterBehavior.Popover;
         }
 
         protected override void OnAppearing()

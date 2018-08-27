@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
+             x:Class="ElGas.Pages.DetallePage">
+    <ContentPage.Content>
+
+        <Grid 
+                RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="7*" />
+                <RowDefinition Height="3*" />
+            </Grid.RowDefinitions>
+
+            <tk:TKCustomMap  
+                Pins="{Binding Locations}" 
+                IsClusteringEnabled="False"
+                MapRegion="{Binding CenterSearch}"
+                IsShowingUser="True"
+                MapType="Street" 
+                Grid.Row="0">
+                
+            </tk:TKCustomMap>
+
+            <ScrollView Grid.Row="1">
+            <StackLayout  Margin="10,10,10,10">
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Dirección: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                    <Label Text="{Binding Direccion}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Estado del Pedido: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                    <Label Text="{Binding EstadoPedido}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Fecha del Pedido: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                    <Label Text="{Binding FechaCompra}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Cantidad de Cilindros: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                    <Label Text="{Binding  CantidadCompra}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Valor del pedido: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                    <Label Text="{Binding  ValorCompra}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                </StackLayout>
+
+
+                <Button Text="Cancelar el pedido" 
+                        BorderRadius="30"
+                        BackgroundColor="#0072C6"
+                        TextColor="White" 
+                        VerticalOptions="End" 
+                        HorizontalOptions="Center" 
+                        WidthRequest="200"  
+                        HeightRequest="50" 
+                        FontFamily="calibril.ttf#Calibri Light"
+                        IsVisible="{Binding isCancelable}"
+                        Command="{Binding CancelCommand}"
+                        >
+
+                </Button>
+
+            </StackLayout>
+            </ScrollView>
+
+
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>

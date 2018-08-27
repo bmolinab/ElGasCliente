@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White"
              x:Class="ElGas.Pages.LoginPage">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -131,6 +132,9 @@
             Margin="8,40,8,20"
             BackgroundColor="White"
             >
+
+            <ScrollView>
+                <StackLayout>
            <!-- <Grid Margin="0,30,0,0">
                 
                  <Grid.RowDefinitions>
@@ -281,7 +285,7 @@
                 Color="{StaticResource AccentColor}"
                 IsRunning="{Binding IsBusy}" 
                 IsVisible="{Binding IsBusy}"
-                VerticalOptions="CenterAndExpand">
+                VerticalOptions="CenterAndExpand"
                 HorizontalOptions="Center">
                 
             </ActivityIndicator>
@@ -346,22 +350,22 @@
              -->
           
             
-            <Label
+                      <Label
                        Text="Olvidé mi contraseña"
                        FontFamily="calibril.ttf#Calibri Light"
                        Style="{StaticResource SignUpAccentTextStyle}"
-                        x:Name="ForgotPassword"
-                     HorizontalOptions="CenterAndExpand"
-                     FontSize = "Medium"
-                  VerticalOptions="CenterAndExpand"
+                       x:Name="ForgotPassword"
+                       HorizontalOptions="CenterAndExpand"
+                       FontSize = "Medium"
+                       VerticalOptions="CenterAndExpand"
+                          
                    > 
                    <Label.GestureRecognizers>
                                 
                    <TapGestureRecognizer
-                         Command="{Binding TapCommand}"
+                         Command="{Binding RecoveryCommand}"
                          CommandParameter="Register"
-                         NumberOfTapsRequired="1" 
-                        
+                         NumberOfTapsRequired="1"                         
                     />
                     </Label.GestureRecognizers>
                     </Label>
@@ -391,8 +395,7 @@
                    <TapGestureRecognizer
                          Command="{Binding TapCommand}"
                          CommandParameter="Register"
-                         NumberOfTapsRequired="1" 
-                        
+                         NumberOfTapsRequired="1"                         
                     />
                     </Label.GestureRecognizers>
                     </Label> 
@@ -408,9 +411,9 @@
                 FontSize = "Micro"
                 VerticalOptions="End"
                  />
-            
-           
-            </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
             
     </ContentPage.Content>
 </ContentPage>

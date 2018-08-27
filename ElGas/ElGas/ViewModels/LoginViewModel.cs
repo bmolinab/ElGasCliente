@@ -25,15 +25,12 @@ namespace ElGas.ViewModels
         /// Agregar referencias
         /// y agegar ciudad
         /// </summary>
-
-
         #region Services
         public event PropertyChangedEventHandler PropertyChanged;
         private readonly ApiServices _apiServices = new ApiServices();
 
         string[] permisions = new string[] { "email", "public_profile" };
         #endregion
-
         #region Propieties
         private bool _isRemember = false;
         public bool isRemember
@@ -83,7 +80,8 @@ namespace ElGas.ViewModels
 
                         if (accesstoken != null)
                         {
-                            Settings.AccessToken = accesstoken;
+                        if (isRemember)  Settings.AccessToken = accesstoken;
+
                             var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID };
                             var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
                             var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
@@ -218,10 +216,13 @@ namespace ElGas.ViewModels
         }
 
 
+        public ICommand RecoveryCommand { get { return new RelayCommand(Recovery); } }
+        private async void Recovery()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new RecoveryPassPage());
+        }
 
         #endregion
-
-
         #region Constructor
         public LoginViewModel()
         {
@@ -232,9 +233,5 @@ namespace ElGas.ViewModels
            // permisos();
         }
         #endregion
-
-
-
-
     }
 }

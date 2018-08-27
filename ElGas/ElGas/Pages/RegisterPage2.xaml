@@ -3,13 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              BackgroundColor="White"
              NavigationPage.HasNavigationBar="True"
-             x:Class="ElGas.Pages.RegisterPage2"
-             Title="Contacto"
-             >
-    
+             x:Class="ElGas.Pages.RegisterPage2">
+
     <ContentPage.Resources>
         <ResourceDictionary>
-             <Color x:Key="AccentColor">#BC4C1B</Color>
+            <Color x:Key="AccentColor">#BC4C1B</Color>
             <Color x:Key="WhiteColor">#FFFFFF</Color>
             <Color x:Key="BlackColor">#000000</Color>
             <Color x:Key="BlackTextColor">#253748</Color>
@@ -39,16 +37,16 @@
                         iOS="16"
                         Android="18"
                         WinPhone="18"/>
-    
-    <Style x:Key="NormalStyle"
+
+            <Style x:Key="NormalStyle"
                    TargetType="{x:Type Label}">
                 <Setter Property="FontSize"
                         Value="{StaticResource MidMediumSize}" />
                 <Setter Property="TextColor"
                         Value="{StaticResource BlackTextColor}" />
             </Style>
-            
-           <Style x:Key="SignUpTextStyle"
+
+            <Style x:Key="SignUpTextStyle"
                    TargetType="{x:Type Label}">
                 <Setter Property="FontSize"
                         Value="{StaticResource MidMediumSize}" />
@@ -62,21 +60,23 @@
                 <Setter Property="TextColor"
                         Value="{StaticResource OrangeColor}" />
             </Style>
-            
-            
-            
-            </ResourceDictionary>
+
+
+
+        </ResourceDictionary>
     </ContentPage.Resources>
-    
-    
     <ContentPage.Content>
         <StackLayout Margin="0,10,0,10" >
+            <ScrollView>
               <StackLayout Margin="15,30,15,30"> 
             <Picker   
                 ItemsSource = "{Binding Ciudades}"
                 HeightRequest="40"
                 Title="Ciudad"  
+<<<<<<< HEAD
                     SelectedItem = "{Binding CiudadSeleccionada}"
+=======
+>>>>>>> 11be35b5622cf48ccd3b479c329583dd20fb8c6e
                 
                 
                 >
@@ -171,6 +171,7 @@
                     </Label.GestureRecognizers>
                     </Label>
             </StackLayout>
+            </ScrollView>
         </StackLayout>
 
     </ContentPage.Content>

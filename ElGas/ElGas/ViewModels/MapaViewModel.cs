@@ -70,9 +70,7 @@ namespace ElGas.ViewModels
 
 
         private readonly string ElGAS_FIREBASE = "https://elgas-f24e8.firebaseio.com/-LJVkHULelfySFjNF9-Q/Equipo-ElGas/";
-        private readonly FirebaseClient _firebaseClient;
-
-  
+        private readonly FirebaseClient _firebaseClient;  
 
         #endregion
         #region Events
@@ -128,9 +126,7 @@ namespace ElGas.ViewModels
         }
 
         #endregion
-
         Xamarin.Forms.Maps.Geocoder geoCoder;
-
         public string direccion = "";
         public string Direccion
         {
@@ -138,43 +134,31 @@ namespace ElGas.ViewModels
             set { direccion = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Direccion")); }
 
         }
-
         #region Constructor
         public MapaViewModel()
         {
             _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
             camiones = new ObservableCollection<DistribuidorFirebase>();
             Camiones = new ObservableCollection<DistribuidorFirebase>();
-
             geoCoder = new Xamarin.Forms.Maps.Geocoder();
             Locations = new ObservableCollection<TKCustomMapPin>();
             locations = new ObservableCollection<TKCustomMapPin>();
-
-
             centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
-
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await loadParametros();
             }); 
-
             LoadVendedores();
-
         }
         #endregion
 
         public void OnAppearing()
         {
-
             Locations = new ObservableCollection<TKCustomMapPin>();
             locations = new ObservableCollection<TKCustomMapPin>();
-
-
             centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
-
             LoadVendedores();
             //Do whatever you like in here
-
         }     
         async void ObtenerDireccion(double lat, double lon)
         {
@@ -310,12 +294,8 @@ namespace ElGas.ViewModels
                     {
                         //accion para borrar
                     }
-
                 });
                 #endregion
-
-
-
             }
             catch (Exception ex)
              {
@@ -377,10 +357,7 @@ namespace ElGas.ViewModels
             }
 
         }
-
         #endregion
-
-
 
         #region commands
         public ICommand BuyCommand { get { return new RelayCommand(Buy); } }

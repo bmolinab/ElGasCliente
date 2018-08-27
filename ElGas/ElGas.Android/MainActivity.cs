@@ -53,7 +53,6 @@ namespace ElGas.Droid
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
 
-            LeoJHarris.FormsPlugin.Droid.EnhancedEntryRenderer.Init(this);
 
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
             Xamarin.FormsMaps.Init(this, bundle);
