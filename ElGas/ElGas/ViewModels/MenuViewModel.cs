@@ -45,7 +45,7 @@ namespace ElGas.ViewModels
             Helpers.Settings.Pedidos = false;
 
 
-            App.Current.MainPage = new NavigationPage(new LoginPage());
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
         }
         public ICommand PedidosCommand { get { return new RelayCommand(Pedidos); } }
 

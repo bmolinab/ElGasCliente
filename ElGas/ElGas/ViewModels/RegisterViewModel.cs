@@ -81,11 +81,55 @@ namespace ElGas.ViewModels
                 return isError;
             }
         }
+
+        public Ciudad EstaCiudad
+        {
+            get;
+            set;
+        }
+
+        public List<Ciudad> Ciudades
+        {
+            get;
+            set;
+        }
+
+        public List<Sector> Sectores
+        {
+            get;
+            set;
+        }
+
+        public List<Sector> SectoresPorCiudad
+        {
+            get;
+            set;
+        }
+
+
+
         #endregion
 
         #region Cosntructor
         public RegisterViewModel(Cliente cliente)
         {
+            Ciudades = new List<Ciudad>
+            {
+                new Ciudad("1", "Quito"),
+                new Ciudad("2", "Guayaquil"),
+                new Ciudad("3", "Cuenca")
+            };
+            Sectores = new List<Sector>
+            {
+                new Sector("1","1" ,"Norte"),
+                new Sector("2","1", "Sur"),
+                new Sector("3","1", "Centro"),
+                new Sector("4","1","Los Chillos"),
+                new Sector("5","2" ,"Norte"),
+                new Sector("6","2", "Sur"),
+                new Sector("7","2", "Centro")
+
+            };
             isError = false;
             IsError = false;
 
@@ -156,13 +200,29 @@ namespace ElGas.ViewModels
             }
         }
 
+        public ICommand CiudadSeleccionadaCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+
+                    SectoresPorCiudad = Sectores.FindAll(x => x.IdCiudad == EstaCiudad.Id);
+                });
+            }
+        }
+
         public ICommand NextCommand
         {
             get
             {
                 return new Command(async () =>
                 {
-                    if(Password!=null&&Password!="")
+                    //App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));
+                     Application.Current.MainPage.Navigation.PushAsync(new RegisterPage2(Cliente));
+
+                    return;
+                    if (Password!=null&&Password!="")
                     {
                         if (ConfirmPassword == Password )
                         {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 
 using Foundation;
-using LeoJHarris.FormsPlugin.iOS;
 using Plugin.FacebookClient;
 using Syncfusion.ListView.XForms.iOS;
 using TK.CustomMap.iOSUnified;
@@ -31,7 +28,7 @@ namespace ElGas.iOS
             Xamarin.FormsMaps.Init();
             SfListViewRenderer.Init();
             Rg.Plugins.Popup.Popup.Init();
-           EnhancedEntryRenderer.Init();
+         //  EnhancedEntryRenderer.Init();
             var renderer = new TKCustomMapRenderer();          
             LoadApplication(new App());
             FacebookClientManager.Initialize(app, options);

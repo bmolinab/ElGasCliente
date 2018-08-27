@@ -1,7 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             BindingContext="{Binding Main, Source={StaticResource Locator}}"
              NavigationPage.HasNavigationBar="False"
              x:Class="ElGas.Pages.LoginPage">
     <ContentPage.Resources>
@@ -38,7 +37,7 @@
                         Android="18"
                         WinPhone="18"/>
 
-            <Style x:Key="LogoStyle" 
+            <!--<Style x:Key="LogoStyle" 
                    TargetType="Image">
                 <Setter Property="Aspect" 
                         Value="AspectFit" />
@@ -50,9 +49,9 @@
                         Value="Center" />
                 <Setter Property="VerticalOptions"
                         Value="Start" />
-            </Style>
+            </Style>-->
 
-            <Style x:Key="HeaderTextStyle" 
+           <!-- <Style x:Key="HeaderTextStyle" 
                    TargetType="Label">
                 <Setter Property="TextColor" 
                         Value="{StaticResource WhiteColor}" />
@@ -68,9 +67,9 @@
                         </OnPlatform>
                     </Setter.Value>
                 </Setter>
-            </Style>
+            </Style>-->
 
-            <Style x:Key="ForgotPwdLabelStyle"
+            <!--<Style x:Key="ForgotPwdLabelStyle"
                    TargetType="{x:Type Label}">
                 <Setter Property="TextColor"
                         Value="{StaticResource WhiteColor}" />
@@ -85,9 +84,9 @@
                         </OnPlatform>
                     </Setter.Value>
                 </Setter>
-            </Style>
+            </Style>-->
 
-            <Style x:Key="SignUpPanelStyle"
+           <!-- <Style x:Key="SignUpPanelStyle"
                    TargetType="{x:Type StackLayout}">
                 <Setter Property="Orientation"
                         Value="Horizontal" />
@@ -97,9 +96,17 @@
                         Value="End" />
                 <Setter Property="Margin"
                         Value="0, 0, 0, 36" />
-            </Style>
+            </Style>-->
 
-            <Style x:Key="SignUpTextStyle"
+            <Style x:Key="NormalStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackTextColor}" />
+            </Style>
+            
+           <Style x:Key="SignUpTextStyle"
                    TargetType="{x:Type Label}">
                 <Setter Property="FontSize"
                         Value="{StaticResource MidMediumSize}" />
@@ -116,43 +123,34 @@
 
         </ResourceDictionary>
     </ContentPage.Resources>
+    
     <ContentPage.Content>
-        <Grid BindingContext="{Binding Login}">
-            <Grid 
-                RowSpacing="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="6*" />
-                    <RowDefinition Height="4*" />
+   
+        
+        <StackLayout
+            Margin="8,40,8,20"
+            BackgroundColor="White"
+            >
+           <!-- <Grid Margin="0,30,0,0">
+                
+                 <Grid.RowDefinitions>
+                    
+                    <RowDefinition Height="3*" />
+                    
                 </Grid.RowDefinitions>
-                <!-- Top image -->
-                <Image 
-                    Grid.Row="0"
-                    Aspect="AspectFill">
-                    <Image.Source>
-                        <OnPlatform x:TypeArguments="ImageSource">
-                            <On Platform="Android, iOS" Value="imgheaderbackground1.png" />
-                            <On Platform="UWP" Value="Assets/imgheaderbackground1.png" />
-                        </OnPlatform>
-                    </Image.Source>
-                </Image>
-                <!-- Sign in form -->
-                <Grid
-                    Margin="38, 38, 38, 60"
-                    RowSpacing="0"
-                    VerticalOptions="Fill"
-                    Grid.Row="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid
-                        Grid.Row="0">
+              <Grid.ColumnDefinitions>
+                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+               
+              </Grid.ColumnDefinitions>
+            -->
+            <StackLayout>
                         <Image
-                            Style="{StaticResource LogoStyle}">
+                     
+                    VerticalOptions="Start"
+                WidthRequest="150"
+                           >
                             <Image.Source>
                                 <OnPlatform x:TypeArguments="ImageSource">
                                     <On Platform="Android, iOS" Value="ElGas.png" />
@@ -160,20 +158,77 @@
                                 </OnPlatform>
                             </Image.Source>
                         </Image>
-                    </Grid>
-                    <Label 
-                        Grid.Row="1"
-                        Text="Correo"
-                        TextColor="{StaticResource WhiteColor}"
-                        Style="{StaticResource HeaderTextStyle}"
-                        FontFamily="calibril.ttf#Calibri Light"/>
+                </StackLayout>
+               <!--</Grid>-->
+           <!--<Grid>
+                <Grid.RowDefinitions>
+                    
+                    <RowDefinition Height="*" />
+                    
+                </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>-->
+            
+            <StackLayout Margin="0,30,0,0">
+             <Image Source="facebook_login.png"
+                    
+                    VerticalOptions = "Center"
+                    WidthRequest = "250"
+                    
+                    >
+                   <Image.GestureRecognizers>
+                     <TapGestureRecognizer
+                        Command="{Binding LoginFB}"
+                        CommandParameter="ImageFB" 
+                    />
+                   </Image.GestureRecognizers>
+              </Image>
+                </StackLayout>
+                
+           <!-- </Grid>-->
+            <StackLayout Margin="0,15,0,0">
+            <Label
+                      Text="O ingresa con tu cuenta:"
+                      FontFamily="calibril.ttf#Calibri Light"
+                      Style="{StaticResource NormalStyle}"
+                       HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                    
+                FontSize="Medium"
+             />
+            
+           <!-- <Grid Margin="20"
+                  Padding="5"
+                  HorizontalOptions="FillAndExpand"
+                  >
+                <Grid.RowDefinitions>
+                    
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                
+                <ColumnDefinition Width="2*" />
+                
+              </Grid.ColumnDefinitions>-->
+          
                     <Entry
                         x:Name="UsernameEntry"
-                        Grid.Row="2"
+                        Grid.Row="0"
+                        Grid.Column ="0"
                         AutomationId="username"
                         Keyboard="Email"
                         FontFamily="calibril.ttf#Calibri Light"
-                        Text="{Binding Username, Mode=TwoWay}">
+                        Text="{Binding Username, Mode=TwoWay}"
+                        Placeholder="Email"
+                        HeightRequest = "40"
+                
+                
+                >
                         <Entry.TextColor>
                             <OnPlatform x:TypeArguments="Color">
                                 <On Platform="Android" Value="{StaticResource WhiteColor}" />
@@ -181,19 +236,20 @@
                             </OnPlatform>
                         </Entry.TextColor>
                     </Entry>
-                    <Label 
-                        Grid.Row="3"
-                        Text="Contraseña"
-                        FontFamily="calibril.ttf#Calibri Light"
-                        TextColor="{StaticResource WhiteColor}"
-                        Style="{StaticResource HeaderTextStyle}"/>
+                   
                     <Entry
-                        Grid.Row="4"
+                        
                         x:Name="PasswordEntry"
                         IsPassword="True" 
                         AutomationId="password"
                         FontFamily="calibril.ttf#Calibri Light"
-                        Text="{Binding Password, Mode=TwoWay}">
+                        Text="{Binding Password, Mode=TwoWay}"
+                        Placeholder="Contraseña"
+                        Grid.Row="2"
+                        Grid.Column ="0" 
+                    HeightRequest = "40"
+                    >
+                        
                         <Entry.TextColor>
                             <OnPlatform x:TypeArguments="Color">
                                 <On Platform="Android" Value="{StaticResource WhiteColor}" />
@@ -201,87 +257,160 @@
                             </OnPlatform>
                         </Entry.TextColor>
                     </Entry>
-                    <!--<Label 
-                        Grid.Row="5"
-                        Text="Olvido la contraseña?"
+                
+                 <StackLayout
+                    Margin="8,0"
+                    Orientation="Horizontal"
+                    VerticalOptions="CenterAndExpand">
+                <Label
+                        HorizontalOptions="StartAndExpand"
+                        Text="Recuérdame aquí"
                         VerticalOptions="Center"
-                        Style="{StaticResource ForgotPwdLabelStyle}">
-                    </Label>-->
-                    <StackLayout Orientation="Horizontal" Grid.Row="5">
-                        <Label Text="Recordarme" FontFamily="calibril.ttf#Calibri Light" HorizontalOptions="Start" VerticalOptions="Center"  Style="{StaticResource ForgotPwdLabelStyle}">
-                        </Label>
-                        <Switch IsToggled="True" HorizontalOptions="End" ></Switch>
+                    FontFamily="calibril.ttf#Calibri Light"
+                      Style="{StaticResource SignUpTextStyle}"
+                    FontSize = "Medium"
+                    >
+                    </Label>
+                    <Switch
+                        IsToggled="{Binding IsRemembered, Mode=TwoWay}"
+                        HorizontalOptions="End">
+                    </Switch>
                     </StackLayout>
-                </Grid>
-                <!-- Sign up labels -->
-                <Grid
-                    Grid.Row="1"
-                    BackgroundColor="{StaticResource WhiteColor}">
-                    <StackLayout
-                        Style="{StaticResource SignUpPanelStyle}">
-                        <Label 
-                            Text="Power by"
-                            FontFamily="calibril.ttf#Calibri Light"
-                            Style="{StaticResource SignUpTextStyle}"/>
-                        <Label
-                            Text="Digital Strategy"
-                            FontFamily="calibril.ttf#Calibri Light"
-                            Style="{StaticResource SignUpAccentTextStyle}"/>
-                    </StackLayout>
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer 
-                            Command="{Binding RegisterCommand}" />
-                    </Grid.GestureRecognizers>
-                </Grid>
-                <!-- Sign in buttons -->
-                <StackLayout   
-                    Grid.Row="1"
-                    Margin="38, -40, 38, 0">
-                    <StackLayout.Spacing>
-                        <OnPlatform x:TypeArguments="x:Double">
-                            <On Platform="Android" Value="1" />
-                            <On Platform="iOS, UWP" Value="8" />
-                        </OnPlatform>
-                    </StackLayout.Spacing>
-                    <Frame
-                        HasShadow="True"
-                        Padding="0"
-                        CornerRadius="30">
-                        <Button 
-                            Text="Ingresar"
-                            FontFamily="calibril.ttf#Calibri Light"
-                            FontSize="Large"
-                            Command="{Binding LoginCommand}"
-                            BackgroundColor="{StaticResource WhiteColor}"
-                            TextColor="{StaticResource OrangeColor}" 
-                            BorderRadius="30"/>
-                    </Frame>
-
-                    <Button 
-                        Text="Registrate"
-                        FontFamily="calibril.ttf#Calibri Light"
-                        BackgroundColor="{StaticResource BlueColor}"
-                        Command="{Binding RegisterCommand}"
-                        FontSize="Large"
-                        TextColor="{StaticResource WhiteColor}" 
-                        BorderRadius="30"/>
-                    <Button Text="Ingresar con Facebook" BackgroundColor="#3b5998" TextColor="White" WidthRequest="250" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Command="{Binding LoginFB}"></Button>
-                    
-                </StackLayout>
-            </Grid>
-            <ActivityIndicator 
+                
+                 <ActivityIndicator 
                 Color="{StaticResource AccentColor}"
                 IsRunning="{Binding IsBusy}" 
                 IsVisible="{Binding IsBusy}"
-                VerticalOptions="Center"
+                VerticalOptions="CenterAndExpand">
                 HorizontalOptions="Center">
-                <ActivityIndicator.WidthRequest>
-                    <OnPlatform x:TypeArguments="x:Double">
-                        <On Platform="Android, iOS" Value="100" />
-                        <On Platform="UWP" Value="300" />
-                    </OnPlatform>
-                </ActivityIndicator.WidthRequest>
+                
             </ActivityIndicator>
-        </Grid>
+                
+                <Label
+                       Text="Ingresar"
+                       FontFamily="calibril.ttf#Calibri Light"
+                       Style="{StaticResource SignUpAccentTextStyle}"
+                        x:Name="Login"
+                     HorizontalOptions="CenterAndExpand"
+                     FontSize = "Medium"
+                  VerticalOptions="FillAndExpand"
+                   > 
+                   <Label.GestureRecognizers>
+                                
+                   <TapGestureRecognizer
+                         Command="{Binding LoginCommand}"
+                         CommandParameter="Register"
+                         NumberOfTapsRequired="1" 
+                        
+                    />
+                    </Label.GestureRecognizers>
+                    </Label>
+                
+                <!--<Frame
+                    
+                        HasShadow="True"
+                        Padding="0"
+                        CornerRadius="0">
+                        <Button 
+                            Text="Ingresar"
+                            FontFamily="calibril.ttf#Calibri Light"
+                            FontSize="Medium"
+                            Command="{Binding LoginCommand}"
+                            BackgroundColor="{StaticResource WhiteColor}"
+                            TextColor="{StaticResource OrangeColor}" 
+                            BorderRadius="0"/>
+                </Frame>-->
+                <!--</Grid>-->
+                </StackLayout>
+            <!--
+            <Grid>
+                <Grid.RowDefinitions>
+                    
+                    <RowDefinition Height="Auto" />
+                    
+                </Grid.RowDefinitions>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+               
+                </Grid>
+            
+            <StackLayout
+                    Margin="10,0"
+                    Orientation="Horizontal"
+                    VerticalOptions="CenterAndExpand">
+                    
+                </StackLayout>
+             -->
+          
+            
+            <Label
+                       Text="Olvidé mi contraseña"
+                       FontFamily="calibril.ttf#Calibri Light"
+                       Style="{StaticResource SignUpAccentTextStyle}"
+                        x:Name="ForgotPassword"
+                     HorizontalOptions="CenterAndExpand"
+                     FontSize = "Medium"
+                  VerticalOptions="CenterAndExpand"
+                   > 
+                   <Label.GestureRecognizers>
+                                
+                   <TapGestureRecognizer
+                         Command="{Binding TapCommand}"
+                         CommandParameter="Register"
+                         NumberOfTapsRequired="1" 
+                        
+                    />
+                    </Label.GestureRecognizers>
+                    </Label>
+            
+           
+              
+            
+                <Label
+                      Text="¿No tienes cuenta?"
+                      FontFamily="calibril.ttf#Calibri Light"
+                      Style="{StaticResource SignUpTextStyle}"
+                       HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="End"
+                 />
+                        
+                  <Label
+                       Text="Regístrate Aquí"
+                       FontFamily="calibril.ttf#Calibri Light"
+                       Style="{StaticResource SignUpAccentTextStyle}"
+                        x:Name="RegisterLabel"
+                     HorizontalOptions="CenterAndExpand"
+                    FontSize = "Medium"
+                    VerticalOptions="End"
+                   > 
+                   <Label.GestureRecognizers>
+                                
+                   <TapGestureRecognizer
+                         Command="{Binding TapCommand}"
+                         CommandParameter="Register"
+                         NumberOfTapsRequired="1" 
+                        
+                    />
+                    </Label.GestureRecognizers>
+                    </Label> 
+               
+            
+            
+      
+             <Label
+                      Text="Powered by: Digital Strategy Cia. Ltda. "
+                      FontFamily="calibril.ttf#Calibri Light"
+                      Style="{StaticResource NormalStyle}"
+                       HorizontalOptions="CenterAndExpand"
+                FontSize = "Micro"
+                VerticalOptions="End"
+                 />
+            
+           
+            </StackLayout>
+            
     </ContentPage.Content>
 </ContentPage>
