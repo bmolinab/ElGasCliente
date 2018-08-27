@@ -47,6 +47,14 @@ namespace ElGas.ViewModels
 
             App.Current.MainPage = new NavigationPage(new LoginPage());
         }
+        public ICommand PedidosCommand { get { return new RelayCommand(Pedidos); } }
+
+        private async void Pedidos()
+        {
+            App.Master.IsPresented = false;
+
+            await App.Navigator.PushAsync(new PedidosPage(), true);
+        }
         #endregion
     }
 }

@@ -177,6 +177,8 @@ namespace ElGas.ViewModels
             var d = new Distribuidor { IdDistribuidor=Settings.IdDistribuidor };
             var response = await ApiServices.InsertarAsync<Distribuidor>(d, new System.Uri(Constants.BaseApiAddress), "/api/Distribuidors/GetDistribuidorID");
             Distribuidor = JsonConvert.DeserializeObject<Distribuidor>(response.Result.ToString());
+
+
         }
         #endregion
     }

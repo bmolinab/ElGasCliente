@@ -15,15 +15,38 @@
 
             <Color x:Key="MainColor">#FFFFFF</Color>
             <Color x:Key="FontColor">#000000</Color>
-            <Color x:Key="AccentColor1">#FF5722</Color>
+            <Color x:Key="AccentColor1">#0072C6</Color>
             <Color x:Key="AccentColor2">#FF9800</Color>
             <Color x:Key="BackgroundColor">#E64A19</Color>
             <Color x:Key="MenuColor">#E0E0E0</Color>
             <Color x:Key="MenuFontColor">#E0E0E0</Color>
             <Color x:Key="MenuBackgroundColor1">#E64A19</Color>
             <Color x:Key="MenuBackgroundColor2">#FFFFFF</Color>
+            
+            <!--estos son los recursos para la tarjeta-->
+            <Color x:Key="MyAccent">#0072C6</Color>
+            <Color x:Key="MyWhite">#FFFFFF</Color>
+            <Color x:Key="MyPageBackground">#E6E6E6</Color>
+            <Color x:Key="MyCardBackground">#FFFFFF</Color>
 
-          
+            <Style x:Key="SectionTitleText" TargetType="Label">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="{StaticResource AccentColor1}"/>
+            </Style>
+
+            <Style x:Key="LinkStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="TextColor" Value="{StaticResource AccentColor1}"/>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource AccentColor1}"/>
+                <Setter Property="TextColor" Value="{StaticResource MyWhite}"/>
+            </Style>
+
+
 
         </ResourceDictionary>
 

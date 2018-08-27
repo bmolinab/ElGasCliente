@@ -5,6 +5,7 @@ using System.Linq;
 using Foundation;
 using LeoJHarris.FormsPlugin.iOS;
 using Plugin.FacebookClient;
+using Syncfusion.ListView.XForms.iOS;
 using TK.CustomMap.iOSUnified;
 using UIKit;
 
@@ -27,7 +28,8 @@ namespace ElGas.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            Xamarin.FormsMaps.Init();            
+            Xamarin.FormsMaps.Init();
+            SfListViewRenderer.Init();
             Rg.Plugins.Popup.Popup.Init();
            EnhancedEntryRenderer.Init();
             var renderer = new TKCustomMapRenderer();          

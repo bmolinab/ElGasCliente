@@ -20,6 +20,11 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidSigningKeyStore>KeyCamion.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyAlias>KeyCamion</AndroidSigningKeyAlias>
+    <AndroidSigningStorePass>Digital_2018</AndroidSigningStorePass>
+    <AndroidSigningKeyPass>Digital_2018</AndroidSigningKeyPass>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,6 +86,9 @@
     </PackageReference>
     <PackageReference Include="Plugin.Share">
       <Version>7.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfListView">
+      <Version>16.2.0.41</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRating">
       <Version>16.2.0.41</Version>
@@ -152,6 +160,7 @@
     <GoogleServicesJson Include="googleservices.json" />
     <AndroidAsset Include="Assets\calibril.ttf" />
     <AndroidAsset Include="Assets\progress_bar.json" />
+    <None Include="KeyCamion.keystore" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />

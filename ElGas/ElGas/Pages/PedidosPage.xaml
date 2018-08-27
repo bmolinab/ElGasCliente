@@ -1,43 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              x:Class="ElGas.Pages.PedidosPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Mis Pedidos"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <syncfusion:SfListView x:Name="ListaCompra" 
+                   ItemsSource="{Binding ListaCompra}"
+                   ItemSize="170">
+            <syncfusion:SfListView.ItemTemplate>
+                <DataTemplate>
 
-            <ScrollView  Margin="20,10,20,10">
-                <ListView x:Name="ListLocation" ItemsSource="{Binding ListaCompra}" >
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout 
-                                        Orientation="Horizontal"  >
-                                    <Image Source="{Binding Estado}"></Image>
-                                    <StackLayout  WidthRequest="200"
-                                        Orientation="Vertical">
-                                        <Label Text="{Binding Valor}" 
-                                         TextColor="Black" />
-                                        <Label Text="{Binding Fecha}" FontSize="Small"
-                                         TextColor="Black" />
-                                    </StackLayout>
-                                    <StackLayout>
-                                    <Button Text="Detalle" 
-                                            Command="{Binding Source={x:Reference ListLocation}, Path=BindingContext.TapCommand}" 
-                                            CommandParameter="{Binding}" 
-                                            BackgroundColor="{StaticResource AccentColor1}"  
-                                            TextColor="White"/>
-                                        <Button Text="Cancelar"></Button>
-                                    </StackLayout>
-                                    
+                    <Frame Padding="4" Margin="4">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Icon & Title -->
+                            <Grid x:Name="IconTitleGrid" Padding="6,0,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Source="cart.png" 
+               HorizontalOptions="Center" 
+               VerticalOptions="Center" 
+               Aspect="AspectFit" 
+               HeightRequest="40"/>
+
+                                <Label Grid.Column="1" 
+               Text="{Binding TituloPedido,}" 
+               Style="{StaticResource SectionTitleText}" 
+               HorizontalTextAlignment="Start" 
+               VerticalTextAlignment="Center" 
+               VerticalOptions="Center"  
+               HeightRequest="40"/>
+                            </Grid>
+
+                            <!-- Content -->
+                        <StackLayout Grid.Row="1" 
+                      >
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Cantidad"></Label>
+                                    <Label Text="{Binding Cantidad}"></Label>
+
                                 </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </ScrollView>
-        </StackLayout>
-    </ContentPage.Content>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Precio"></Label>
+                                    <Label Text="{Binding ValorTotal}"></Label>
+
+                                </StackLayout>
+                            
+
+                            </StackLayout>
+
+                        <!-- Action Items -->
+                        <StackLayout Grid.Row="2" 
+                                              >
+                                <Button Text="Detalle" 
+                                        Command="{Binding Source={x:Reference ListaCompra}, Path=BindingContext.TapCommand}" 
+                                        CommandParameter="{Binding}" ></Button>
+                        </StackLayout>
+
+                    </Grid>
+                    </Frame>
+                </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
+        </syncfusion:SfListView>
+    </StackLayout>
 </ContentPage>
