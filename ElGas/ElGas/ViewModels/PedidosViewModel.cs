@@ -30,7 +30,7 @@ namespace ElGas.ViewModels
             /// 0 que nadie la acepta aún
             /// 1 que ya un repartidor la está atendiendo
             /// 2 que ya se realizo la venta
-            /// 
+
             ListaCompra = new ObservableCollection<ComprasRequest>();
 
             var d = new Cliente { IdCliente = Settings.idCliente };
@@ -70,7 +70,6 @@ namespace ElGas.ViewModels
             get { return tapCommand; }
             set { tapCommand = value;  }
         }
-
 
         private async void iralDetalle(object obj)
         {
