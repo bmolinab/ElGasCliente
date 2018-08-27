@@ -26,6 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\PolicyPage.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Pages\Calificacion.xaml.cs">
       <DependentUpon>Calificacion.xaml</DependentUpon>
     </Compile>

@@ -231,6 +231,16 @@ namespace ElGas.ViewModels
             }
         }
 
+        public ICommand PolicyCommand
+        {
+            get
+            {
+                return new Command(async () =>
+                {
+                    await Application.Current.MainPage.Navigation.PushAsync(new PolicyPage());
+                });
+            }
+        }
 
 
         public ICommand NextCommand
