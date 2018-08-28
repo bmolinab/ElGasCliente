@@ -5,6 +5,7 @@ using ElGas.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
@@ -12,7 +13,7 @@ using Xamarin.Forms;
 
 namespace ElGas.ViewModels
 {
-    public class RegisterViewModel: INotifyPropertyChanged
+    public class RegisterViewModel : INotifyPropertyChanged
     {
         #region Services
         private readonly ApiServices _apiServices = new ApiServices();
@@ -82,10 +83,28 @@ namespace ElGas.ViewModels
             }
         }
 
-        public Ciudad EstaCiudad
+        private Ciudad _ciudadSeleccionada{get;set; }
+        public Ciudad CiudadSeleccionada
         {
-            get;
-            set;
+            get
+            {
+                return _ciudadSeleccionada;
+            }
+
+            set
+            {
+                if(_ciudadSeleccionada !=value)
+                {
+                    _ciudadSeleccionada = value;
+                    SectoresPorCiudad = Sectores.FindAll(x => x.IdCiudad == _ciudadSeleccionada.Id);
+                   
+                }
+            }
+        }
+
+        public Sector SectorSeleccionado
+        {
+            get;set;
         }
 
         public List<Ciudad> Ciudades
@@ -100,10 +119,22 @@ namespace ElGas.ViewModels
             set;
         }
 
+        private List<Sector> _sectoresPorCiudad;
         public List<Sector> SectoresPorCiudad
         {
-            get;
-            set;
+            get
+            {
+                return _sectoresPorCiudad;
+            }
+            set
+
+            {
+                if (_sectoresPorCiudad != value)
+                {
+                    _sectoresPorCiudad = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
 
@@ -140,7 +171,7 @@ namespace ElGas.ViewModels
 
             cliente.Identificacion = "";
 
-           
+
 
         }
         #endregion
@@ -155,29 +186,29 @@ namespace ElGas.ViewModels
                     IsBusy = true;
                     if (Password == ConfirmPassword)
                     {
-                        Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}",CalleUno,Numero,CalleDos,Sector);
+                        Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}", CalleUno, Numero, CalleDos, Sector);
                         Cliente.Habilitado = true;
 
-                            var isRegistered = await _apiServices.RegisterUserAsync
-                            (Username, Password, ConfirmPassword, Cliente);
-                            Settings.Username = Username;
-                            Settings.Password = Password;
+                        var isRegistered = await _apiServices.RegisterUserAsync
+                        (Username, Password, ConfirmPassword, Cliente);
+                        Settings.Username = Username;
+                        Settings.Password = Password;
 
-                            IsBusy = false;
+                        IsBusy = false;
 
-                            if (isRegistered)
-                            {
-                                Message = "Se registró con éxito";
-                                await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-                                App.Current.MainPage = new NavigationPage(new LoginPage());
+                        if (isRegistered)
+                        {
+                            Message = "Se registró con éxito";
+                            await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
+                            App.Current.MainPage = new NavigationPage(new LoginPage());
 
-                            }
-                            else
-                            {
-                                Message = "No  pudimos registrar su cuenta, reintentelo";
-                                await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-                            }
-                        
+                        }
+                        else
+                        {
+                            Message = "No  pudimos registrar su cuenta, reintentelo";
+                            await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
+                        }
+
                         //else
                         //{
                         //    IsBusy = false;
@@ -200,17 +231,17 @@ namespace ElGas.ViewModels
             }
         }
 
-        public ICommand CiudadSeleccionadaCommand
+        public ICommand PolicyCommand
         {
             get
             {
                 return new Command(async () =>
                 {
-
-                    SectoresPorCiudad = Sectores.FindAll(x => x.IdCiudad == EstaCiudad.Id);
+                    await Application.Current.MainPage.Navigation.PushAsync(new PolicyPage());
                 });
             }
         }
+
 
         public ICommand NextCommand
         {
@@ -219,14 +250,14 @@ namespace ElGas.ViewModels
                 return new Command(async () =>
                 {
                     //App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));
-                     Application.Current.MainPage.Navigation.PushAsync(new RegisterPage2(Cliente));
+                    Application.Current.MainPage.Navigation.PushAsync(new RegisterPage2(Cliente));
 
                     return;
-                    if (Password!=null&&Password!="")
+                    if (Password != null && Password != "")
                     {
-                        if (ConfirmPassword == Password )
+                        if (ConfirmPassword == Password)
                         {
-                            if (Password.Length>3)
+                            if (Password.Length > 3)
                             {
                                 Cliente.Correo = Username;
                                 Cliente.Identificacion = Password;
@@ -261,5 +292,16 @@ namespace ElGas.ViewModels
 
 
         #endregion
+
+        #region PropertyChanged
+
+        private void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+       
+
+        #endregion
+
     }
 }

@@ -155,7 +155,7 @@
                     <Label.GestureRecognizers>
                                 
                    <TapGestureRecognizer
-                         Command="{Binding Policy}"
+                         Command="{Binding PolicyCommand}"
                          CommandParameter="Register"
                          NumberOfTapsRequired="1" 
                         
