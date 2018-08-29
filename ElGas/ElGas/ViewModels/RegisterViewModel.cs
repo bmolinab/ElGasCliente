@@ -252,7 +252,6 @@ namespace ElGas.ViewModels
                     //App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));
                     Application.Current.MainPage.Navigation.PushAsync(new RegisterPage2(Cliente));
 
-                    return;
                     if (Password != null && Password != "")
                     {
                         if (ConfirmPassword == Password)
