@@ -84,14 +84,14 @@ namespace ElGas.ViewModels
 
                         if (isRegistered)
                         {
-                            await App.Current.MainPage.DisplayAlert("El Gas", "El código fue enviado a su correo", "Aceptar");
+                            await App.Current.MainPage.DisplayAlert("El Gas", "El código fue enviado a su Email registrado", "Aceptar");
                             App.Current.MainPage = new NavigationPage(new RecoveryPassPage2(Username));
 
 
                         }
                         else
                         {
-                             var Message = "No  pudimos enviar el código, verifique su correo y reintentelo";
+                             var Message = "No  pudimos enviar el código, verifique su Email y reintentelo";
                             await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
                         }
 
