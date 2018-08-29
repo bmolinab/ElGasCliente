@@ -249,8 +249,8 @@ namespace ElGas.ViewModels
             {
                 return new Command(async () =>
                 {
-                    //App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));
-                    Application.Current.MainPage.Navigation.PushAsync(new RegisterPage2(Cliente));
+                    //App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));                     Application.Current.MainPage.Navigation.PushAsync(new RegisterPage2(Cliente));
+
 
                     if (Password != null && Password != "")
                     {
