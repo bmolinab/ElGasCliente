@@ -10,6 +10,7 @@
       HeightRequest="1000"
       WidthRequest="1000"
       
+      Source="http://www.digitalstrategy.com.ec/PoliticaElGas.html"
                />
     </StackLayout>
     </ContentPage.Content>
