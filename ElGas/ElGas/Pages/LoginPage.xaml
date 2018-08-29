@@ -133,8 +133,6 @@
             BackgroundColor="White"
             >
 
-            <ScrollView>
-                <StackLayout>
            <!-- <Grid Margin="0,30,0,0">
                 
                  <Grid.RowDefinitions>
@@ -411,8 +409,6 @@
                 FontSize = "Micro"
                 VerticalOptions="End"
                  />
-                </StackLayout>
-            </ScrollView>
         </StackLayout>
             
     </ContentPage.Content>

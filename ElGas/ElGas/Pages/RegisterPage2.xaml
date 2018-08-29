@@ -73,7 +73,10 @@
                 ItemsSource = "{Binding Ciudades}"
                 HeightRequest="40"
                 Title="Ciudad"  
+<<<<<<< HEAD
 
+=======
+>>>>>>> e679172ae70d64cea5b00aa3c64f9062bacce98f
                     SelectedItem = "{Binding CiudadSeleccionada}"
 
                 
