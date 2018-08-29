@@ -4,18 +4,34 @@
              BackgroundColor="White"
              x:Class="ElGas.Pages.RecoveryPassPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Ingrese el correo del registro para recuperar la contraseña"></Label>
-            
-            <Entry  Placeholder="Email" 
+        <Grid Margin="8,40,8,20"    BackgroundColor="White">
+
+            <Grid.RowDefinitions>
+
+                <RowDefinition Height="*" />
+      
+                <RowDefinition Height="*" />
+
+
+            </Grid.RowDefinitions>
+
+            <StackLayout  Grid.Row="0">
+                <Label Text="Ingrese el correo para enviar el código de seguridad"></Label>
+                <Entry  Placeholder="Email" 
                     Keyboard="Email" 
                     FontFamily="calibril.ttf#Calibri Light"   
                     Text="{Binding Username}" 
-                     HeightRequest = "40" />
+                     HeightRequest = "40"                   
+                    />
+            </StackLayout>
 
-            <Button Text="Recuperar Contraseña"></Button>
-            
-            
-        </StackLayout>
+           
+
+            <StackLayout  Grid.Row="1">
+                <Button Text="Enviar Código" Command="{Binding SendCodeCommand}"></Button>
+            </StackLayout>
+
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -233,7 +233,7 @@
                 >
                         <Entry.TextColor>
                             <OnPlatform x:TypeArguments="Color">
-                                <On Platform="Android" Value="{StaticResource WhiteColor}" />
+                                <On Platform="Android" Value="{StaticResource BlackColor}" />
                                 <On Platform="iOS, UWP" Value="{StaticResource BlackColor}" />
                             </OnPlatform>
                         </Entry.TextColor>
@@ -254,7 +254,7 @@
                         
                         <Entry.TextColor>
                             <OnPlatform x:TypeArguments="Color">
-                                <On Platform="Android" Value="{StaticResource WhiteColor}" />
+                                <On Platform="Android" Value="{StaticResource BlackColor}" />
                                 <On Platform="iOS, UWP" Value="{StaticResource BlackColor}" />
                             </OnPlatform>
                         </Entry.TextColor>

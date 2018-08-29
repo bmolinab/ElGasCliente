@@ -11,13 +11,14 @@ using Xamarin.Forms.Xaml;
 namespace ElGas.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class RecoveryPassPage : ContentPage
+	public partial class RecoveryPassPage2 : ContentPage
 	{
-        RecoveryPassViewModel viewModel = new RecoveryPassViewModel("");
-		public RecoveryPassPage ()
-		{
-			InitializeComponent ();
+        RecoveryPassViewModel viewModel;
+        public RecoveryPassPage2(string username)
+        {
+           viewModel= new RecoveryPassViewModel(username);
+            InitializeComponent();
             BindingContext = viewModel;
-		}
+        }
 	}
 }

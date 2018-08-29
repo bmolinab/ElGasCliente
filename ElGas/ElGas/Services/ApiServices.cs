@@ -182,5 +182,63 @@ namespace ElGas.Services
             }
         }
 
+        public async Task<bool> GenerateCode(string email)
+        {
+            var client = new HttpClient();
+
+            var model = new RegisterBindingModel
+            {
+                Email = email,
+            };
+            var json = JsonConvert.SerializeObject(model);
+            HttpContent httpContent = new StringContent(json);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var response = await client.PostAsync(
+            Constants.BaseApiAddress + "api/Account/GenerateCode", httpContent);            
+
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+
+            }
+
+            return false;
+        }
+
+        public async Task<bool> RecoveryPass(string email, string password, string confirmPassword, int codigo)
+        {
+            var client = new HttpClient();
+
+            if (password == confirmPassword)
+            {
+                var model = new PasswordRequest
+                {
+                    Email = email,
+                    Codigo = codigo,
+                    NewPassword= password
+                };
+
+                var json = JsonConvert.SerializeObject(model);
+
+                HttpContent httpContent = new StringContent(json);
+
+                httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await client.PostAsync(
+                    Constants.BaseApiAddress + "api/Account/RecoveryPass", httpContent);
+
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                   
+                        return true;
+                    
+
+                }
+
+            }
+            return false;
+        }       
     }
 }
