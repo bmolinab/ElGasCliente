@@ -66,6 +66,23 @@ namespace ElGas.ViewModels
             }
         }
 
+        private bool isAcceptPolicy = false;
+        public bool IsAcceptPolicy
+        {
+            set
+            {
+                if (isAcceptPolicy != value)
+                {
+                    isAcceptPolicy = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("IsAcceptPolicy"));
+                }
+            }
+            get
+            {
+                return isAcceptPolicy;
+            }
+        }
+
         private bool isError = false;
         public bool IsError
         {
@@ -251,39 +268,44 @@ namespace ElGas.ViewModels
                 {
                     //App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));                     Application.Current.MainPage.Navigation.PushAsync(new RegisterPage2(Cliente));
 
-
-                    if (Password != null && Password != "")
+                    if (IsAcceptPolicy)
                     {
-                        if (ConfirmPassword == Password)
+                        if (Password != null && Password != "")
                         {
-                            if (Password.Length > 3)
+                            if (ConfirmPassword == Password)
                             {
-                                Cliente.Correo = Username;
-                                Cliente.Identificacion = Password;
-                                App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));
+                                if (Password.Length > 3)
+                                {
+                                    Cliente.Correo = Username;
+                                    Cliente.Identificacion = Password;
+                                    App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));
+                                }
+                                else
+                                {
+                                    await App.Current.MainPage.DisplayAlert("Error", "Las contraseña debe tener al menos 4 caracteres", "Aceptar");
+
+                                }
+
+
+
                             }
                             else
                             {
-                                await App.Current.MainPage.DisplayAlert("Error", "Las contraseña debe tener al menos 4 caracteres", "Aceptar");
-
+                                await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
                             }
-
-
 
                         }
                         else
                         {
-                            await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
+                            await App.Current.MainPage.DisplayAlert("Error", "Todos los campos son obligatorios", "Aceptar");
+
                         }
 
                     }
                     else
                     {
-                        await App.Current.MainPage.DisplayAlert("Error", "Todos los campos son obligatorios", "Aceptar");
-
+                        await App.Current.MainPage.DisplayAlert("Error", "Debe haber leído y estar de acuerdo con los Términos y condiciones y las Políticas y tratamiento de datos personales", "Aceptar");
                     }
-
-
 
                 });
             }
