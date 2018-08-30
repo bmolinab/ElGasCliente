@@ -208,23 +208,25 @@ namespace ElGas.ViewModels
 
                         var isRegistered = await _apiServices.RegisterUserAsync
                         (Username, Password, ConfirmPassword, Cliente);
-                        Settings.Username = Username;
-                        Settings.Password = Password;
+                     
 
                         IsBusy = false;
 
                         if (isRegistered)
                         {
+                            Settings.Username = Username;
+                            Settings.Password = Password;
+
                             Message = "Se registró con éxito";
                             await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
                             App.Current.MainPage = new NavigationPage(new LoginPage());
 
                         }
-                        else
-                        {
-                            Message = "No  pudimos registrar su cuenta, reintentelo";
-                            await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-                        }
+                        //else
+                        //{
+                        //    Message = "No  pudimos registrar su cuenta, reintentelo";
+                        //    await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
+                        //}
 
                         //else
                         //{

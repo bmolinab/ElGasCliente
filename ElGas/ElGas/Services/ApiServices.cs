@@ -35,16 +35,15 @@ namespace ElGas.Services
 
             var response = await client.PostAsync(
                 Constants.BaseApiAddress + "api/Account/Register", httpContent);
-            var result = await response.Content.ReadAsStringAsync();
-              var AspNetUSer = JsonConvert.DeserializeObject<AspNetUser>(result);
 
-            cliente.IdAspNetUser = AspNetUSer.Id;
-            cliente.Correo = AspNetUSer.Email;
-
-
-            Debug.WriteLine(result);
             if (response.IsSuccessStatusCode)
             {
+                var result = await response.Content.ReadAsStringAsync();
+            var AspNetUSer = JsonConvert.DeserializeObject<AspNetUser>(result);
+            cliente.IdAspNetUser = AspNetUSer.Id;
+            cliente.Correo = AspNetUSer.Email;
+            Debug.WriteLine(result);
+            
                 var json2 = JsonConvert.SerializeObject(cliente);
                 HttpContent httpContent2 = new StringContent(json2);
 
@@ -58,6 +57,21 @@ namespace ElGas.Services
                 {                  
                     return true;
                 }
+
+            }
+            else
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                var Mensaje = JsonConvert.DeserializeObject<ErrorModel>(result);
+
+                var Message = "";
+
+                foreach (var item in Mensaje.ModelState.Error)
+                {
+                    Message = item + "\n";
+                };
+
+                await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
 
             }
 
