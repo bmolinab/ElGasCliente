@@ -5,7 +5,7 @@
          
              x:Class="ElGas.Pages.MapaPage"
              Title="Inicio"
-             Icon="Home_icon.png"
+             Icon="shop2.png"
              >
     <ContentPage.Content>
         <StackLayout >

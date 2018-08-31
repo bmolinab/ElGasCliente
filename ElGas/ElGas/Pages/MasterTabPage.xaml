@@ -3,10 +3,10 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
             x:Class="ElGas.Pages.MasterTabPage"
             xmlns:local="clr-namespace:ElGas.Pages"
-            >
+            ><local:MapaPage></local:MapaPage>
             
             <local:PedidosPage></local:PedidosPage>
             <local:SettingsPage></local:SettingsPage>
-    <local:MapaPage></local:MapaPage>
+    
       
 </TabbedPage>

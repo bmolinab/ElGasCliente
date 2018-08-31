@@ -251,5 +251,7 @@
     <BundleResource Include="Resources\History_Icon.png" />
     <BundleResource Include="Resources\Settings_Icon.png" />
     <BundleResource Include="Resources\Purchase_Icon.png" />
+    <BundleResource Include="Resources\shop_icon.png" />
+    <BundleResource Include="Resources\shop2.png" />
   </ItemGroup>
 </Project>
