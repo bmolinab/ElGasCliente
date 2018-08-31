@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
              BackgroundColor="White"
-             x:Class="ElGas.Pages.LoginPage">
+             x:Class="ElGas.Pages.LoginPage"
+             Title = "Login"
+             Icon="LoginIcon.png"
+             >
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="AccentColor">#BC4C1B</Color>

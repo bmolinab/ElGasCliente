@@ -56,7 +56,7 @@ namespace ElGas.Services
                     var loginViewModel = new LoginViewModel();
                     loginViewModel.LoginCommand.Execute(null);
                 }
-                App.Current.MainPage = new NavigationPage(new MasterPage());
+                App.Current.MainPage = new NavigationPage(new MasterTabPage());
              
             }
             else if (!string.IsNullOrEmpty(Settings.Username)
