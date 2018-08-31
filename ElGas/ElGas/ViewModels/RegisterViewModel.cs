@@ -222,6 +222,7 @@ namespace ElGas.ViewModels
                     {
                         Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}", CalleUno, Numero, CalleDos, Sector);
                         Cliente.Habilitado = true;
+                        Cliente.IdSector = SectorSeleccionado.IdSector;
 
                         var isRegistered = await _apiServices.RegisterUserAsync
                         (Username, Password, ConfirmPassword, Cliente);
@@ -238,31 +239,14 @@ namespace ElGas.ViewModels
                             await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
                             App.Current.MainPage = new NavigationPage(new LoginPage());
 
-                        }
-                        //else
-                        //{
-                        //    Message = "No  pudimos registrar su cuenta, reintentelo";
-                        //    await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-                        //}
-
-                        //else
-                        //{
-                        //    IsBusy = false;
-                        //    Message = "La contraseña debe tener 8-16 caracteres e incluir al menos una minúscula, una mayúscula, un número y un caracter especial";
-                        //    IsError = true;
-                        //}
-
+                        }                      
                     }
                     else
                     {
                         IsBusy = false;
                         Message = "Las contraseñas no coincide";
                         await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-
-                        // IsError = true;
-                    }
-
-
+                    }                
                 });
             }
         }
