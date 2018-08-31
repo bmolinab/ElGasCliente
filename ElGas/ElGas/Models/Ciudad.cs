@@ -3,32 +3,8 @@ namespace ElGas.Models
 {
     public class Ciudad
     {
+        public int IdCiudad { get; set; }
 
-        public string Id
-        {
-            get;
-            set;
-        }
-
-        public string Nombre
-        {
-            get;
-            set;
-        }
-
-        public Ciudad(string id, string nombre)
-        {
-            this.Id = id;
-            this.Nombre = nombre;
-        }
-
-        public override string ToString()
-        {
-            return this.Nombre;
-        }
-        public Ciudad()
-        {
-
-        }
+        public string Nombre { get; set; }
     }
 }

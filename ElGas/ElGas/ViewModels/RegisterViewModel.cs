@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -101,7 +102,7 @@ namespace ElGas.ViewModels
         }
 
         private Ciudad _ciudadSeleccionada{get;set; }
-        public Ciudad CiudadSeleccionada
+        public  Ciudad CiudadSeleccionada
         {
             get
             {
@@ -110,10 +111,12 @@ namespace ElGas.ViewModels
 
             set
             {
-                if(_ciudadSeleccionada !=value)
+
+
+                if (_ciudadSeleccionada !=value)
                 {
                     _ciudadSeleccionada = value;
-                    SectoresPorCiudad = Sectores.FindAll(x => x.IdCiudad == _ciudadSeleccionada.Id);
+                      LoadSectors(_ciudadSeleccionada.IdCiudad);
                    
                 }
             }
@@ -124,10 +127,21 @@ namespace ElGas.ViewModels
             get;set;
         }
 
+        List<Ciudad> ciudades = new List<Ciudad>();
         public List<Ciudad> Ciudades
         {
-            get;
-            set;
+            set
+            {
+                if (ciudades != value)
+                {
+                    ciudades = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Ciudades"));
+                }
+            }
+            get
+            {
+                return ciudades;
+            }
         }
 
         public List<Sector> Sectores
@@ -161,23 +175,26 @@ namespace ElGas.ViewModels
         #region Cosntructor
         public RegisterViewModel(Cliente cliente)
         {
-            Ciudades = new List<Ciudad>
-            {
-                new Ciudad("1", "Quito"),
-                new Ciudad("2", "Guayaquil"),
-                new Ciudad("3", "Cuenca")
-            };
-            Sectores = new List<Sector>
-            {
-                new Sector("1","1" ,"Norte"),
-                new Sector("2","1", "Sur"),
-                new Sector("3","1", "Centro"),
-                new Sector("4","1","Los Chillos"),
-                new Sector("5","2" ,"Norte"),
-                new Sector("6","2", "Sur"),
-                new Sector("7","2", "Centro")
+            //Ciudades = new List<Ciudad>
+            //{
+            //    new Ciudad("1", "Quito"),
+            //    new Ciudad("2", "Guayaquil"),
+            //    new Ciudad("3", "Cuenca")
+            //};
 
-            };
+            //Sectores = new List<Sector>
+            //{
+            //    new Sector("1","1" ,"Norte"),
+            //    new Sector("2","1", "Sur"),
+            //    new Sector("3","1", "Centro"),
+            //    new Sector("4","1","Los Chillos"),
+            //    new Sector("5","2" ,"Norte"),
+            //    new Sector("6","2", "Sur"),
+            //    new Sector("7","2", "Centro")
+
+            //};
+
+            LoadCities();
             isError = false;
             IsError = false;
 
@@ -315,6 +332,20 @@ namespace ElGas.ViewModels
 
 
         #endregion
+
+        #region Methods    
+        public async void LoadCities()
+        {
+            Ciudades = await _apiServices.GetCiudades();
+        }
+
+        public async  void LoadSectors( int idCities)
+        {
+            SectoresPorCiudad = await _apiServices.GetSectors(idCities);
+        }
+        #endregion
+
+
 
         #region PropertyChanged
 

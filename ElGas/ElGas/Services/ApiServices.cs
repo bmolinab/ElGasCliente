@@ -253,6 +253,59 @@ namespace ElGas.Services
 
             }
             return false;
-        }       
+        }
+
+        public async Task<List<Ciudad>> GetCiudades()
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(Constants.BaseApiAddress);
+                var url = "api/Ciudades/GetCiudades";
+                var response = await client.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var Ciudades = JsonConvert.DeserializeObject<List<Ciudad>>(result);
+
+                return Ciudades;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
+        public async Task<List<Sector>> GetSectors(int idCiudad)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(Constants.BaseApiAddress);
+                var url = "api/Sectores/GetSectorsByCity/"+idCiudad;
+                var response = await client.PostAsync(url,null);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var Sector = JsonConvert.DeserializeObject<List<Sector>>(result);
+
+                return Sector;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
     }
 }
