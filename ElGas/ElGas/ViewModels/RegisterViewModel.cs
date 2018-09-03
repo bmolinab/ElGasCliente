@@ -21,7 +21,6 @@ namespace ElGas.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
-
         #region Properties
         public string Username { get; set; }
         public string Password { get; set; }
@@ -171,7 +170,6 @@ namespace ElGas.ViewModels
 
 
         #endregion
-
         #region Cosntructor
         public RegisterViewModel(Cliente cliente)
         {
@@ -209,7 +207,6 @@ namespace ElGas.ViewModels
 
         }
         #endregion
-
         #region Commands
         public ICommand RegisterCommand
         {
@@ -316,7 +313,6 @@ namespace ElGas.ViewModels
 
 
         #endregion
-
         #region Methods    
         public async void LoadCities()
         {
@@ -328,9 +324,6 @@ namespace ElGas.ViewModels
             SectoresPorCiudad = await _apiServices.GetSectors(idCities);
         }
         #endregion
-
-
-
         #region PropertyChanged
 
         private void OnPropertyChanged([CallerMemberName] string name = null)
@@ -340,6 +333,5 @@ namespace ElGas.ViewModels
        
 
         #endregion
-
     }
 }

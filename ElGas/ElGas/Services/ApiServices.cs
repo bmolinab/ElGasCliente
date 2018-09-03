@@ -15,7 +15,14 @@ using System.Text;
 namespace ElGas.Services
 {
     internal class ApiServices
-    {
+        {/// <summary>
+        /// Registra nuevos usuarios clientes
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="confirmPassword"></param>
+        /// <param name="cliente"></param>
+        /// <returns></returns>
         public async Task<bool> RegisterUserAsync(string email, string password, string confirmPassword, Cliente cliente)
         {
             var client = new HttpClient();
@@ -77,7 +84,12 @@ namespace ElGas.Services
 
             return false;
         }
-
+        /// <summary>
+        /// Permite el ingreso de lo usuarios autenticados a la aplicación 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public async Task<string> LoginAsync(string userName, string password)
         {
             var keyValues = new List<KeyValuePair<string, string>>
@@ -113,6 +125,11 @@ namespace ElGas.Services
             return accessToken;
         }
         
+        /// <summary>
+        /// Obtiene los distribuidores cercanos
+        /// </summary>
+        /// <param name="posicion"></param>
+        /// <returns></returns>
         public async Task<List<DistribuidorResponse>> DistribuidoresCercanos(Posicion posicion)
         {
           
@@ -195,7 +212,11 @@ namespace ElGas.Services
                 };
             }
         }
-
+        /// <summary>
+        /// Genera un codigo para recuperar la contraseña
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public async Task<bool> GenerateCode(string email)
         {
             var client = new HttpClient();
@@ -218,7 +239,14 @@ namespace ElGas.Services
 
             return false;
         }
-
+        /// <summary>
+        /// Permite cambiar la contraseña
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="confirmPassword"></param>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public async Task<bool> RecoveryPass(string email, string password, string confirmPassword, int codigo)
         {
             var client = new HttpClient();
@@ -255,6 +283,10 @@ namespace ElGas.Services
             return false;
         }
 
+        /// <summary>
+        /// Obtiene todas las ciudades
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Ciudad>> GetCiudades()
         {
             try
@@ -281,6 +313,11 @@ namespace ElGas.Services
 
         }
 
+        /// <summary>
+        /// Obtiene los sectores segùn la ciudad
+        /// </summary>
+        /// <param name="idCiudad"></param>
+        /// <returns></returns>
         public async Task<List<Sector>> GetSectors(int idCiudad)
         {
             try

@@ -246,4 +246,16 @@
     <BundleResource Include="Resources\LoginFacebook.png" />
     <BundleResource Include="Resources\facebook_login.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\vendido.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\aceptado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cancelado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pendiente.png" />
+  </ItemGroup>
 </Project>

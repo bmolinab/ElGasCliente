@@ -46,15 +46,19 @@ namespace ElGas.ViewModels
                 {
                     case -1:
                         item.TituloPedido = "Compra Cancelada";
+                        item.icono = "cancelado.png";
                         break;
                     case 0:
                         item.TituloPedido = "Compra no atendida";
+                        item.icono = "pendiente.png";
                         break;
                     case 1:
                         item.TituloPedido = "Compra en atención";
+                        item.icono = "aceptado.png";
                         break;
                     case 2:
                         item.TituloPedido = "Compra Finalizada";
+                        item.icono = "vendido.png";
                         break;
                 }
 

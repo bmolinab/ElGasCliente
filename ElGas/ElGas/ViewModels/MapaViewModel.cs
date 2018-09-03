@@ -30,7 +30,7 @@ namespace ElGas.ViewModels
 
         #region services
         ApiServices apiService = new ApiServices();
-
+        Xamarin.Forms.Maps.Geocoder geoCoder;
         #endregion
         #region Properties
         private bool _isVisible = false;
@@ -68,12 +68,17 @@ namespace ElGas.ViewModels
         }
         bool tracking;
 
+        public string direccion = "";
+        public string Direccion
+        {
+            get { return direccion; }
+            set { direccion = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Direccion")); }
+
+        }
 
         private readonly string ElGAS_FIREBASE = "https://elgas-f24e8.firebaseio.com/-LJVkHULelfySFjNF9-Q/Equipo-ElGas/";
         private readonly FirebaseClient _firebaseClient;  
 
-        #endregion
-        #region Events
 
         public event PropertyChangedEventHandler PropertyChanged;
         public MapSpan centerSearch = null;
@@ -91,16 +96,7 @@ namespace ElGas.ViewModels
             }
         }
 
-        //private ObservableCollection<DistribuidorFirebase> camiones=new ObservableCollection<DistribuidorFirebase>();
-
-        //public ObservableCollection<DistribuidorFirebase> Camiones
-        //{
-        //    get { return camiones; }
-        //    set
-        //    {
-        //        camiones = value; PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Camiones"));
-        //    }
-        //}
+    
 
 
         public ObservableCollection<DistribuidorFirebase> camiones;
@@ -125,15 +121,7 @@ namespace ElGas.ViewModels
             get { return locations; }
         }
 
-        #endregion
-        Xamarin.Forms.Maps.Geocoder geoCoder;
-        public string direccion = "";
-        public string Direccion
-        {
-            get { return direccion; }
-            set { direccion = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Direccion")); }
-
-        }
+        #endregion 
         #region Constructor
         public MapaViewModel()
         {
@@ -151,7 +139,7 @@ namespace ElGas.ViewModels
             LoadVendedores();
         }
         #endregion
-
+        #region Events
         public void OnAppearing()
         {
             Locations = new ObservableCollection<TKCustomMapPin>();
@@ -159,7 +147,10 @@ namespace ElGas.ViewModels
             centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
             LoadVendedores();
             //Do whatever you like in here
-        }     
+        }
+
+        #endregion
+        #region Methods
         async void ObtenerDireccion(double lat, double lon)
         {
             var position = new Xamarin.Forms.Maps.Position(lat, lon);
@@ -181,19 +172,19 @@ namespace ElGas.ViewModels
 
             var response = await ApiServices.InsertarAsync<Cliente>(cliente, new Uri(Constants.BaseApiAddress), "/api/Parametroes/GetAllParameters");
             var parametros = JsonConvert.DeserializeObject<List<Parametro>>(response.Result.ToString());
-            if (parametros!=null)
+            if (parametros != null)
 
             {
                 bool Actualizado = true;
                 foreach (var item in parametros)
                 {
-                    if (item.Nombre== "valor")
+                    if (item.Nombre == "valor")
                     {
-                        Settings.Precio =(double) item.Valor;
+                        Settings.Precio = (double)item.Valor;
                     }
-                    if(item.Nombre== "versioncliente")
+                    if (item.Nombre == "versioncliente")
                     {
-                        if(Constants.VersionCliente >= item.Valor)
+                        if (Constants.VersionCliente >= item.Valor)
                         {
                             Actualizado = true;
                         }
@@ -203,7 +194,7 @@ namespace ElGas.ViewModels
                         }
                     }
                 }
-                if(!Actualizado) await App.Navigator.PushAsync(new UpdatePage());
+                if (!Actualizado) await App.Navigator.PushAsync(new UpdatePage());
 
 
             }
@@ -213,9 +204,9 @@ namespace ElGas.ViewModels
 
         }
         public async void LoadVendedores()
-        {        
-                try
-                {
+        {
+            try
+            {
                 //     await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
                 if (status != PermissionStatus.Granted)
@@ -243,15 +234,15 @@ namespace ElGas.ViewModels
 
 
                 var locator = CrossGeolocator.Current;
-                    locator.DesiredAccuracy = 10;//DesiredAccuracy.Value;
-                    Debug.WriteLine("Consiguiendo localización...");
-                    var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(3), null, true);
-                    if (position == null)
-                    {
-                        Debug.WriteLine("null gps :(");
-                        return;
-                    }
-                    CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(position.Latitude, position.Longitude)), Distance.FromMiles(.5)));
+                locator.DesiredAccuracy = 10;//DesiredAccuracy.Value;
+                Debug.WriteLine("Consiguiendo localización...");
+                var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(3), null, true);
+                if (position == null)
+                {
+                    Debug.WriteLine("null gps :(");
+                    return;
+                }
+                CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(position.Latitude, position.Longitude)), Distance.FromMiles(.5)));
                 #region Forma Antigua
 
                 //var Distribuidores = await apiService.DistribuidoresCercanos(new Models.Posicion { Latitud = position.Latitude, Longitud = position.Longitude });
@@ -275,8 +266,8 @@ namespace ElGas.ViewModels
 
                 #region Forma Firebase
 
-                    Locations.Clear();
-                   // Point p = new Point(0.48, 0.96);
+                Locations.Clear();
+                // Point p = new Point(0.48, 0.96);
 
                 _firebaseClient
                 .Child("Distribuidores")
@@ -298,11 +289,10 @@ namespace ElGas.ViewModels
                 #endregion
             }
             catch (Exception ex)
-             {
+            {
                 Debug.WriteLine("Uh oh", "Algo salió mal, ¡pero no te preocupes capturamos para el análisis! Gracias.", "OK");
-             }            
-        }
-        #region Tareas
+            }
+        }       
 
         private void AdicionarPedido(string key, DistribuidorFirebase pedido)
         {
@@ -358,7 +348,6 @@ namespace ElGas.ViewModels
 
         }
         #endregion
-
         #region commands
         public ICommand BuyCommand { get { return new RelayCommand(Buy); } }
         private async void Buy()

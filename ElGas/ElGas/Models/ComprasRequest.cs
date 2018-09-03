@@ -21,6 +21,9 @@ namespace ElGas.Models
         public string TituloPedido { get; set; }
         public string EstadoPedido { get; set; }
         public bool isCancelable { get; set; }
+
+        public string icono { get; set; }
+
     }
 
 }

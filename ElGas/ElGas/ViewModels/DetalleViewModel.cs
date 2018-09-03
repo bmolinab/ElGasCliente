@@ -18,9 +18,9 @@ namespace ElGas.ViewModels
     {
         #region services
         ApiServices apiService = new ApiServices();
-        #endregion
         Xamarin.Forms.Maps.Geocoder geoCoder;
 
+        #endregion
         #region Properties
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -126,6 +126,7 @@ namespace ElGas.ViewModels
         }
 
         #endregion
+        #region Constructor
         public DetalleViewModel(ComprasRequest comprasRequest)
         {
             try
@@ -175,13 +176,13 @@ namespace ElGas.ViewModels
 
                 var fecha = TimeZoneInfo.ConvertTime(comprasRequest.FechaPedido.Value.Date, TimeZoneInfo.Local);
 
-                FechaCompra= fecha.ToString("yyyy-MM-dd");
+                FechaCompra = fecha.ToString("yyyy-MM-dd");
                 CantidadCompra = Compra.Cantidad.ToString();
                 ValorCompra = Compra.ValorTotal.ToString();
 
 
                 ObtenerDireccion((double)Compra.Latitud, (double)Compra.Longitud);
-                
+
 
 
             }
@@ -190,9 +191,11 @@ namespace ElGas.ViewModels
                 Debug.WriteLine(ex.Message);
                 throw;
             }
-           
+
         }
 
+        #endregion
+        #region Methods
         async void ObtenerDireccion(double lat, double lon)
         {
             var position = new Xamarin.Forms.Maps.Position(lat, lon);
@@ -204,6 +207,8 @@ namespace ElGas.ViewModels
                 break;
             }
         }
+        #endregion
+        #region Commands
 
         public ICommand CancelCommand { get { return new RelayCommand(Cancel); } }
         public async void Cancel()
@@ -249,5 +254,7 @@ namespace ElGas.ViewModels
             }
 
         }
+
+        #endregion
     }
 }

@@ -26,7 +26,6 @@ namespace ElGas.ViewModels
         #region services
         ApiServices apiService = new ApiServices();
         #endregion
-
         #region Properties
         public event PropertyChangedEventHandler PropertyChanged;
         public ObservableCollection<TKCustomMapPin> locations;
@@ -52,7 +51,6 @@ namespace ElGas.ViewModels
                 }
             }
         }
-
         public MapSpan centerSearch = null;
         public MapSpan CenterSearch
         {
@@ -67,9 +65,7 @@ namespace ElGas.ViewModels
                 }
             }
         }
-
         #endregion
-
         #region Constructor
         public SeguimientoViewModel()
         {
@@ -81,8 +77,6 @@ namespace ElGas.ViewModels
             DatosVendedor();
         }
         #endregion
-
-
         #region Commands
         public ICommand ContactCommand { get { return new RelayCommand(Contact); } }
         public async void Contact()
