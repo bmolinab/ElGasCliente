@@ -5,8 +5,17 @@
             xmlns:local="clr-namespace:ElGas.Pages"
             ><local:MapaPage></local:MapaPage>
             
-            <local:PedidosPage></local:PedidosPage>
-            <local:SettingsPage></local:SettingsPage>
+            <!--<local:PedidosPage></local:PedidosPage>-->
+
+    <!--https://github.com/xamarin/xamarin-forms-samples/tree/master/Navigation/TabbedPageWithNavigationPage-->
+
+    <NavigationPage  Title = "Histórico" Icon="Purchase_Icon.png">
+        <x:Arguments>
+            <local:PedidosPage />
+        </x:Arguments>
+    </NavigationPage>
+
+    <local:SettingsPage></local:SettingsPage>
     
       
 </TabbedPage>
