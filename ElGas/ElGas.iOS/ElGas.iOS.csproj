@@ -254,4 +254,16 @@
     <BundleResource Include="Resources\shop_icon.png" />
     <BundleResource Include="Resources\shop2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\vendido.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\aceptado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\cancelado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pendiente.png" />
+  </ItemGroup>
 </Project>

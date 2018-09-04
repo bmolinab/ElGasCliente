@@ -16,7 +16,6 @@ namespace ElGas.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
-
         #region Properties
         public string Username { get; set; }
         public string Password { get; set; }
@@ -64,8 +63,6 @@ namespace ElGas.ViewModels
 
         }
         #endregion
-
-
         #region Commands
         public ICommand SendCodeCommand
         {
@@ -143,6 +140,5 @@ namespace ElGas.ViewModels
 
 
         #endregion
-
     }
 }

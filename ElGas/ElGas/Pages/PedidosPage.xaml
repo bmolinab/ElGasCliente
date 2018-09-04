@@ -29,7 +29,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Image Source="cart.png" 
+                                <Image Source="{Binding icono}" 
                HorizontalOptions="Center" 
                VerticalOptions="Center" 
                Aspect="AspectFit" 

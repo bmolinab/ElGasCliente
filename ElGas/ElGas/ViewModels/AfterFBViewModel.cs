@@ -16,11 +16,9 @@ namespace ElGas.ViewModels
     {
         #region services
         ApiServices apiService = new ApiServices();
-
         #endregion
         #region Properties
         public event PropertyChangedEventHandler PropertyChanged;
-
         public string Username { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
@@ -111,29 +109,17 @@ namespace ElGas.ViewModels
             Username = fbProfile.Email;
             Password = fbProfile.Id;
             ConfirmPassword = fbProfile.Id;
-
             Cliente.Correo = fbProfile.Email;
-
-
-
             Char delimiter = ' ';
             String[] words = facebookProfile.FullName.Split(delimiter);
-
             if (words.Length>1)
             {
                 Cliente.Nombres = words[0];
                 Cliente.Apellidos = words[1];
-
             }
-
-           //, facebookProfile.FullName);
-
-
-
-
         }
         #endregion
-
+        #region Commands
         public ICommand RegisterCommand
         {
             get
@@ -154,14 +140,8 @@ namespace ElGas.ViewModels
                         IsBusy = false;
 
                         if (isRegistered)
-                        {
-                          //  Message = "Se registró con éxito";
-//await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-                          //  App.Current.MainPage = new NavigationPage(new LoginPage());
-                          //  await App.Current.MainPage.Navigation.PushAsync(new LoginPage());
-
+                        {                         
                             var accesstoken = await apiService.LoginAsync(Username, Password);
-
                             if (accesstoken != null)
                             {
                                 Settings.AccessToken = accesstoken;
@@ -170,39 +150,26 @@ namespace ElGas.ViewModels
                                 var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
                                 Settings.idCliente = cliente.IdCliente;
                                 IsBusy = false;
-
                                 Application.Current.MainPage = new NavigationPage(new MasterPage());
-
                             }
-
                         }
                         else
                         {
                             Message = "Tenemos un error su cuenta, reintentelo";
                             await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-                        }
-
-                        //else
-                        //{
-                        //    IsBusy = false;
-                        //    Message = "La contraseña debe tener 8-16 caracteres e incluir al menos una minúscula, una mayúscula, un número y un caracter especial";
-                        //    IsError = true;
-                        //}
-
+                        }                       
                     }
                     else
                     {
                         IsBusy = false;
                         Message = "Las contraseñas no coincide";
                         await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-
-                        // IsError = true;
                     }
-
-
                 });
             }
         }
+
+        #endregion
 
     }
 }

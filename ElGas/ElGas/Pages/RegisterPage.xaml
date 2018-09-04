@@ -140,7 +140,7 @@
                     VerticalOptions="CenterAndExpand">
                 
                 <Switch
-                        IsToggled="{Binding AcceptPolicy, Mode=TwoWay}"
+                        IsToggled="{Binding IsAcceptPolicy, Mode=TwoWay}"
                         HorizontalOptions="End">
                 </Switch>
                 

@@ -15,7 +15,14 @@ using System.Text;
 namespace ElGas.Services
 {
     internal class ApiServices
-    {
+        {/// <summary>
+        /// Registra nuevos usuarios clientes
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="confirmPassword"></param>
+        /// <param name="cliente"></param>
+        /// <returns></returns>
         public async Task<bool> RegisterUserAsync(string email, string password, string confirmPassword, Cliente cliente)
         {
             var client = new HttpClient();
@@ -35,16 +42,15 @@ namespace ElGas.Services
 
             var response = await client.PostAsync(
                 Constants.BaseApiAddress + "api/Account/Register", httpContent);
-            var result = await response.Content.ReadAsStringAsync();
-              var AspNetUSer = JsonConvert.DeserializeObject<AspNetUser>(result);
 
-            cliente.IdAspNetUser = AspNetUSer.Id;
-            cliente.Correo = AspNetUSer.Email;
-
-
-            Debug.WriteLine(result);
             if (response.IsSuccessStatusCode)
             {
+                var result = await response.Content.ReadAsStringAsync();
+            var AspNetUSer = JsonConvert.DeserializeObject<AspNetUser>(result);
+            cliente.IdAspNetUser = AspNetUSer.Id;
+            cliente.Correo = AspNetUSer.Email;
+            Debug.WriteLine(result);
+            
                 var json2 = JsonConvert.SerializeObject(cliente);
                 HttpContent httpContent2 = new StringContent(json2);
 
@@ -60,10 +66,30 @@ namespace ElGas.Services
                 }
 
             }
+            else
+            {
+                var result = await response.Content.ReadAsStringAsync();
+                var Mensaje = JsonConvert.DeserializeObject<ErrorModel>(result);
+
+                var Message = "";
+
+                foreach (var item in Mensaje.ModelState.Error)
+                {
+                    Message = item + "\n";
+                };
+
+                await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
+
+            }
 
             return false;
         }
-
+        /// <summary>
+        /// Permite el ingreso de lo usuarios autenticados a la aplicación 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public async Task<string> LoginAsync(string userName, string password)
         {
             var keyValues = new List<KeyValuePair<string, string>>
@@ -99,6 +125,11 @@ namespace ElGas.Services
             return accessToken;
         }
         
+        /// <summary>
+        /// Obtiene los distribuidores cercanos
+        /// </summary>
+        /// <param name="posicion"></param>
+        /// <returns></returns>
         public async Task<List<DistribuidorResponse>> DistribuidoresCercanos(Posicion posicion)
         {
           
@@ -181,7 +212,11 @@ namespace ElGas.Services
                 };
             }
         }
-
+        /// <summary>
+        /// Genera un codigo para recuperar la contraseña
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public async Task<bool> GenerateCode(string email)
         {
             var client = new HttpClient();
@@ -204,7 +239,14 @@ namespace ElGas.Services
 
             return false;
         }
-
+        /// <summary>
+        /// Permite cambiar la contraseña
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="confirmPassword"></param>
+        /// <param name="codigo"></param>
+        /// <returns></returns>
         public async Task<bool> RecoveryPass(string email, string password, string confirmPassword, int codigo)
         {
             var client = new HttpClient();
@@ -239,6 +281,68 @@ namespace ElGas.Services
 
             }
             return false;
-        }       
+        }
+
+        /// <summary>
+        /// Obtiene todas las ciudades
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<Ciudad>> GetCiudades()
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(Constants.BaseApiAddress);
+                var url = "api/Ciudades/GetCiudades";
+                var response = await client.GetAsync(url);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var Ciudades = JsonConvert.DeserializeObject<List<Ciudad>>(result);
+
+                return Ciudades;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
+        /// <summary>
+        /// Obtiene los sectores segùn la ciudad
+        /// </summary>
+        /// <param name="idCiudad"></param>
+        /// <returns></returns>
+        public async Task<List<Sector>> GetSectors(int idCiudad)
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.BaseAddress = new Uri(Constants.BaseApiAddress);
+                var url = "api/Sectores/GetSectorsByCity/"+idCiudad;
+                var response = await client.PostAsync(url,null);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                var Sector = JsonConvert.DeserializeObject<List<Sector>>(result);
+
+                return Sector;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
     }
 }

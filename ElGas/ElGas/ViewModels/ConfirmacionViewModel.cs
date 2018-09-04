@@ -78,10 +78,7 @@ namespace ElGas.ViewModels
             }
             get { return locations; }
         }
-
         #endregion
-
-
         #region Constructor
         public ConfirmacionViewModel(TKCustomMapPin posicion)
         {
@@ -93,8 +90,6 @@ namespace ElGas.ViewModels
 
         }
         #endregion
-
-
         #region commands 
         public ICommand OkCommand { get { return new RelayCommand(Ok); } }
         private async void Ok()
@@ -113,33 +108,19 @@ namespace ElGas.ViewModels
                     Latitud=(double?) CenterSearch.Center.Latitude,
                     Longitud=(double?) centerSearch.Center.Longitude,                    
                 };
-
                 var response = await ApiServices.InsertarAsync<Compra>(compra, new Uri(Constants.BaseApiAddress), "/api/Compras/PostCompras");
-
                 if (response.IsSuccess)
                 {
                     await App.Current.MainPage.DisplayAlert("Gracias por hacer su pedido", "En breve le confirmaremos su entrega", "Aceptar");
                     Settings.TanquesGas = int.Parse(Cilindros);
-                    await App.Navigator.Navigation.PopToRootAsync();
-
-
-                    //await Task.Delay(2000);
-                    //await App.Current.MainPage.DisplayAlert("Notificación", "Su pedido ha sido confirmado, un distribuidor está en camino para realizar la entrega", "Aceptar");
-                    //Settings.Pedidos = true;
-                    // await App.Navigator.PushAsync(new SeguimientoPage());
+                    await App.Navigator.Navigation.PopToRootAsync();                
                 }
                 else
                 {
                     await App.Current.MainPage.DisplayAlert("Tenemos un problema con su pedido", response.Message, "Aceptar");
-                }
-
-             
+                }             
             }
-
-
         }
         #endregion
-
-
     }
 }

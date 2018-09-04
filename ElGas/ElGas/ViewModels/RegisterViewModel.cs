@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -20,7 +21,6 @@ namespace ElGas.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
-
         #region Properties
         public string Username { get; set; }
         public string Password { get; set; }
@@ -66,6 +66,23 @@ namespace ElGas.ViewModels
             }
         }
 
+        private bool isAcceptPolicy = false;
+        public bool IsAcceptPolicy
+        {
+            set
+            {
+                if (isAcceptPolicy != value)
+                {
+                    isAcceptPolicy = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("IsAcceptPolicy"));
+                }
+            }
+            get
+            {
+                return isAcceptPolicy;
+            }
+        }
+
         private bool isError = false;
         public bool IsError
         {
@@ -84,7 +101,7 @@ namespace ElGas.ViewModels
         }
 
         private Ciudad _ciudadSeleccionada{get;set; }
-        public Ciudad CiudadSeleccionada
+        public  Ciudad CiudadSeleccionada
         {
             get
             {
@@ -93,10 +110,12 @@ namespace ElGas.ViewModels
 
             set
             {
-                if(_ciudadSeleccionada !=value)
+
+
+                if (_ciudadSeleccionada !=value)
                 {
                     _ciudadSeleccionada = value;
-                    SectoresPorCiudad = Sectores.FindAll(x => x.IdCiudad == _ciudadSeleccionada.Id);
+                      LoadSectors(_ciudadSeleccionada.IdCiudad);
                    
                 }
             }
@@ -107,10 +126,21 @@ namespace ElGas.ViewModels
             get;set;
         }
 
+        List<Ciudad> ciudades = new List<Ciudad>();
         public List<Ciudad> Ciudades
         {
-            get;
-            set;
+            set
+            {
+                if (ciudades != value)
+                {
+                    ciudades = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("Ciudades"));
+                }
+            }
+            get
+            {
+                return ciudades;
+            }
         }
 
         public List<Sector> Sectores
@@ -140,27 +170,29 @@ namespace ElGas.ViewModels
 
 
         #endregion
-
         #region Cosntructor
         public RegisterViewModel(Cliente cliente)
         {
-            Ciudades = new List<Ciudad>
-            {
-                new Ciudad("1", "Quito"),
-                new Ciudad("2", "Guayaquil"),
-                new Ciudad("3", "Cuenca")
-            };
-            Sectores = new List<Sector>
-            {
-                new Sector("1","1" ,"Norte"),
-                new Sector("2","1", "Sur"),
-                new Sector("3","1", "Centro"),
-                new Sector("4","1","Los Chillos"),
-                new Sector("5","2" ,"Norte"),
-                new Sector("6","2", "Sur"),
-                new Sector("7","2", "Centro")
+            //Ciudades = new List<Ciudad>
+            //{
+            //    new Ciudad("1", "Quito"),
+            //    new Ciudad("2", "Guayaquil"),
+            //    new Ciudad("3", "Cuenca")
+            //};
 
-            };
+            //Sectores = new List<Sector>
+            //{
+            //    new Sector("1","1" ,"Norte"),
+            //    new Sector("2","1", "Sur"),
+            //    new Sector("3","1", "Centro"),
+            //    new Sector("4","1","Los Chillos"),
+            //    new Sector("5","2" ,"Norte"),
+            //    new Sector("6","2", "Sur"),
+            //    new Sector("7","2", "Centro")
+
+            //};
+
+            LoadCities();
             isError = false;
             IsError = false;
 
@@ -175,7 +207,6 @@ namespace ElGas.ViewModels
 
         }
         #endregion
-
         #region Commands
         public ICommand RegisterCommand
         {
@@ -188,45 +219,31 @@ namespace ElGas.ViewModels
                     {
                         Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}", CalleUno, Numero, CalleDos, Sector);
                         Cliente.Habilitado = true;
+                        Cliente.IdSector = SectorSeleccionado.IdSector;
 
                         var isRegistered = await _apiServices.RegisterUserAsync
                         (Username, Password, ConfirmPassword, Cliente);
-                        Settings.Username = Username;
-                        Settings.Password = Password;
+                     
 
                         IsBusy = false;
 
                         if (isRegistered)
                         {
+                            Settings.Username = Username;
+                            Settings.Password = Password;
+
                             Message = "Se registró con éxito";
                             await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
                             App.Current.MainPage = new NavigationPage(new LoginPage());
 
-                        }
-                        else
-                        {
-                            Message = "No  pudimos registrar su cuenta, reintentelo";
-                            await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-                        }
-
-                        //else
-                        //{
-                        //    IsBusy = false;
-                        //    Message = "La contraseña debe tener 8-16 caracteres e incluir al menos una minúscula, una mayúscula, un número y un caracter especial";
-                        //    IsError = true;
-                        //}
-
+                        }                      
                     }
                     else
                     {
                         IsBusy = false;
                         Message = "Las contraseñas no coincide";
                         await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-
-                        // IsError = true;
-                    }
-
-
+                    }                
                 });
             }
         }
@@ -251,39 +268,44 @@ namespace ElGas.ViewModels
                 {
                     //App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));                     Application.Current.MainPage.Navigation.PushAsync(new RegisterPage2(Cliente));
 
-
-                    if (Password != null && Password != "")
+                    if (IsAcceptPolicy)
                     {
-                        if (ConfirmPassword == Password)
+                        if (Password != null && Password != "")
                         {
-                            if (Password.Length > 3)
+                            if (ConfirmPassword == Password)
                             {
-                                Cliente.Correo = Username;
-                                Cliente.Identificacion = Password;
-                                App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));
+                                if (Password.Length > 3)
+                                {
+                                    Cliente.Correo = Username;
+                                    Cliente.Identificacion = Password;
+                                    App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));
+                                }
+                                else
+                                {
+                                    await App.Current.MainPage.DisplayAlert("Error", "Las contraseña debe tener al menos 4 caracteres", "Aceptar");
+
+                                }
+
+
+
                             }
                             else
                             {
-                                await App.Current.MainPage.DisplayAlert("Error", "Las contraseña debe tener al menos 4 caracteres", "Aceptar");
-
+                                await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
                             }
-
-
 
                         }
                         else
                         {
-                            await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
+                            await App.Current.MainPage.DisplayAlert("Error", "Todos los campos son obligatorios", "Aceptar");
+
                         }
 
                     }
                     else
                     {
-                        await App.Current.MainPage.DisplayAlert("Error", "Todos los campos son obligatorios", "Aceptar");
-
+                        await App.Current.MainPage.DisplayAlert("Error", "Debe haber leído y estar de acuerdo con los Términos y condiciones y las Políticas y tratamiento de datos personales", "Aceptar");
                     }
-
-
 
                 });
             }
@@ -291,7 +313,17 @@ namespace ElGas.ViewModels
 
 
         #endregion
+        #region Methods    
+        public async void LoadCities()
+        {
+            Ciudades = await _apiServices.GetCiudades();
+        }
 
+        public async  void LoadSectors( int idCities)
+        {
+            SectoresPorCiudad = await _apiServices.GetSectors(idCities);
+        }
+        #endregion
         #region PropertyChanged
 
         private void OnPropertyChanged([CallerMemberName] string name = null)
@@ -301,6 +333,5 @@ namespace ElGas.ViewModels
        
 
         #endregion
-
     }
 }
