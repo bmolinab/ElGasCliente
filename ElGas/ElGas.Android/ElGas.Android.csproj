@@ -181,6 +181,19 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\drawable\LoginFacebook.png" />
     <AndroidResource Include="Resources\drawable\facebook_login.png" />
+    <AndroidResource Include="Resources\drawable\MenuIcon.png" />
+    <AndroidResource Include="Resources\drawable\LoginIcon.png" />
+    <AndroidResource Include="Resources\drawable\History_Icon.png" />
+    <AndroidResource Include="Resources\drawable\home_icon.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\home_icon.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\home_icon.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\home_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\home_icon.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\home_icon.png" />
+    <AndroidResource Include="Resources\drawable\shop_icon.png" />
+    <AndroidResource Include="Resources\drawable\Purchase_Icon.png" />
+    <AndroidResource Include="Resources\drawable\Settings_Icon.png" />
+    <AndroidResource Include="Resources\drawable\shop2.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\imgheaderbackground1.png" />

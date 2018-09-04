@@ -245,6 +245,14 @@
     <BundleResource Include="Resources\TabElGas.png" />
     <BundleResource Include="Resources\LoginFacebook.png" />
     <BundleResource Include="Resources\facebook_login.png" />
+    <BundleResource Include="Resources\MenuIcon.png" />
+    <BundleResource Include="Resources\LoginIcon.png" />
+    <BundleResource Include="Resources\home_icon.png" />
+    <BundleResource Include="Resources\History_Icon.png" />
+    <BundleResource Include="Resources\Settings_Icon.png" />
+    <BundleResource Include="Resources\Purchase_Icon.png" />
+    <BundleResource Include="Resources\shop_icon.png" />
+    <BundleResource Include="Resources\shop2.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\vendido.png" />
