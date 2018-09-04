@@ -77,14 +77,24 @@ namespace ElGas.ViewModels
 
         private async void iralDetalle(object obj)
         {
+            try
+            {
+
+           
             var compra = (ComprasRequest)obj;
 
 
-            await App.Navigator.PushAsync(new  Page1());
-             //await App.Navigator.PushAsync(new Page1());
+            await App.Navigator.PushAsync(new PedidosPage(), true);
 
             Debug.WriteLine(compra.IdCompra);
-            
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                throw;
+            }
+
         }
     }
 }
