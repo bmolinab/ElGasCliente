@@ -216,7 +216,13 @@ namespace ElGas.ViewModels
 
             var action = await App.Current.MainPage.DisplayAlert("Pedido a Cancelar", string.Format("{0} Tanque(s)", Compra.Cantidad), "Confirmar", "Regresar");
             if (action)
+
             {
+                if (Compra.IdDistribuidor==null)
+                {
+                    Compra.IdDistribuidor = 0;
+                }
+
                 var compracancelada = new CompraCancelada
                 {
                     IdCompra = Compra.IdCompra,
@@ -224,7 +230,7 @@ namespace ElGas.ViewModels
                     CanceladaPor = 1,
                     IdCliente =(int) Compra.IdCliente
                 };
-                var response = await ApiServices.InsertarAsync<CompraCancelada>(compracancelada, new Uri(Constants.BaseApiAddress), "/api/Compras/Cancelar");
+                var response = await ApiServices.InsertarAsync<CompraCancelada>(compracancelada, new Uri(Constants.BaseApiAddress), "api/Compras/Cancelar");
                 if (response.IsSuccess)
                 {
                     await App.Current.MainPage.DisplayAlert("Pedido a Cancelar", string.Format("Su pedido de {0} tanque(s) ha sido cancelado", Compra.Cantidad), "Aceptar");
@@ -256,5 +262,7 @@ namespace ElGas.ViewModels
         }
 
         #endregion
+
+
     }
 }

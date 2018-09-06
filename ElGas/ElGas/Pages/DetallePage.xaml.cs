@@ -19,10 +19,9 @@ namespace ElGas.Pages
         {
             try
             {
-                InitializeComponent();
-
                 BindingContext = new DetalleViewModel(comprasRequest);
 
+                InitializeComponent();
 
             }
             catch (Exception ex)

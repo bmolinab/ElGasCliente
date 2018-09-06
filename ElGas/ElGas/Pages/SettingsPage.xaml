@@ -6,5 +6,16 @@
              Icon="Settings_Icon.png"
              >
     <ContentPage.Content>
+        <StackLayout>
+            <Button
+                Grid.Row="1"            
+                BackgroundColor="#0072C6"
+                Text="Cerrar Sesión"
+                TextColor="White"
+                VerticalOptions="Center"
+                FontFamily="calibril.ttf#Calibri Light"
+                Command="{Binding LogoutCommand}"
+                />
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

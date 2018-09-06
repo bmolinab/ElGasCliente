@@ -277,7 +277,7 @@
                     >
                     </Label>
                     <Switch
-                        IsToggled="{Binding IsRemembered, Mode=TwoWay}"
+                        IsToggled="{Binding isRemember, Mode=TwoWay}"
                         HorizontalOptions="End">
                     </Switch>
                     </StackLayout>

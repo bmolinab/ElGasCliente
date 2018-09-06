@@ -56,6 +56,8 @@ namespace ElGas.Services
                     var loginViewModel = new LoginViewModel();
                     loginViewModel.LoginCommand.Execute(null);
                 }
+             //   App.Navigator = new NavigationPage(new MasterTabPage());
+
                 App.Current.MainPage = new NavigationPage(new MasterTabPage());
              
             }

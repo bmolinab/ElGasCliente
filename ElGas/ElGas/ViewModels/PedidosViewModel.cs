@@ -36,7 +36,7 @@ namespace ElGas.ViewModels
             var d = new Cliente { IdCliente = Settings.idCliente };
             var response = await ApiServices.InsertarAsync<Cliente>(d, new System.Uri(Constants.BaseApiAddress), "/api/Compras/ListCompraByClient");
             var  list = JsonConvert.DeserializeObject<List<ComprasRequest>>(response.Result.ToString());
-
+             list.Reverse();
             foreach (var item in list)
             {
                 var fecha = TimeZoneInfo.ConvertTime(item.FechaPedido.Value.Date, TimeZoneInfo.Local);
@@ -77,24 +77,10 @@ namespace ElGas.ViewModels
 
         private async void iralDetalle(object obj)
         {
-            try
-            {
-
-           
             var compra = (ComprasRequest)obj;
-
-
-            await App.Navigator.PushAsync(new PedidosPage(), true);
-
+            await App.Navigator.PushAsync(new DetallePage(compra), true);
             Debug.WriteLine(compra.IdCompra);
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                throw;
-            }
-
+            
         }
     }
 }

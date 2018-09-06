@@ -3,19 +3,32 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
             x:Class="ElGas.Pages.MasterTabPage"
             xmlns:local="clr-namespace:ElGas.Pages"
-            ><local:MapaPage></local:MapaPage>
-            
-            <!--<local:PedidosPage></local:PedidosPage>-->
+            NavigationPage.HasNavigationBar="False"
+            x:Name="Tbpage"
+            >
+    <!--<local:MapaPage></local:MapaPage>
+    <local:PedidosPage></local:PedidosPage>
+    <local:SettingsPage></local:SettingsPage>-->
 
-    <!--https://github.com/xamarin/xamarin-forms-samples/tree/master/Navigation/TabbedPageWithNavigationPage-->
 
-    <NavigationPage  Title = "Histórico" Icon="Purchase_Icon.png">
+
+    <NavigationPage Title = "Inicio"  Icon="shop2.png"  x:Name="NavigatorM" BackgroundColor="White">
+        <x:Arguments>
+            <local:MapaPage />
+        </x:Arguments>
+    </NavigationPage>
+
+    <NavigationPage Title = "Histórico" Icon="Purchase_Icon.png" x:Name="NavigatorH"  BackgroundColor="White">
         <x:Arguments>
             <local:PedidosPage />
         </x:Arguments>
     </NavigationPage>
 
-    <local:SettingsPage></local:SettingsPage>
-    
-      
+    <NavigationPage Title = "Configuración" Icon="Settings_Icon.png"  x:Name="NavigatorS" BackgroundColor="White">
+        <x:Arguments>
+            <local:SettingsPage  />
+        </x:Arguments>
+    </NavigationPage>
+
+
 </TabbedPage>

@@ -27,6 +27,7 @@ namespace ElGas
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjQzMkAzMTM2MmUzMjJlMzBiRXp6WjNDdFdzZTRjcmc4YWxJdXU2eVZ2OHhWOWJ0dHhQakVvZ0YvZmNZPQ==");
             //MainPage = new NavigationPage( new LoginPage());
             NavigationService navigationService = new NavigationService();
+
             navigationService.SetMainPage();
         }
 
