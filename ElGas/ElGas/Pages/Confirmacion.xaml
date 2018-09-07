@@ -17,10 +17,10 @@
 
             <Label Text="Ingrese el número de tanques requeridos" FontFamily="calibril.ttf#Calibri Light"></Label>
             <Entry Placeholder="Cantidad" Text="{Binding Cilindros,Mode=TwoWay}" FontFamily="calibril.ttf#Calibri Light" Keyboard="Numeric" ></Entry>
-            <Label Text="Total del pedido" FontFamily="calibril.ttf#Calibri Light" ></Label>
-            <Label FontSize="Large" FontAttributes="Bold" Text="{Binding Valor}" FontFamily="calibril.ttf#Calibri Light"></Label>
+            <!--<Label Text="Total del pedido" FontFamily="calibril.ttf#Calibri Light" ></Label>-->
+            <!--<Label FontSize="Large" FontAttributes="Bold" Text="{Binding Valor}" FontFamily="calibril.ttf#Calibri Light"></Label>-->
 
-            <Button BorderRadius="30" 
+            <Button 
                         FontFamily="calibril.ttf#Calibri Light"
                         Text="Confirmar" 
                         VerticalOptions="End" 

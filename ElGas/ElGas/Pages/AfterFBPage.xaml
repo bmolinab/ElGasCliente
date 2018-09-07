@@ -29,7 +29,7 @@
                         Command="{Binding RegisterCommand}"
                         TextColor="#FFFFFF"
                 FontFamily="calibril.ttf#Calibri Light"
-                        BorderRadius="30"/>
+                       />
             <ActivityIndicator 
                 Color="#0072C6"
                 IsRunning="{Binding IsBusy}" 

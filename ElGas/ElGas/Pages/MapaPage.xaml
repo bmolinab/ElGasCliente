@@ -48,7 +48,7 @@
                 />
 
                 <StackLayout Orientation="Horizontal" VerticalOptions="End" HorizontalOptions="Center" IsVisible="{Binding isVisible}">
-                    <Button BorderRadius="30" 
+                    <Button
                         Text="Confirmar" 
                         VerticalOptions="End" 
                         HorizontalOptions="CenterAndExpand" 
@@ -59,7 +59,7 @@
                         FontFamily="calibril.ttf#Calibri Light"
                         Command="{Binding OkCommand}">
                     </Button>
-                    <Button BorderRadius="30" 
+                    <Button  
                         Text="Cancelar" 
                         VerticalOptions="End" 
                         HorizontalOptions="CenterAndExpand" 
@@ -71,7 +71,7 @@
                         Command="{Binding CancelCommand}">
                     </Button>
                 </StackLayout>
-                <Button BorderRadius="30" 
+                <Button  
                         Text="Pedir El Gas" 
                         VerticalOptions="End" 
                         HorizontalOptions="Center" 

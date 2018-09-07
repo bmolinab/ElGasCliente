@@ -32,7 +32,7 @@
                     <Label Text="{Binding Distribuidor.PlacaVehiculo}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
                 </StackLayout>
 
-                <Button BorderRadius="30" 
+                <Button 
                         Text="Contactar" 
                         VerticalOptions="End" 
                         HorizontalOptions="Center" 
@@ -44,7 +44,7 @@
 
                 <Button Text="Cancelar" 
                         Command="{Binding CancelCommand}"
-                        BorderRadius="30"
+                       
                         BackgroundColor="#0072C6"
                         TextColor="White" 
                         VerticalOptions="End" 

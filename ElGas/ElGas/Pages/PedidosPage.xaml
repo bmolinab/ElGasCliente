@@ -52,11 +52,11 @@
                                     <Label Text="{Binding Cantidad}"></Label>
 
                                 </StackLayout>
-                                <StackLayout Orientation="Horizontal">
+                                <!--<StackLayout Orientation="Horizontal">
                                     <Label Text="Precio"></Label>
                                     <Label Text="{Binding ValorTotal}"></Label>
 
-                                </StackLayout>
+                                </StackLayout>-->
                             
 
                             </StackLayout>

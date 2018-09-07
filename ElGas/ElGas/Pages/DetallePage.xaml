@@ -42,14 +42,13 @@
                     <Label Text="Cantidad de Cilindros: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
                     <Label Text="{Binding  CantidadCompra}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal">
+                <!--<StackLayout Orientation="Horizontal">
                     <Label Text="Valor del pedido: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
                     <Label Text="{Binding  ValorCompra}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
-                </StackLayout>
+                </StackLayout>-->
 
 
                 <Button Text="Cancelar el pedido" 
-                        BorderRadius="30"
                         BackgroundColor="#0072C6"
                         TextColor="White" 
                         VerticalOptions="End" 
