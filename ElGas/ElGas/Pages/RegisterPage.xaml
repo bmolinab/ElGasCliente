@@ -133,18 +133,18 @@
             />
             
             </StackLayout>
-            
-            <StackLayout
+
+                    <StackLayout
                     Margin="8,0"
                     Orientation="Horizontal"
                     VerticalOptions="CenterAndExpand">
-                
-                <Switch
+
+                        <Switch
                         IsToggled="{Binding IsAcceptPolicy, Mode=TwoWay}"
                         HorizontalOptions="End">
-                </Switch>
-                
-                <Label
+                        </Switch>
+
+                        <Label
                         HorizontalOptions="StartAndExpand"
                         Text="He leído y estoy de acuerdo con los Términos y condiciones y las Políticas y tratamiento de datos personales"
                         VerticalOptions="Center"
@@ -152,22 +152,16 @@
                         Style="{StaticResource SignUpAccentTextStyle}"
                         FontSize = "Micro"
                  >
-                    <Label.GestureRecognizers>
-                                
-                   <TapGestureRecognizer
+                            <Label.GestureRecognizers>
+                            <TapGestureRecognizer
                          Command="{Binding PolicyCommand}"
                          CommandParameter="Register"
-                         NumberOfTapsRequired="1" 
-                        
+                         NumberOfTapsRequired="1"                         
                     />
-                    </Label.GestureRecognizers>
-                   
-                    </Label>
-                 
-                   
-              </StackLayout>
-            
-            <Label
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </StackLayout>
+                    <Label
                        Text="Siguiente"
                        FontFamily="calibril.ttf#Calibri Light"
                        Style="{StaticResource SignUpAccentTextStyle}"
@@ -175,20 +169,18 @@
                      HorizontalOptions="CenterAndExpand"
                      FontSize = "Medium"
                   VerticalOptions="FillAndExpand"
-                   > 
-                   <Label.GestureRecognizers>
-                                
-                   <TapGestureRecognizer
+                   >
+                        <Label.GestureRecognizers>
+
+                            <TapGestureRecognizer
                          Command="{Binding NextCommand}"
                          CommandParameter="Register"
                          NumberOfTapsRequired="1" 
                         
                     />
-                    </Label.GestureRecognizers>
+                        </Label.GestureRecognizers>
                     </Label>
-            
-           
-        </StackLayout>
+                </StackLayout>
         </ScrollView>
         </StackLayout>
     </ContentPage.Content>    

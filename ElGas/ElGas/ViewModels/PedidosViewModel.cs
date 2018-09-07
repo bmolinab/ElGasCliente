@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using ElGas.Helpers;
 using ElGas.Models;
@@ -36,8 +37,7 @@ namespace ElGas.ViewModels
             var d = new Cliente { IdCliente = Settings.idCliente };
             var response = await ApiServices.InsertarAsync<Cliente>(d, new System.Uri(Constants.BaseApiAddress), "/api/Compras/ListCompraByClient");
             var  list = JsonConvert.DeserializeObject<List<ComprasRequest>>(response.Result.ToString());
-             list.Reverse();
-            foreach (var item in list)
+            foreach (var item in list.OrderByDescending(o => o.IdCompra).ToList())
             {
                 var fecha = TimeZoneInfo.ConvertTime(item.FechaPedido.Value.Date, TimeZoneInfo.Local);
 

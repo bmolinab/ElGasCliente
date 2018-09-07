@@ -36,7 +36,6 @@
                         Text="Contactar" 
                         VerticalOptions="End" 
                         HorizontalOptions="Center" 
-                        WidthRequest="200"  
                         HeightRequest="50" 
                         BackgroundColor="#0072C6" 
                         TextColor="White" 
@@ -50,7 +49,6 @@
                         TextColor="White" 
                         VerticalOptions="End" 
                         HorizontalOptions="Center" 
-                        WidthRequest="200"  
                         HeightRequest="50" 
                         FontFamily="calibril.ttf#Calibri Light"
                         >

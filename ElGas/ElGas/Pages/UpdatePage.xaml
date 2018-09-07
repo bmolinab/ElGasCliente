@@ -26,7 +26,8 @@
                         TextColor="White"
                         FontFamily="calibril.ttf#Calibri Light"
                         Clicked="Button_Clicked"    
-                        ></Button>
+                        >
+            </Button>
             
         </StackLayout>
     </ContentPage.Content>

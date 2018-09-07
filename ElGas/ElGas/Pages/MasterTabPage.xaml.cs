@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ElGas.Helpers;
+using Rg.Plugins.Popup.Services;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Xamarin.Forms;
@@ -12,7 +14,6 @@ namespace ElGas.Pages
         {
             InitializeComponent();
             App.Navigator = NavigatorM;
-
             Tbpage.CurrentPageChanged += Tbpage_CurrentPageChanged;
 
         }
@@ -40,5 +41,21 @@ namespace ElGas.Pages
 
         }
 
+        protected override void OnAppearing()
+        {
+           
+
+            Paginaprincipal();
+
+        }
+        public async void Paginaprincipal()
+        {
+            if (Settings.Pedidos) await App.Navigator.PushAsync(new SeguimientoPage());
+            if (Settings.Calificar)
+            {
+                var page = new Calificacion();
+                await PopupNavigation.PushAsync(page);
+            }
+        }
     }
 }
