@@ -194,6 +194,11 @@
     <AndroidResource Include="Resources\drawable\Purchase_Icon.png" />
     <AndroidResource Include="Resources\drawable\Settings_Icon.png" />
     <AndroidResource Include="Resources\drawable\shop2.png" />
+    <AndroidResource Include="Resources\drawable\scart.png" />
+    <AndroidResource Include="Resources\drawable\Cancelcon.png" />
+    <AndroidResource Include="Resources\drawable\OKIcon.png" />
+    <AndroidResource Include="Resources\drawable\CancelIcon1.png" />
+    <AndroidResource Include="Resources\drawable\OkIcon1.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\imgheaderbackground1.png" />
