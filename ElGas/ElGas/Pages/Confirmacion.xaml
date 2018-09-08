@@ -1,26 +1,255 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
              x:Class="ElGas.Pages.Confirmacion">
+    
+     <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="AccentColor">#BC4C1B</Color>
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
+            <Color x:Key="BlackColor">#000000</Color>
+            <Color x:Key="BlackTextColor">#253748</Color>
+            <Color x:Key="OrangeColor">#BC4C1B</Color>
+            <Color x:Key="BlueColor">#0072C6</Color>
+
+            <!-- FONT SIZES -->
+            <OnPlatform x:Key="LittleSize"
+                        x:TypeArguments="x:Double"
+                        iOS="11"
+                        Android="12"
+                        WinPhone="12"/>
+
+            <OnPlatform x:Key="MidMediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="12"
+                        Android="14"
+                        WinPhone="14"/>
+
+            <OnPlatform x:Key="MediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="14"
+                        Android="16"
+                        WinPhone="16"/>
+
+            <OnPlatform x:Key="LargeSize"
+                        x:TypeArguments="x:Double"
+                        iOS="16"
+                        Android="18"
+                        WinPhone="18"/>
+
+            <!--<Style x:Key="LogoStyle" 
+                   TargetType="Image">
+                <Setter Property="Aspect" 
+                        Value="AspectFit" />
+                <Setter Property="HeightRequest" 
+                        Value="95" />
+                <Setter Property="Margin" 
+                        Value="30, 16" />
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="VerticalOptions"
+                        Value="Start" />
+            </Style>-->
+
+           <!-- <Style x:Key="HeaderTextStyle" 
+                   TargetType="Label">
+                <Setter Property="TextColor" 
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="HorizontalOptions" 
+                        Value="FillAndExpand" />
+                <Setter Property="FontSize" 
+                        Value="{StaticResource LittleSize}" />
+                <Setter Property="Margin" >
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5, 0, 0, 0" />
+                            <On Platform="iOS" Value="0, 8, 0, 0" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>-->
+
+            <!--<Style x:Key="ForgotPwdLabelStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="TextColor"
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="HorizontalOptions"
+                        Value="End" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource LittleSize}" />
+                <Setter Property="Margin" >
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="0, -3, 5, 0" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>-->
+
+           <!-- <Style x:Key="SignUpPanelStyle"
+                   TargetType="{x:Type StackLayout}">
+                <Setter Property="Orientation"
+                        Value="Horizontal" />
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="VerticalOptions"
+                        Value="End" />
+                <Setter Property="Margin"
+                        Value="0, 0, 0, 36" />
+            </Style>-->
+
+            <Style x:Key="NormalStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackTextColor}" />
+            </Style>
+            
+           <Style x:Key="SignUpTextStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackTextColor}" />
+            </Style>
+
+            <Style x:Key="SignUpAccentTextStyle"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource SignUpTextStyle}">
+                <Setter Property="TextColor"
+                        Value="{StaticResource OrangeColor}" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout>
             
-            <tk:TKCustomMap HeightRequest="300"                 
+            <tk:TKCustomMap HeightRequest="200"                 
                             Pins="{Binding Locations}" 
                             MapRegion="{Binding CenterSearch}"
                              IsClusteringEnabled="False"
 
 ></tk:TKCustomMap>
-            <Label Text="Dirección" FontFamily="calibril.ttf#Calibri Light"></Label>
-            <Label Text="{Binding Direccion}" FontFamily="calibril.ttf#Calibri Light" FontSize="Large" FontAttributes="Bold" ></Label>
 
-            <Label Text="Ingrese el número de tanques requeridos" FontFamily="calibril.ttf#Calibri Light"></Label>
-            <Entry Placeholder="Cantidad" Text="{Binding Cilindros,Mode=TwoWay}" FontFamily="calibril.ttf#Calibri Light" Keyboard="Numeric" ></Entry>
-            <!--<Label Text="Total del pedido" FontFamily="calibril.ttf#Calibri Light" ></Label>-->
-            <!--<Label FontSize="Large" FontAttributes="Bold" Text="{Binding Valor}" FontFamily="calibril.ttf#Calibri Light"></Label>-->
+            <StackLayout Margin="15,15,15,45">
+            <Label Text="¿Dónde lo entregamos?" 
+                   HorizontalOptions="Center"
+                   FontFamily="calibril.ttf#Calibri Light"
+                   FontAttributes="Bold"
+                   Style="{StaticResource SignUpTextStyle}"
+                   >
+            </Label>
+            
+             <Entry  Placeholder="Dirección" 
+                    
+                    FontFamily="calibril.ttf#Calibri Light"   
+                    Text="{Binding Direccion}"
+                     HeightRequest = "40"
+                     
+                     
+            />
+                
+            <Entry  Placeholder="Agrega alguna referencia" 
+                    
+                    FontFamily="calibril.ttf#Calibri Light"   
+                    Text="{Binding Referencia}"
+                     HeightRequest = "40"
+                     
+                     
+            />
+            
+            
+            
+           <!-- <Label Text="{Binding Direccion}" 
+                   FontFamily="calibril.ttf#Calibri Light" 
+                   FontSize="Large" FontAttributes="Bold" >
+                
+            </Label>-->
 
-            <Button 
+            <Label Text="¿Cuántos cilindros necesitas?" 
+                   HorizontalOptions="Center"
+                   FontFamily="calibril.ttf#Calibri Light"
+                   FontAttributes="Bold"
+                   Style="{StaticResource SignUpTextStyle}"
+                   >
+            </Label>
+               
+                <StackLayout Margin="15,15,15,15" 
+                             HorizontalOptions="Center"
+                             Orientation="Horizontal">
+                    
+                     <Button 
+                        FontFamily="calibril.ttf#Calibri Light"
+                        Text="-" 
+                       
+                        HorizontalOptions="Center" 
+                        WidthRequest="50"  
+                        HeightRequest="40" 
+                        BackgroundColor="Red" 
+                        
+                       
+                        Command="{Binding LessCommand}"
+                        FontSize="Large"
+                        
+                        >
+                        
+            </Button>
+                    
+                 <Entry  Placeholder="0" 
+                    
+                    FontFamily="calibril.ttf#Calibri Light" 
+                         FontSize="Large"
+                     Text="{Binding Cilindros,Mode=TwoWay}"
+                     HeightRequest = "40"
+                     Keyboard="Numeric" 
+                         WidthRequest="50"
+                         HorizontalOptions="Center"
+                         HorizontalTextAlignment="Center"
+                   />
+                    <Button 
+                        FontFamily="calibril.ttf#Calibri Light"
+                        Text="+" 
+                       
+                        HorizontalOptions="Center" 
+                        WidthRequest="50"  
+                        HeightRequest="40" 
+                        BackgroundColor="Red" 
+                        
+                         
+                        Command="{Binding PlusCommand}"
+                        FontSize="Large"
+                        
+                        >
+                        
+            </Button>
+                    
+           
+               </StackLayout>
+                
+                 <Label
+                       Text="Confirmar el Pedido"
+                       FontFamily="calibril.ttf#Calibri Light"
+                       Style="{StaticResource SignUpAccentTextStyle}"
+                        x:Name="Login"
+                     HorizontalOptions="CenterAndExpand"
+                     FontSize = "Medium"
+                  VerticalOptions="FillAndExpand"
+                   > 
+                   <Label.GestureRecognizers>
+                                
+                   <TapGestureRecognizer
+                         Command="{Binding OkCommand}"
+                         
+                         NumberOfTapsRequired="1" 
+                        
+                    />
+                    </Label.GestureRecognizers>
+                   </Label>
+        <!--     <Button 
                         FontFamily="calibril.ttf#Calibri Light"
                         Text="Confirmar" 
                         VerticalOptions="End" 
@@ -31,9 +260,9 @@
                         TextColor="White" 
                         TranslationY="-10" 
                         Command="{Binding OkCommand}">
-            </Button>
+            </Button>-->
 
-
+            </StackLayout>
 
         </StackLayout>
     </ContentPage.Content>

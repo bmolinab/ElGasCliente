@@ -253,6 +253,11 @@
     <BundleResource Include="Resources\Purchase_Icon.png" />
     <BundleResource Include="Resources\shop_icon.png" />
     <BundleResource Include="Resources\shop2.png" />
+    <BundleResource Include="Resources\scart.png" />
+    <BundleResource Include="Resources\Cancelcon.png" />
+    <BundleResource Include="Resources\OKIcon.png" />
+    <BundleResource Include="Resources\CancelIcon1.png" />
+    <BundleResource Include="Resources\OkIcon1.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\vendido.png" />

@@ -158,8 +158,17 @@ namespace ElGas.ViewModels
 
             foreach (var address in possibleAddresses)
             {
-                Direccion = address;
-                break;
+                try
+                {
+                    string[] auxDireccion = address.Split(Convert.ToChar("\n"));
+                    Direccion = auxDireccion[0];
+                    break;
+                }
+                catch{
+                    Direccion = "Ups, no te localizamos";
+                }
+
+               
             }
         }
 

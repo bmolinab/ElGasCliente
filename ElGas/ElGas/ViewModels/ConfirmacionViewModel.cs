@@ -52,6 +52,14 @@ namespace ElGas.ViewModels
 
         }
 
+        public string referencia = "";
+        public string Referencia
+        {
+            get { return referencia; }
+            set { referencia = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Referencia")); }
+
+        }
+
         public string Valor { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
         public MapSpan centerSearch = null;
@@ -91,12 +99,34 @@ namespace ElGas.ViewModels
         }
         #endregion
         #region commands 
+
+        public ICommand PlusCommand { get { return new RelayCommand(Plus); } }
+        private async void Plus()
+        { 
+            Int64 x = int.Parse(Cilindros);
+            x = x + 1;
+            Cilindros = x.ToString();
+
+        }
+
+        public ICommand LessCommand { get { return new RelayCommand(Less); } }
+        private async void Less()
+        {
+            Int64 x = int.Parse(Cilindros);
+            x = x - 1;
+            if (x <= 0)
+                x = x + 1;
+            Cilindros = x.ToString();
+
+        }
+
+
         public ICommand OkCommand { get { return new RelayCommand(Ok); } }
         private async void Ok()
         {
             ApiServices apiServices = new ApiServices();
           
-                var action = await App.Current.MainPage.DisplayAlert("Confirmar", "Por favor confirmar la compra de "+cilindros+ " cilindros de Gas \nDirección " + Direccion, "Confirmar", "Cancelar");
+            var action = await App.Current.MainPage.DisplayAlert("Confirmar", "Por favor confirma el pedido de "+cilindros+ " cilindros para:\n " + Direccion + " Ref: " + Referencia, "Confirmar", "Cancelar");
             if(action)
             {
                 Compra compra = new Compra
@@ -117,7 +147,7 @@ namespace ElGas.ViewModels
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert("Tenemos un problema con su pedido", response.Message, "Aceptar");
+                    await App.Current.MainPage.DisplayAlert("No hemos podido realizar el pedido, por favor, intenta más tarde.", response.Message, "Aceptar");
                 }             
             }
         }
