@@ -47,22 +47,24 @@
                 MapType="Street"                
                 />
 
-                <StackLayout Orientation="Horizontal" VerticalOptions="End" HorizontalOptions="Center" IsVisible="{Binding isVisible}">
+                <StackLayout Orientation="Horizontal" VerticalOptions="End" HorizontalOptions="FillAndExpand" IsVisible="{Binding isVisible}">
                     <Button
                         Text="Confirmar" 
                         VerticalOptions="End" 
-                        HorizontalOptions="CenterAndExpand" 
+                        HorizontalOptions="FillAndExpand" 
                         HeightRequest="50" 
                         BackgroundColor="#0072C6" 
                         TextColor="White" 
                         TranslationY="-10" 
                         FontFamily="calibril.ttf#Calibri Light"
+                        BorderRadius="30"
                         Command="{Binding OkCommand}">
                     </Button>
                     <Button  
                         Text="Cancelar" 
+                        BorderRadius="30"
                         VerticalOptions="End" 
-                        HorizontalOptions="CenterAndExpand" 
+                        HorizontalOptions="FillAndExpand" 
                         HeightRequest="50" 
                         BackgroundColor="#0072C6" 
                         TextColor="White" 
@@ -74,7 +76,9 @@
                 <Button  
                         Text="Pedir El Gas" 
                         VerticalOptions="End" 
-                        HorizontalOptions="Center" 
+                        HorizontalOptions="FillAndExpand" 
+                    BorderRadius="30"
+                   
                         HeightRequest="50" 
                         BackgroundColor="#0072C6" 
                         TextColor="White" 
