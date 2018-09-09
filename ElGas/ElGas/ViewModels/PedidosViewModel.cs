@@ -9,6 +9,7 @@ using ElGas.Models;
 using ElGas.Pages;
 using ElGas.Services;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
 using Xamarin.Forms;
 
 namespace ElGas.ViewModels
@@ -21,9 +22,13 @@ namespace ElGas.ViewModels
         // api/ListCompraByClient
         public PedidosViewModel()
         {
-            MisPedidos();
-            tapCommand = new Command<object>(iralDetalle);
-        }
+
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                MisPedidos();
+                tapCommand = new Command<object>(iralDetalle);
+
+            } }
 
         async void MisPedidos()
         {

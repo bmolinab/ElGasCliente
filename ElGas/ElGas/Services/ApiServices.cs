@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;
 using System.Text;
+using Plugin.Connectivity;
 
 namespace ElGas.Services
 {
@@ -25,61 +26,64 @@ namespace ElGas.Services
         /// <returns></returns>
         public async Task<bool> RegisterUserAsync(string email, string password, string confirmPassword, Cliente cliente)
         {
-            var client = new HttpClient();
-
-            var model = new RegisterBindingModel
+            if (CrossConnectivity.Current.IsConnected)
             {
-                Email = email,
-                Password = password,
-                ConfirmPassword = confirmPassword
-            };
+                var client = new HttpClient();
 
-            var json = JsonConvert.SerializeObject(model);
-
-            HttpContent httpContent = new StringContent(json);
-
-            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-            var response = await client.PostAsync(
-                Constants.BaseApiAddress + "api/Account/Register", httpContent);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var result = await response.Content.ReadAsStringAsync();
-            var AspNetUSer = JsonConvert.DeserializeObject<AspNetUser>(result);
-            cliente.IdAspNetUser = AspNetUSer.Id;
-            cliente.Correo = AspNetUSer.Email;
-            Debug.WriteLine(result);
-            
-                var json2 = JsonConvert.SerializeObject(cliente);
-                HttpContent httpContent2 = new StringContent(json2);
-
-                httpContent2.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-
-                var response2 = await client.PostAsync(
-                Constants.BaseApiAddress + "api/Clientes/PostClient", httpContent2);
-
-                if (response2.IsSuccessStatusCode)
-                {                  
-                    return true;
-                }
-
-            }
-            else
-            {
-                var result = await response.Content.ReadAsStringAsync();
-                var Mensaje = JsonConvert.DeserializeObject<ErrorModel>(result);
-
-                var Message = "";
-
-                foreach (var item in Mensaje.ModelState.Error)
+                var model = new RegisterBindingModel
                 {
-                    Message = item + "\n";
+                    Email = email,
+                    Password = password,
+                    ConfirmPassword = confirmPassword
                 };
 
-                await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
+                var json = JsonConvert.SerializeObject(model);
 
+                HttpContent httpContent = new StringContent(json);
+
+                httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                var response = await client.PostAsync(
+                    Constants.BaseApiAddress + "api/Account/Register", httpContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    var AspNetUSer = JsonConvert.DeserializeObject<AspNetUser>(result);
+                    cliente.IdAspNetUser = AspNetUSer.Id;
+                    cliente.Correo = AspNetUSer.Email;
+                    Debug.WriteLine(result);
+
+                    var json2 = JsonConvert.SerializeObject(cliente);
+                    HttpContent httpContent2 = new StringContent(json2);
+
+                    httpContent2.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+
+                    var response2 = await client.PostAsync(
+                    Constants.BaseApiAddress + "api/Clientes/PostClient", httpContent2);
+
+                    if (response2.IsSuccessStatusCode)
+                    {
+                        return true;
+                    }
+
+                }
+                else
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    var Mensaje = JsonConvert.DeserializeObject<ErrorModel>(result);
+
+                    var Message = "";
+
+                    foreach (var item in Mensaje.ModelState.Error)
+                    {
+                        Message = item + "\n";
+                    };
+
+                    await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
+
+                } 
             }
 
             return false;
@@ -92,37 +96,41 @@ namespace ElGas.Services
         /// <returns></returns>
         public async Task<string> LoginAsync(string userName, string password)
         {
-            var keyValues = new List<KeyValuePair<string, string>>
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                var keyValues = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("username", userName),
                 new KeyValuePair<string, string>("password", password),
                 new KeyValuePair<string, string>("grant_type", "password")
             };
 
-            var request = new HttpRequestMessage(
-                HttpMethod.Post, Constants.BaseApiAddress + "Token");
+                var request = new HttpRequestMessage(
+                    HttpMethod.Post, Constants.BaseApiAddress + "Token");
 
-            request.Content = new FormUrlEncodedContent(keyValues);
+                request.Content = new FormUrlEncodedContent(keyValues);
 
-            var client = new HttpClient();
-            var response = await client.SendAsync(request);
+                var client = new HttpClient();
+                var response = await client.SendAsync(request);
 
-            var content = await response.Content.ReadAsStringAsync();
+                var content = await response.Content.ReadAsStringAsync();
 
-            JObject jwtDynamic = JsonConvert.DeserializeObject<dynamic>(content);
+                JObject jwtDynamic = JsonConvert.DeserializeObject<dynamic>(content);
 
-            var accessTokenExpiration = jwtDynamic.Value<DateTime>(".expires");
-            var accessToken = jwtDynamic.Value<string>("access_token");
+                var accessTokenExpiration = jwtDynamic.Value<DateTime>(".expires");
+                var accessToken = jwtDynamic.Value<string>("access_token");
 
-            Settings.AccessTokenExpirationDate = accessTokenExpiration;
+                Settings.AccessTokenExpirationDate = accessTokenExpiration;
 
 
-            
-            Debug.WriteLine(accessTokenExpiration);
 
-            Debug.WriteLine(content);
+                Debug.WriteLine(accessTokenExpiration);
 
-            return accessToken;
+                Debug.WriteLine(content);
+
+                return accessToken; 
+            }
+            return null;
         }
         
         /// <summary>
@@ -132,7 +140,9 @@ namespace ElGas.Services
         /// <returns></returns>
         public async Task<List<DistribuidorResponse>> DistribuidoresCercanos(Posicion posicion)
         {
-          
+
+            if (CrossConnectivity.Current.IsConnected)
+            {
                 try
                 {
                     var request = JsonConvert.SerializeObject(posicion);
@@ -147,70 +157,91 @@ namespace ElGas.Services
 
                     }
 
-                var result = await response.Content.ReadAsStringAsync();
-                var distribuidores = JsonConvert.DeserializeObject<List<DistribuidorResponse>>(result);
+                    var result = await response.Content.ReadAsStringAsync();
+                    var distribuidores = JsonConvert.DeserializeObject<List<DistribuidorResponse>>(result);
 
-                return distribuidores;
+                    return distribuidores;
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex.Message);
                     return null;
-                }
+                } 
+            }
+            return null;
             
         }
 
         public static async Task<Response> InsertarAsync<T>(T model, Uri baseAddress, string url)
         {
-            try
+            if (CrossConnectivity.Current.IsConnected)
             {
-                using (HttpClient client = new HttpClient())
+                try
                 {
-                    var request = JsonConvert.SerializeObject(model);
-                    var content = new StringContent(request, Encoding.UTF8, "application/json");
-                    var uri = string.Format("{0}{1}", baseAddress, url);
-                    var response = await client.PostAsync(new Uri(uri), content);
-                    var resultado = await response.Content.ReadAsStringAsync();
-                    var respuesta = JsonConvert.DeserializeObject<Response>(resultado);
-                    return respuesta;
+                    using (HttpClient client = new HttpClient())
+                    {
+                        var request = JsonConvert.SerializeObject(model);
+                        var content = new StringContent(request, Encoding.UTF8, "application/json");
+                        var uri = string.Format("{0}{1}", baseAddress, url);
+                        var response = await client.PostAsync(new Uri(uri), content);
+                        var resultado = await response.Content.ReadAsStringAsync();
+                        var respuesta = JsonConvert.DeserializeObject<Response>(resultado);
+                        return respuesta;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                return new Response
+                catch (Exception ex)
                 {
-                    IsSuccess = true,
-                    Message = ex.Message,
-                };
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message,
+                    };
+                } 
             }
+            return new Response
+            {
+                IsSuccess = false,
+                Message = "No existe conección a internet",
+            };
+
         }
 
         public static async Task<Response> InsertarAsync<T>(object model, Uri baseAddress, string url)
         {
-            try
+            if (CrossConnectivity.Current.IsConnected)
             {
-                using (HttpClient client = new HttpClient())
+                try
                 {
-                    var request = JsonConvert.SerializeObject(model);
-                    var content = new StringContent(request, Encoding.UTF8, "application/json");
+                    using (HttpClient client = new HttpClient())
+                    {
+                        var request = JsonConvert.SerializeObject(model);
+                        var content = new StringContent(request, Encoding.UTF8, "application/json");
 
-                    var uri = string.Format("{0}{1}", baseAddress, url);
+                        var uri = string.Format("{0}{1}", baseAddress, url);
 
-                    var response = await client.PostAsync(new Uri(uri), content);
+                        var response = await client.PostAsync(new Uri(uri), content);
 
-                    var resultado = await response.Content.ReadAsStringAsync();
-                    var respuesta = JsonConvert.DeserializeObject<Response>(resultado);
-                    return respuesta;
+                        var resultado = await response.Content.ReadAsStringAsync();
+                        var respuesta = JsonConvert.DeserializeObject<Response>(resultado);
+                        return respuesta;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                return new Response
+                catch (Exception ex)
                 {
-                    IsSuccess = true,
-                    Message = ex.Message,
-                };
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message,
+                    };
+                }
+
             }
+            return new Response
+            {
+                IsSuccess = false,
+                Message = "No existe conección a internet",
+            };
+
         }
         /// <summary>
         /// Genera un codigo para recuperar la contraseña
@@ -219,24 +250,27 @@ namespace ElGas.Services
         /// <returns></returns>
         public async Task<bool> GenerateCode(string email)
         {
-            var client = new HttpClient();
-
-            var model = new RegisterBindingModel
+            if (CrossConnectivity.Current.IsConnected)
             {
-                Email = email,
-            };
-            var json = JsonConvert.SerializeObject(model);
-            HttpContent httpContent = new StringContent(json);
-            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var response = await client.PostAsync(
-            Constants.BaseApiAddress + "api/Account/GenerateCode", httpContent);            
+                var client = new HttpClient();
 
-            if (response.IsSuccessStatusCode)
-            {
-                return true;
+                var model = new RegisterBindingModel
+                {
+                    Email = email,
+                };
+                var json = JsonConvert.SerializeObject(model);
+                HttpContent httpContent = new StringContent(json);
+                httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                var response = await client.PostAsync(
+                Constants.BaseApiAddress + "api/Account/GenerateCode", httpContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+
+                }
 
             }
-
             return false;
         }
         /// <summary>
@@ -249,36 +283,39 @@ namespace ElGas.Services
         /// <returns></returns>
         public async Task<bool> RecoveryPass(string email, string password, string confirmPassword, int codigo)
         {
-            var client = new HttpClient();
-
-            if (password == confirmPassword)
+            if (CrossConnectivity.Current.IsConnected)
             {
-                var model = new PasswordRequest
+                var client = new HttpClient();
+
+                if (password == confirmPassword)
                 {
-                    Email = email,
-                    Codigo = codigo,
-                    NewPassword= password
-                };
+                    var model = new PasswordRequest
+                    {
+                        Email = email,
+                        Codigo = codigo,
+                        NewPassword = password
+                    };
 
-                var json = JsonConvert.SerializeObject(model);
+                    var json = JsonConvert.SerializeObject(model);
 
-                HttpContent httpContent = new StringContent(json);
+                    HttpContent httpContent = new StringContent(json);
 
-                httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var response = await client.PostAsync(
-                    Constants.BaseApiAddress + "api/Account/RecoveryPass", httpContent);
+                    var response = await client.PostAsync(
+                        Constants.BaseApiAddress + "api/Account/RecoveryPass", httpContent);
 
 
 
-                if (response.IsSuccessStatusCode)
-                {
-                   
+                    if (response.IsSuccessStatusCode)
+                    {
+
                         return true;
-                    
 
-                }
 
+                    }
+
+                } 
             }
             return false;
         }
@@ -289,28 +326,32 @@ namespace ElGas.Services
         /// <returns></returns>
         public async Task<List<Ciudad>> GetCiudades()
         {
-            try
+            if (CrossConnectivity.Current.IsConnected)
             {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri(Constants.BaseApiAddress);
-                var url = "api/Ciudades/GetCiudades";
-                var response = await client.GetAsync(url);
-                if (!response.IsSuccessStatusCode)
+                try
                 {
+                    var client = new HttpClient();
+                    client.BaseAddress = new Uri(Constants.BaseApiAddress);
+                    var url = "api/Ciudades/GetCiudades";
+                    var response = await client.GetAsync(url);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return null;
+                    }
+
+                    var result = await response.Content.ReadAsStringAsync();
+                    var Ciudades = JsonConvert.DeserializeObject<List<Ciudad>>(result);
+
+                    return Ciudades;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
                     return null;
                 }
 
-                var result = await response.Content.ReadAsStringAsync();
-                var Ciudades = JsonConvert.DeserializeObject<List<Ciudad>>(result);
-
-                return Ciudades;
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return null;
-            }
-
+            return null;
         }
 
         /// <summary>
@@ -320,28 +361,32 @@ namespace ElGas.Services
         /// <returns></returns>
         public async Task<List<Sector>> GetSectors(int idCiudad)
         {
-            try
+            if (CrossConnectivity.Current.IsConnected)
             {
-                var client = new HttpClient();
-                client.BaseAddress = new Uri(Constants.BaseApiAddress);
-                var url = "api/Sectores/GetSectorsByCity/"+idCiudad;
-                var response = await client.PostAsync(url,null);
-                if (!response.IsSuccessStatusCode)
+                try
                 {
+                    var client = new HttpClient();
+                    client.BaseAddress = new Uri(Constants.BaseApiAddress);
+                    var url = "api/Sectores/GetSectorsByCity/" + idCiudad;
+                    var response = await client.PostAsync(url, null);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return null;
+                    }
+
+                    var result = await response.Content.ReadAsStringAsync();
+                    var Sector = JsonConvert.DeserializeObject<List<Sector>>(result);
+
+                    return Sector;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
                     return null;
                 }
 
-                var result = await response.Content.ReadAsStringAsync();
-                var Sector = JsonConvert.DeserializeObject<List<Sector>>(result);
-
-                return Sector;
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return null;
-            }
-
+            return null;
         }
 
     }

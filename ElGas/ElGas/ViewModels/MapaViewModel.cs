@@ -7,6 +7,7 @@ using Firebase.Xamarin.Database.Streaming;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using Plugin.Permissions;
@@ -125,18 +126,23 @@ namespace ElGas.ViewModels
         #region Constructor
         public MapaViewModel()
         {
-            _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
+
             camiones = new ObservableCollection<DistribuidorFirebase>();
             Camiones = new ObservableCollection<DistribuidorFirebase>();
             geoCoder = new Xamarin.Forms.Maps.Geocoder();
             Locations = new ObservableCollection<TKCustomMapPin>();
             locations = new ObservableCollection<TKCustomMapPin>();
             centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
-            Device.BeginInvokeOnMainThread(async () =>
+            if (CrossConnectivity.Current.IsConnected)
             {
-                await loadParametros();
-            }); 
-            LoadVendedores();
+                _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await loadParametros();
+                });
+                LoadVendedores(); 
+            }
         }
         #endregion
         #region Events
@@ -362,29 +368,31 @@ namespace ElGas.ViewModels
         private async void Buy()
         {
 
-            var lat = CenterSearch.Center.Latitude;
-            var lon = CenterSearch.Center.Longitude;
-             CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(lat, lon)), Distance.FromMiles(.10)));
-
-            Locations.Clear();
-            Camiones.Clear();
-
-            Locations.Add(new TKCustomMapPin
+            try
             {
-                Image = "casa",
-                Position = CenterSearch.Center,
-                Anchor = new Point(0.48, 0.96),
-                ShowCallout = true,
-            });
+                var lat = CenterSearch.Center.Latitude;
+                var lon = CenterSearch.Center.Longitude;
+                CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(lat, lon)), Distance.FromMiles(.10)));
 
-           
-            
+                Locations.Clear();
+                Camiones.Clear();
 
-
-            ObtenerDireccion(CenterSearch.Center.Latitude, CenterSearch.Center.Longitude);
-
-            isVisible = true;
-            OneButton = false;
+                Locations.Add(new TKCustomMapPin
+                {
+                    Image = "casa",
+                    Position = CenterSearch.Center,
+                    Anchor = new Point(0.48, 0.96),
+                    ShowCallout = true,
+                });
+                ObtenerDireccion(CenterSearch.Center.Latitude, CenterSearch.Center.Longitude);
+                isVisible = true;
+                OneButton = false;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+                throw;
+            }
             
 
 
