@@ -28,8 +28,8 @@ namespace ElGas.ViewModels
         #region Constructor
         public MainViewModel()
         {
-            //this.Login = new LoginViewModel();
-            this.Mapa = new MapaViewModel();
+            this.Login = new LoginViewModel();
+          //  this.Mapa = new MapaViewModel();
 
         }
         #endregion

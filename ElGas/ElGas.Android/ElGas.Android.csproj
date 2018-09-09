@@ -96,6 +96,9 @@
     <PackageReference Include="TK.CustomMap">
       <Version>2.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugin.Connectivity">
+      <Version>4.0.0.190-beta</Version>
+    </PackageReference>
     <PackageReference Include="Xam.Plugin.DeviceInfo">
       <Version>4.0.0.13</Version>
     </PackageReference>
@@ -194,7 +197,6 @@
     <AndroidResource Include="Resources\drawable\Purchase_Icon.png" />
     <AndroidResource Include="Resources\drawable\Settings_Icon.png" />
     <AndroidResource Include="Resources\drawable\shop2.png" />
-    <AndroidResource Include="Resources\drawable\scart.png" />
     <AndroidResource Include="Resources\drawable\Cancelcon.png" />
     <AndroidResource Include="Resources\drawable\OKIcon.png" />
     <AndroidResource Include="Resources\drawable\CancelIcon1.png" />
@@ -543,6 +545,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\pendiente.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\scart.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -187,6 +187,9 @@
     <PackageReference Include="TK.CustomMap">
       <Version>2.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugin.Connectivity">
+      <Version>4.0.0.190-beta</Version>
+    </PackageReference>
     <PackageReference Include="Xam.Plugin.DeviceInfo">
       <Version>4.0.0.13</Version>
     </PackageReference>

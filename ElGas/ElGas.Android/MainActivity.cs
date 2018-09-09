@@ -18,6 +18,7 @@ using Android.Support.V4.Content;
 using Android.Support.V4.App;
 using Plugin.FacebookClient;
 using Android.Content;
+using Plugin.Connectivity;
 
 namespace ElGas.Droid
 {
@@ -32,32 +33,43 @@ namespace ElGas.Droid
 
         protected override void OnCreate(Bundle bundle)
         {
-            TabLayoutResource = Resource.Layout.Tabbar;
-            ToolbarResource = Resource.Layout.Toolbar;
-            Rg.Plugins.Popup.Popup.Init(this,bundle);
-            base.OnCreate(bundle);
 
-            if (Intent.Extras != null)
+            try
             {
-                foreach (var key in Intent.Extras.KeySet())
+                TabLayoutResource = Resource.Layout.Tabbar;
+                ToolbarResource = Resource.Layout.Toolbar;
+                Rg.Plugins.Popup.Popup.Init(this, bundle);
+                base.OnCreate(bundle);
+
+                if (Intent.Extras != null)
                 {
-                    if (key != null)
+                    foreach (var key in Intent.Extras.KeySet())
                     {
-                        var value = Intent.Extras.GetString(key);
-                        Log.Debug(TAG, "Key: {0} Value: {1}", key, value);
+                        if (key != null)
+                        {
+                            var value = Intent.Extras.GetString(key);
+                            Log.Debug(TAG, "Key: {0} Value: {1}", key, value);
+                        }
                     }
                 }
+                FacebookClientManager.Initialize(this);
+
+                global::Xamarin.Forms.Forms.Init(this, bundle);
+
+
+
+                Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
+                Xamarin.FormsMaps.Init(this, bundle);
+
+                TKGoogleMaps.Init(this, bundle);
+
+                LoadApplication(new App());
             }
-            FacebookClientManager.Initialize(this);
-
-            global::Xamarin.Forms.Forms.Init(this, bundle);
-
-
-
-            Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
-            Xamarin.FormsMaps.Init(this, bundle);
-            TKGoogleMaps.Init(this, bundle);
-            LoadApplication(new App());           
+            catch (Exception ex )
+            {
+                var a = ex.Message;
+                throw;
+            }
         }
 
 
