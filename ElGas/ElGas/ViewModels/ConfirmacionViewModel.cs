@@ -141,7 +141,7 @@ namespace ElGas.ViewModels
                 var response = await ApiServices.InsertarAsync<Compra>(compra, new Uri(Constants.BaseApiAddress), "/api/Compras/PostCompras");
                 if (response.IsSuccess)
                 {
-                    await App.Current.MainPage.DisplayAlert("Gracias por hacer su pedido", "En breve le confirmaremos su entrega", "Aceptar");
+                    await App.Current.MainPage.DisplayAlert("Gracias por tu pedido", "En breve confirmamos la entrega.", "Aceptar");
                     Settings.TanquesGas = int.Parse(Cilindros);
                     await App.Navigator.Navigation.PopToRootAsync();                
                 }

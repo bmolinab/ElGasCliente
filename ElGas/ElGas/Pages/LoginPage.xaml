@@ -132,8 +132,10 @@
    
         
         <StackLayout
+            
             Margin="8,40,8,20"
             BackgroundColor="White"
+            
             >
 
            <!-- <Grid Margin="0,30,0,0">
@@ -155,11 +157,12 @@
                      
                     VerticalOptions="Start"
                 WidthRequest="150"
+                    HeightRequest="100"
                            >
                             <Image.Source>
                                 <OnPlatform x:TypeArguments="ImageSource">
-                                    <On Platform="Android, iOS" Value="ElGas.png" />
-                                    <On Platform="UWP" Value="Assets/ElGas.png" />
+                                    <On Platform="Android, iOS" Value="ElGasLogo.png" />
+                                    <On Platform="UWP" Value="Assets/ElGasLogo.png" />
                                 </OnPlatform>
                             </Image.Source>
                         </Image>
@@ -181,7 +184,7 @@
              <Image Source="facebook_login.png"
                     
                     VerticalOptions = "Center"
-                    WidthRequest = "250"
+                    WidthRequest = "230"
                     
                     >
                    <Image.GestureRecognizers>

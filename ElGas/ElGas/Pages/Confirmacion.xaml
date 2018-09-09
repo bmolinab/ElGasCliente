@@ -126,7 +126,8 @@
     </ContentPage.Resources>
     
     <ContentPage.Content>
-        <StackLayout>
+        
+        <ScrollView>
             
             <tk:TKCustomMap HeightRequest="200"                 
                             Pins="{Binding Locations}" 
@@ -188,7 +189,7 @@
                        
                         HorizontalOptions="Center" 
                         WidthRequest="50"  
-                        HeightRequest="40" 
+                        HeightRequest="45" 
                         BackgroundColor="Red" 
                         
                        
@@ -204,7 +205,7 @@
                     FontFamily="calibril.ttf#Calibri Light" 
                          FontSize="Large"
                      Text="{Binding Cilindros,Mode=TwoWay}"
-                     HeightRequest = "40"
+                     HeightRequest = "45"
                      Keyboard="Numeric" 
                          WidthRequest="50"
                          HorizontalOptions="Center"
@@ -216,7 +217,7 @@
                        
                         HorizontalOptions="Center" 
                         WidthRequest="50"  
-                        HeightRequest="40" 
+                        HeightRequest="45" 
                         BackgroundColor="Red" 
                         
                          
@@ -264,6 +265,6 @@
 
             </StackLayout>
 
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

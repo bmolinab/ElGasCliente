@@ -12,7 +12,7 @@
 
 
 
-    <NavigationPage Title = "Inicio"  Icon="shop2.png"  x:Name="NavigatorM" BackgroundColor="White">
+    <NavigationPage Title = "Pedido"  Icon="shop2.png"  x:Name="NavigatorM" BackgroundColor="White">
         <x:Arguments>
             <local:MapaPage />
         </x:Arguments>

@@ -258,6 +258,8 @@
     <BundleResource Include="Resources\OKIcon.png" />
     <BundleResource Include="Resources\CancelIcon1.png" />
     <BundleResource Include="Resources\OkIcon1.png" />
+    <BundleResource Include="Resources\ElGasLogo.png" />
+    <BundleResource Include="Resources\AppBack.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\vendido.png" />
