@@ -79,7 +79,7 @@ namespace ElGas.Droid
 
             var notificationBuilder = new Notification.Builder(this)
                         .SetContentTitle("El Gas")
-                        .SetSmallIcon(Resource.Drawable.ic_launcher)
+                        .SetSmallIcon(Resource.Drawable.iclauncher)
                         .SetContentText(messageBody)
                         .SetAutoCancel(true)
                         .SetContentIntent(pendingIntent)

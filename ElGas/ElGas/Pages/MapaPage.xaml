@@ -26,7 +26,7 @@
                 MapClickedCommand="{Binding MapClickedCommand}"
                 Pins="{Binding Locations}" 
                 HasZoomEnabled="True"
-                IsShowingUser="False"
+                IsShowingUser="True"
                   IsRegionChangeAnimated="True"        
                  
                 MapType="Street"                

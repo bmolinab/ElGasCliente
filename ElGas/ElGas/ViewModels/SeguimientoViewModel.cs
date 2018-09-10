@@ -18,6 +18,8 @@ using TK.CustomMap;
 using ElGas.Models;
 using Xamarin.Forms;
 using Newtonsoft.Json;
+using Firebase.Xamarin.Database;
+using Firebase.Xamarin.Database.Streaming;
 
 namespace ElGas.ViewModels
 {
@@ -65,6 +67,10 @@ namespace ElGas.ViewModels
                 }
             }
         }
+
+        private readonly string ElGAS_FIREBASE = "https://elgas-f24e8.firebaseio.com/-LJVkHULelfySFjNF9-Q/Equipo-ElGas/";
+        private readonly FirebaseClient _firebaseClient;
+
         #endregion
         #region Constructor
         public SeguimientoViewModel()
