@@ -50,25 +50,26 @@ namespace ElGas.ViewModels
                 switch (item.Estado)
                 {
                     case -1:
-                        item.TituloPedido = "Compra Cancelada";
+                        item.TituloPedido = "Cancelado";
                         item.icono = "cancelado.png";
                         break;
                     case 0:
-                        item.TituloPedido = "Compra no atendida";
+                        item.TituloPedido = "No atendido";
                         item.icono = "pendiente.png";
                         break;
                     case 1:
-                        item.TituloPedido = "Compra en atención";
+                        item.TituloPedido = "Pendiente";
                         item.icono = "aceptado.png";
                         break;
                     case 2:
-                        item.TituloPedido = "Compra Finalizada";
+                        item.TituloPedido = "Exitoso";
                         item.icono = "vendido.png";
                         break;
                 }
 
 
-                item.TituloPedido+= " "+fecha.ToString("yyyy-MM-dd");                
+                //item.TituloPedido+= " "+fecha.ToString("yyyy-MM-dd"); 
+                item.FechaTexto = fecha.ToString("yyyy-MMM-dd   hh:mm");
                 ListaCompra.Add(item);
 
             }

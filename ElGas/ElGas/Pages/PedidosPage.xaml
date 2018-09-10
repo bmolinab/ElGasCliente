@@ -6,11 +6,132 @@
              Title = "Histórico"
              Icon="Purchase_Icon.png"
              >
+    
+     <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="AccentColor">#BC4C1B</Color>
+            <Color x:Key="WhiteColor">#FFFFFF</Color>
+            <Color x:Key="BlackColor">#000000</Color>
+            <Color x:Key="BlackTextColor">#253748</Color>
+            <Color x:Key="OrangeColor">#BC4C1B</Color>
+            <Color x:Key="BlueColor">#0072C6</Color>
+
+            <!-- FONT SIZES -->
+            <OnPlatform x:Key="LittleSize"
+                        x:TypeArguments="x:Double"
+                        iOS="11"
+                        Android="12"
+                        WinPhone="12"/>
+
+            <OnPlatform x:Key="MidMediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="12"
+                        Android="14"
+                        WinPhone="14"/>
+
+            <OnPlatform x:Key="MediumSize"
+                        x:TypeArguments="x:Double"
+                        iOS="14"
+                        Android="16"
+                        WinPhone="16"/>
+
+            <OnPlatform x:Key="LargeSize"
+                        x:TypeArguments="x:Double"
+                        iOS="16"
+                        Android="18"
+                        WinPhone="18"/>
+
+            <!--<Style x:Key="LogoStyle" 
+                   TargetType="Image">
+                <Setter Property="Aspect" 
+                        Value="AspectFit" />
+                <Setter Property="HeightRequest" 
+                        Value="95" />
+                <Setter Property="Margin" 
+                        Value="30, 16" />
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="VerticalOptions"
+                        Value="Start" />
+            </Style>-->
+
+           <!-- <Style x:Key="HeaderTextStyle" 
+                   TargetType="Label">
+                <Setter Property="TextColor" 
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="HorizontalOptions" 
+                        Value="FillAndExpand" />
+                <Setter Property="FontSize" 
+                        Value="{StaticResource LittleSize}" />
+                <Setter Property="Margin" >
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5, 0, 0, 0" />
+                            <On Platform="iOS" Value="0, 8, 0, 0" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>-->
+
+            <!--<Style x:Key="ForgotPwdLabelStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="TextColor"
+                        Value="{StaticResource WhiteColor}" />
+                <Setter Property="HorizontalOptions"
+                        Value="End" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource LittleSize}" />
+                <Setter Property="Margin" >
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="0, -3, 5, 0" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>-->
+
+           <!-- <Style x:Key="SignUpPanelStyle"
+                   TargetType="{x:Type StackLayout}">
+                <Setter Property="Orientation"
+                        Value="Horizontal" />
+                <Setter Property="HorizontalOptions"
+                        Value="Center" />
+                <Setter Property="VerticalOptions"
+                        Value="End" />
+                <Setter Property="Margin"
+                        Value="0, 0, 0, 36" />
+            </Style>-->
+
+            <Style x:Key="NormalStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackTextColor}" />
+            </Style>
+            
+           <Style x:Key="SignUpTextStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource MidMediumSize}" />
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackTextColor}" />
+            </Style>
+
+            <Style x:Key="SignUpAccentTextStyle"
+                   TargetType="{x:Type Label}"
+                   BasedOn="{StaticResource SignUpTextStyle}">
+                <Setter Property="TextColor"
+                        Value="{StaticResource OrangeColor}" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <ScrollView>
         <syncfusion:SfListView x:Name="ListaCompra" 
                    ItemsSource="{Binding ListaCompra}"
-                   ItemSize="170">
+                   ItemSize="120">
             <syncfusion:SfListView.ItemTemplate>
                 <DataTemplate>
 
@@ -25,7 +146,7 @@
                             <!-- Icon & Title -->
                             <Grid x:Name="IconTitleGrid" Padding="6,0,0,0">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="40"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
@@ -38,9 +159,9 @@
                                 <Label Grid.Column="1" 
                Text="{Binding TituloPedido,}" 
                Style="{StaticResource SectionTitleText}" 
-               HorizontalTextAlignment="Start" 
+               HorizontalTextAlignment="Center" 
                VerticalTextAlignment="Center" 
-               VerticalOptions="Center"  
+               VerticalOptions="CenterAndExpand"  
                HeightRequest="40"/>
                             </Grid>
 
@@ -48,15 +169,24 @@
                         <StackLayout Grid.Row="1" 
                       >
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="Cantidad"></Label>
-                                    <Label Text="{Binding Cantidad}"></Label>
+                                    <Label Text="Cilindros:"
+                                           HorizontalOptions = "Start"
+                                           FontAttributes="Bold"
+                                           Style="{StaticResource SignUpTextStyle}"
+                                           ></Label>
+                                    <Label Text="{Binding Cantidad}"
+                                           HorizontalOptions = "Start"
+                                           
+                                           Style="{StaticResource SignUpTextStyle}"
+                                           ></Label>
+                                    <Label Text="{Binding FechaTexto}"
+                                           HorizontalOptions="EndAndExpand"
+                                           FontAttributes="Bold"
+                                           Style="{StaticResource SignUpTextStyle}"
+                                           ></Label>
 
                                 </StackLayout>
-                                <!--<StackLayout Orientation="Horizontal">
-                                    <Label Text="Precio"></Label>
-                                    <Label Text="{Binding ValorTotal}"></Label>
-
-                                </StackLayout>-->
+                               
                             
 
                             </StackLayout>
@@ -64,9 +194,31 @@
                         <!-- Action Items -->
                         <StackLayout Grid.Row="2" 
                                               >
+                                    
+                                     <Label
+                       Text="Detalles del Pedido"
+                       FontFamily="calibril.ttf#Calibri Light"
+                       Style="{StaticResource SignUpAccentTextStyle}"
+                        x:Name="Login"
+                     HorizontalOptions="CenterAndExpand"
+                     FontSize = "Medium"
+                  VerticalOptions="FillAndExpand"
+                   > 
+                   <Label.GestureRecognizers>
+                                
+                   <TapGestureRecognizer
+                        Command="{Binding Source={x:Reference ListaCompra}, Path=BindingContext.TapCommand}" 
+                                        CommandParameter="{Binding}"
+                         
+                         NumberOfTapsRequired="1" 
+                        
+                    />
+                    </Label.GestureRecognizers>
+                   </Label>
                                 <Button Text="Detalle" 
                                         Command="{Binding Source={x:Reference ListaCompra}, Path=BindingContext.TapCommand}" 
-                                        CommandParameter="{Binding}" ></Button>
+                                        CommandParameter="{Binding}" >
+                                    </Button>
                         </StackLayout>
 
                     </Grid>
