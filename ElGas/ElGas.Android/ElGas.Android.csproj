@@ -189,7 +189,6 @@
     <AndroidResource Include="Resources\drawable\History_Icon.png" />
     <AndroidResource Include="Resources\drawable\home_icon.png" />
     <AndroidResource Include="Resources\drawable-hdpi\home_icon.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\home_icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\home_icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\home_icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\home_icon.png" />
@@ -383,9 +382,6 @@
     <AndroidResource Include="Resources\drawable-hdpi\iclauncher.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\iclauncher.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\iclauncher.png" />
   </ItemGroup>
   <ItemGroup>
@@ -463,25 +459,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\pincamion.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\pincliente.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\pincamion.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\ElGas.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\imgheaderbackground1.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-mdpi\imgheaderbackground2.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-      <SubType>Designer</SubType>
-    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xhdpi\imgheaderbackground1.png">
@@ -548,6 +526,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\scart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\drawable-mdpi\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
