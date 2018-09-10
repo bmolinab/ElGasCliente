@@ -9,30 +9,10 @@
     <ContentPage.Content>
         <StackLayout >
 
-            <!--<Grid IsVisible="{Binding isVisible}" >
-                <Label  Text="Toque la pantalla para confirmar la ubicación" 
-                    IsVisible="{Binding isVisible}" 
-                        FontFamily="calibril.ttf#Calibri Light"
-                    FontSize="Medium" 
-                    VerticalTextAlignment="Center" 
-                    TextColor="White" 
-                    HorizontalOptions="Start"  
-                    VerticalOptions="Start" 
-                    HeightRequest="50"/>
-                
-                <StackLayout HorizontalOptions="End" Orientation="Horizontal" IsVisible="{Binding isVisible}">
-                    <Button Text="Ok" HorizontalOptions="End" IsVisible="{Binding isVisible}" Command="{Binding OkCommand}" FontFamily="calibril.ttf#Calibri Light"></Button>
-                    <Button Text="Cancelar" HorizontalOptions="End" IsVisible="{Binding isVisible}" Command="{Binding CancelCommand}" FontFamily="calibril.ttf#Calibri Light"></Button>
-                </StackLayout>
-                
-            </Grid>-->
-          
+            
             <Grid HorizontalOptions="FillAndExpand" 
                   VerticalOptions="FillAndExpand">
-
-                
-                    
-                
+                <Image HorizontalOptions="Center" VerticalOptions="Center" Source="camion.png"></Image>
                 <tk:TKCustomMap 
                 x:Name="Mapa"
                 VerticalOptions="FillAndExpand"
@@ -44,8 +24,9 @@
                 MapClickedCommand="{Binding MapClickedCommand}"
                 Pins="{Binding Locations}" 
                 HasZoomEnabled="True"
-                IsShowingUser="True"
-                  
+                IsShowingUser="False"
+                  IsRegionChangeAnimated="True"        
+                 
                 MapType="Street"                
                 />
 

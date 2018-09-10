@@ -20,6 +20,8 @@ namespace ElGas.ViewModels
 
         public ObservableCollection<ComprasRequest> ListaCompra { get; set; }
         // api/ListCompraByClient
+
+            //Actualizar pedidos, cuando se realice una accion
         public PedidosViewModel()
         {
 
@@ -28,7 +30,8 @@ namespace ElGas.ViewModels
                 MisPedidos();
                 tapCommand = new Command<object>(iralDetalle);
 
-            } }
+            }
+        }
 
         async void MisPedidos()
         {
