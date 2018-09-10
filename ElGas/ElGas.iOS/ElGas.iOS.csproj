@@ -263,6 +263,11 @@
     <BundleResource Include="Resources\OkIcon1.png" />
     <BundleResource Include="Resources\ElGasLogo.png" />
     <BundleResource Include="Resources\AppBack.jpg" />
+    <BundleResource Include="Resources\CancelBtn.png" />
+    <BundleResource Include="Resources\OkBtn.png" />
+    <BundleResource Include="Resources\SalirBtn.png" />
+    <BundleResource Include="Resources\AlarmBtn.png" />
+    <BundleResource Include="Resources\UserBtn.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\vendido.png" />

@@ -369,6 +369,36 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\splashLogo.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\TabElGas.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\vendido.png" />
+    <AndroidResource Include="Resources\drawable\AlarmBtn.png" />
+    <AndroidResource Include="Resources\drawable\CancelBtn.png" />
+    <AndroidResource Include="Resources\drawable\OkBtn.png" />
+    <AndroidResource Include="Resources\drawable\SalirBtn.png" />
+    <AndroidResource Include="Resources\drawable\UserBtn.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\AlarmBtn.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\CancelBtn.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\OkBtn.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\SalirBtn.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\UserBtn.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\AlarmBtn.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\CancelBtn.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\OkBtn.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\SalirBtn.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\UserBtn.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\AlarmBtn.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\CancelBtn.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\OkBtn.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\SalirBtn.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\UserBtn.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\AlarmBtn.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\CancelBtn.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\OkBtn.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\SalirBtn.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\UserBtn.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\AlarmBtn.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\CancelBtn.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\OkBtn.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\SalirBtn.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\UserBtn.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\imgheaderbackground1.png" />

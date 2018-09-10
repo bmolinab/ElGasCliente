@@ -127,7 +127,7 @@
     
     <ContentPage.Content>
         
-        <ScrollView>
+        <StackLayout>
             
             <tk:TKCustomMap HeightRequest="200"                 
                             Pins="{Binding Locations}" 
@@ -135,7 +135,7 @@
                              IsClusteringEnabled="False"
 
 ></tk:TKCustomMap>
-
+<ScrollView>
             <StackLayout Margin="15,15,15,45">
             <Label Text="¿Dónde lo entregamos?" 
                    HorizontalOptions="Center"
@@ -190,7 +190,7 @@
                         HorizontalOptions="Center" 
                         WidthRequest="50"  
                         HeightRequest="45" 
-                        BackgroundColor="Red" 
+                        BackgroundColor="#BC4C1B" 
                         
                        
                         Command="{Binding LessCommand}"
@@ -218,7 +218,7 @@
                         HorizontalOptions="Center" 
                         WidthRequest="50"  
                         HeightRequest="45" 
-                        BackgroundColor="Red" 
+                        BackgroundColor="#BC4C1B" 
                         
                          
                         Command="{Binding PlusCommand}"
@@ -264,7 +264,7 @@
             </Button>-->
 
             </StackLayout>
-
-        </ScrollView>
+            </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

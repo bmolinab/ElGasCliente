@@ -171,6 +171,18 @@ namespace ElGas.Helpers
             }
         }
 
+        public static string NombreCompleto
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("NombreCompleto", "");
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("NombreCompleto", value);
+            }
+        }
+
 
     }
 }
