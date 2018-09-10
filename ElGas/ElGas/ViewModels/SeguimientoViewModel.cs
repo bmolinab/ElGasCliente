@@ -20,6 +20,7 @@ using Xamarin.Forms;
 using Newtonsoft.Json;
 using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Streaming;
+using Plugin.Connectivity;
 
 namespace ElGas.ViewModels
 {
@@ -79,9 +80,48 @@ namespace ElGas.ViewModels
             Locations = new ObservableCollection<TKCustomMapPin>();
             locations = new ObservableCollection<TKCustomMapPin>();
             centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.5)));
-            SeguirA();
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
+            }
             DatosVendedor();
         }
+
+        public async void LoadVendedores()
+        {
+            try
+            {               
+                #region Forma Firebase
+
+                Locations.Clear();
+                // Point p = new Point(0.48, 0.96);
+
+                _firebaseClient
+                .Child("Distribuidores")
+                .AsObservable<DistribuidorFirebase>()
+                .Subscribe(d =>
+                {
+                    if (d.EventType == FirebaseEventType.InsertOrUpdate)
+                    {
+                        Device.BeginInvokeOnMainThread(() => {
+                           // AdicionarPedido(d.Key, d.Object);
+                        });
+
+                    }
+                    if (d.EventType == FirebaseEventType.Delete)
+                    {
+                        //accion para borrar
+                    }
+                });
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Uh oh", "Algo salió mal, ¡pero no te preocupes capturamos para el análisis! Gracias.", "OK");
+            }
+        }
+
+
         #endregion
         #region Commands
         public ICommand ContactCommand { get { return new RelayCommand(Contact); } }
@@ -139,29 +179,30 @@ namespace ElGas.ViewModels
         public async void SeguirA()
         {
             if (Settings.IdDistribuidor!=0)
-            {               
-                var distribuidor = new Distribuidor
-                {
-                    IdDistribuidor = Settings.IdDistribuidor,
-                   
-                };
-                Point p = new Point(0.48, 0.96);
+            {
+                //var distribuidor = new Distribuidor
+                //{
+                //    IdDistribuidor = Settings.IdDistribuidor,
+
+                //};
+                //Point p = new Point(0.48, 0.96);
 
 
-                var response = await ApiServices.InsertarAsync<Distribuidor>(distribuidor, new Uri(Constants.BaseApiAddress), "/api/Rutas/GetLastPosition");                
-                var ruta = JsonConvert.DeserializeObject<Ruta>(response.Result.ToString());
+                //var response = await ApiServices.InsertarAsync<Distribuidor>(distribuidor, new Uri(Constants.BaseApiAddress), "/api/Rutas/GetLastPosition");                
+                //var ruta = JsonConvert.DeserializeObject<Ruta>(response.Result.ToString());
 
-                Locations.Clear();
+                //Locations.Clear();
 
-                Locations.Add(new TKCustomMapPin
-                {
-                    Image = "camion.png",
-                    Position = new TK.CustomMap.Position((double)ruta.Latitud, (double)ruta.Longitud),
-                    Anchor = p,
-                    ShowCallout = true,
+                //Locations.Add(new TKCustomMapPin
+                //{
+                //    Image = "camion.png",
+                //    Position = new TK.CustomMap.Position((double)ruta.Latitud, (double)ruta.Longitud),
+                //    Anchor = p,
+                //    ShowCallout = true,
 
-                });
-                CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position((double)ruta.Latitud, (double)ruta.Longitud)), Distance.FromMiles(.5)));
+                //});
+                //CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position((double)ruta.Latitud, (double)ruta.Longitud)), Distance.FromMiles(.5)));
+              
             }
 
             //await Task.Delay(2000);
