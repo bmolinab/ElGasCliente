@@ -131,7 +131,8 @@
         <ScrollView>
         <syncfusion:SfListView x:Name="ListaCompra" 
                    ItemsSource="{Binding ListaCompra}"
-                   ItemSize="120">
+                   ItemSize="120"
+                   IsBusy="True"         >
             <syncfusion:SfListView.ItemTemplate>
                 <DataTemplate>
 
@@ -215,10 +216,10 @@
                     />
                     </Label.GestureRecognizers>
                    </Label>
-                                <Button Text="Detalle" 
+                                <!--<Button Text="Detalle" 
                                         Command="{Binding Source={x:Reference ListaCompra}, Path=BindingContext.TapCommand}" 
                                         CommandParameter="{Binding}" >
-                                    </Button>
+                                    </Button>-->
                         </StackLayout>
 
                     </Grid>

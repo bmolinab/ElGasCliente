@@ -19,5 +19,14 @@ namespace ElGas.Pages
 			InitializeComponent ();
             BindingContext = new PedidosViewModel();
 		}
-	}
+
+        protected override void OnAppearing()
+        {
+            // base.OnAppearing();
+            BindingContext = new PedidosViewModel();
+
+            //your code here;
+
+        }
+    }
 }

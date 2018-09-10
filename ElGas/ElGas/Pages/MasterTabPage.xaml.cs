@@ -25,7 +25,7 @@ namespace ElGas.Pages
 
             switch (np.CurrentPage.Title)
             {
-                case "Histórico":
+                case "Pedidos":
                     App.Navigator = NavigatorH;
                     break;
                 case "Configuración":

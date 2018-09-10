@@ -29,7 +29,6 @@ namespace ElGas.ViewModels
             {
                 MisPedidos();
                 tapCommand = new Command<object>(iralDetalle);
-
             }
         }
 
