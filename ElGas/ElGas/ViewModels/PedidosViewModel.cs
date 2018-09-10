@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using ElGas.Helpers;
 using ElGas.Models;
 using ElGas.Pages;
 using ElGas.Services;
+using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
 using Xamarin.Forms;
@@ -90,5 +92,8 @@ namespace ElGas.ViewModels
             Debug.WriteLine(compra.IdCompra);
             
         }
+
+        public ICommand RefreshPedidos { get { return new RelayCommand(MisPedidos); } }
+
     }
 }

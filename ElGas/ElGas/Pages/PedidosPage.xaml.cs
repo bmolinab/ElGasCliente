@@ -28,5 +28,13 @@ namespace ElGas.Pages
             //your code here;
 
         }
+
+        private async void pullToRefresh_Refreshing(object sender, EventArgs e)
+        {
+            pullToRefresh.IsRefreshing = true;
+            await Task.Delay(2000);
+            BindingContext = new PedidosViewModel();
+            pullToRefresh.IsRefreshing = false;
+        }
     }
 }

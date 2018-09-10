@@ -29,6 +29,10 @@ namespace ElGas.Droid
 			global::Syncfusion.ListView.XForms.Android.Resource.String.ApplicationName = global::ElGas.Droid.Resource.String.ApplicationName;
 			global::Syncfusion.ListView.XForms.Android.Resource.String.Hello = global::ElGas.Droid.Resource.String.Hello;
 			global::Syncfusion.ListView.XForms.Android.Resource.String.Load_More = global::ElGas.Droid.Resource.String.Load_More;
+			global::Syncfusion.SfPullToRefresh.XForms.Android.Resource.Drawable.shadow_effect = global::ElGas.Droid.Resource.Drawable.shadow_effect;
+			global::Syncfusion.SfPullToRefresh.XForms.Android.Resource.Id.ShadowEffectShape = global::ElGas.Droid.Resource.Id.ShadowEffectShape;
+			global::Syncfusion.SfPullToRefresh.XForms.Android.Resource.String.ApplicationName = global::ElGas.Droid.Resource.String.ApplicationName;
+			global::Syncfusion.SfPullToRefresh.XForms.Android.Resource.String.Hello = global::ElGas.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::ElGas.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -2672,26 +2676,26 @@ namespace ElGas.Droid
 			// aapt resource value: 0x7f020057
 			public const int avd_hide_password = 2130837591;
 			
-			// aapt resource value: 0x7f0201a3
-			public const int avd_hide_password_1 = 2130837923;
-			
 			// aapt resource value: 0x7f0201a4
-			public const int avd_hide_password_2 = 2130837924;
+			public const int avd_hide_password_1 = 2130837924;
 			
 			// aapt resource value: 0x7f0201a5
-			public const int avd_hide_password_3 = 2130837925;
+			public const int avd_hide_password_2 = 2130837925;
+			
+			// aapt resource value: 0x7f0201a6
+			public const int avd_hide_password_3 = 2130837926;
 			
 			// aapt resource value: 0x7f020058
 			public const int avd_show_password = 2130837592;
 			
-			// aapt resource value: 0x7f0201a6
-			public const int avd_show_password_1 = 2130837926;
-			
 			// aapt resource value: 0x7f0201a7
-			public const int avd_show_password_2 = 2130837927;
+			public const int avd_show_password_1 = 2130837927;
 			
 			// aapt resource value: 0x7f0201a8
-			public const int avd_show_password_3 = 2130837928;
+			public const int avd_show_password_2 = 2130837928;
+			
+			// aapt resource value: 0x7f0201a9
+			public const int avd_show_password_3 = 2130837929;
 			
 			// aapt resource value: 0x7f020059
 			public const int camion = 2130837593;
@@ -3590,11 +3594,11 @@ namespace ElGas.Droid
 			// aapt resource value: 0x7f020183
 			public const int notification_icon_background = 2130837891;
 			
-			// aapt resource value: 0x7f0201a1
-			public const int notification_template_icon_bg = 2130837921;
-			
 			// aapt resource value: 0x7f0201a2
-			public const int notification_template_icon_low_bg = 2130837922;
+			public const int notification_template_icon_bg = 2130837922;
+			
+			// aapt resource value: 0x7f0201a3
+			public const int notification_template_icon_low_bg = 2130837923;
 			
 			// aapt resource value: 0x7f020184
 			public const int notification_tile_bg = 2130837892;
@@ -3657,31 +3661,34 @@ namespace ElGas.Droid
 			public const int Settings_Icon = 2130837911;
 			
 			// aapt resource value: 0x7f020198
-			public const int shop2 = 2130837912;
+			public const int shadow_effect = 2130837912;
 			
 			// aapt resource value: 0x7f020199
-			public const int shop_icon = 2130837913;
+			public const int shop2 = 2130837913;
 			
 			// aapt resource value: 0x7f02019a
-			public const int splash_background = 2130837914;
+			public const int shop_icon = 2130837914;
 			
 			// aapt resource value: 0x7f02019b
-			public const int splashLogo = 2130837915;
+			public const int splash_background = 2130837915;
 			
 			// aapt resource value: 0x7f02019c
-			public const int TabElGas = 2130837916;
+			public const int splashLogo = 2130837916;
 			
 			// aapt resource value: 0x7f02019d
-			public const int tooltip_frame_dark = 2130837917;
+			public const int TabElGas = 2130837917;
 			
 			// aapt resource value: 0x7f02019e
-			public const int tooltip_frame_light = 2130837918;
+			public const int tooltip_frame_dark = 2130837918;
 			
 			// aapt resource value: 0x7f02019f
-			public const int UserBtn = 2130837919;
+			public const int tooltip_frame_light = 2130837919;
 			
 			// aapt resource value: 0x7f0201a0
-			public const int vendido = 2130837920;
+			public const int UserBtn = 2130837920;
+			
+			// aapt resource value: 0x7f0201a1
+			public const int vendido = 2130837921;
 			
 			static Drawable()
 			{
@@ -3713,6 +3720,9 @@ namespace ElGas.Droid
 			
 			// aapt resource value: 0x7f0e0053
 			public const int SYM = 2131624019;
+			
+			// aapt resource value: 0x7f0e00f9
+			public const int ShadowEffectShape = 2131624185;
 			
 			// aapt resource value: 0x7f0e00dc
 			public const int action0 = 2131624156;

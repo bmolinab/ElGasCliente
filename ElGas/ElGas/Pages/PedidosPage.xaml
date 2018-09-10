@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:pulltoRefresh="clr-namespace:Syncfusion.SfPullToRefresh.XForms;assembly=Syncfusion.SfPullToRefresh.XForms"
              x:Class="ElGas.Pages.PedidosPage"
              Title = "Histórico"
              Icon="Purchase_Icon.png"
@@ -128,105 +129,118 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-        <ScrollView>
-        <syncfusion:SfListView x:Name="ListaCompra" 
-                   ItemsSource="{Binding ListaCompra}"
-                   ItemSize="120"
-                   IsBusy="True"         >
-            <syncfusion:SfListView.ItemTemplate>
-                <DataTemplate>
-
-                    <Frame Padding="4" Margin="4">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <!-- Icon & Title -->
-                            <Grid x:Name="IconTitleGrid" Padding="6,0,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="40"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Image Source="{Binding icono}" 
-               HorizontalOptions="Center" 
-               VerticalOptions="Center" 
-               Aspect="AspectFit" 
-               HeightRequest="40"/>
-
-                                <Label Grid.Column="1" 
-               Text="{Binding TituloPedido,}" 
-               Style="{StaticResource SectionTitleText}" 
-               HorizontalTextAlignment="Center" 
-               VerticalTextAlignment="Center" 
-               VerticalOptions="CenterAndExpand"  
-               HeightRequest="40"/>
-                            </Grid>
-
-                            <!-- Content -->
-                        <StackLayout Grid.Row="1" 
-                      >
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="Cilindros:"
-                                           HorizontalOptions = "Start"
-                                           FontAttributes="Bold"
-                                           Style="{StaticResource SignUpTextStyle}"
-                                           ></Label>
-                                    <Label Text="{Binding Cantidad}"
-                                           HorizontalOptions = "Start"
+        <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+            <pulltoRefresh:SfPullToRefresh x:Name="pullToRefresh" 
+                               ProgressBackgroundColor="#428BCA" 
+                               TransitionMode="SlideOnTop"
+                               IsRefreshing="False"
+                                           Refreshing="pullToRefresh_Refreshing"
                                            
-                                           Style="{StaticResource SignUpTextStyle}"
-                                           ></Label>
-                                    <Label Text="{Binding FechaTexto}"
-                                           HorizontalOptions="EndAndExpand"
-                                           FontAttributes="Bold"
-                                           Style="{StaticResource SignUpTextStyle}"
-                                           ></Label>
+                            >
+                <pulltoRefresh:SfPullToRefresh.PullableContent>
+                
+                    <syncfusion:SfListView x:Name="ListaCompra" 
+                       ItemsSource="{Binding ListaCompra}"
+                       ItemSize="120"                               
+                       >
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Frame Padding="4" Margin="4">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Icon & Title -->
+                                <Grid x:Name="IconTitleGrid" Padding="6,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="{Binding icono}" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   Aspect="AspectFit" 
+                   HeightRequest="40"/>
+
+                                    <Label Grid.Column="1" 
+                   Text="{Binding TituloPedido,}" 
+                   Style="{StaticResource SectionTitleText}" 
+                   HorizontalTextAlignment="Center" 
+                   VerticalTextAlignment="Center" 
+                   VerticalOptions="CenterAndExpand"  
+                   HeightRequest="40"/>
+                                </Grid>
+
+                                <!-- Content -->
+                                <StackLayout Grid.Row="1" 
+                          >
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="Cilindros:"
+                                               HorizontalOptions = "Start"
+                                               FontAttributes="Bold"
+                                               Style="{StaticResource SignUpTextStyle}"
+                                               ></Label>
+                                        <Label Text="{Binding Cantidad}"
+                                               HorizontalOptions = "Start"
+                                           
+                                               Style="{StaticResource SignUpTextStyle}"
+                                               ></Label>
+                                        <Label Text="{Binding FechaTexto}"
+                                               HorizontalOptions="EndAndExpand"
+                                               FontAttributes="Bold"
+                                               Style="{StaticResource SignUpTextStyle}"
+                                               ></Label>
+
+                                    </StackLayout>
+
+
 
                                 </StackLayout>
-                               
-                            
 
-                            </StackLayout>
+                                <!-- Action Items -->
+                                <StackLayout Grid.Row="2" 
+                                                  >
 
-                        <!-- Action Items -->
-                        <StackLayout Grid.Row="2" 
-                                              >
-                                    
-                                     <Label
-                       Text="Detalles del Pedido"
-                       FontFamily="calibril.ttf#Calibri Light"
-                       Style="{StaticResource SignUpAccentTextStyle}"
-                        x:Name="Login"
-                     HorizontalOptions="CenterAndExpand"
-                     FontSize = "Medium"
-                  VerticalOptions="FillAndExpand"
-                   > 
-                   <Label.GestureRecognizers>
-                                
-                   <TapGestureRecognizer
-                        Command="{Binding Source={x:Reference ListaCompra}, Path=BindingContext.TapCommand}" 
-                                        CommandParameter="{Binding}"
+                                    <Label
+                           Text="Detalles del Pedido"
+                           FontFamily="calibril.ttf#Calibri Light"
+                           Style="{StaticResource SignUpAccentTextStyle}"
+                            x:Name="Login"
+                         HorizontalOptions="CenterAndExpand"
+                         FontSize = "Medium"
+                      VerticalOptions="FillAndExpand"
+                       >
+                                        <Label.GestureRecognizers>
+
+                                            <TapGestureRecognizer
+                            Command="{Binding Source={x:Reference ListaCompra}, Path=BindingContext.TapCommand}" 
+                                            CommandParameter="{Binding}"
                          
-                         NumberOfTapsRequired="1" 
+                             NumberOfTapsRequired="1" 
                         
-                    />
-                    </Label.GestureRecognizers>
-                   </Label>
-                                <!--<Button Text="Detalle" 
-                                        Command="{Binding Source={x:Reference ListaCompra}, Path=BindingContext.TapCommand}" 
-                                        CommandParameter="{Binding}" >
-                                    </Button>-->
-                        </StackLayout>
+                        />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+                                    <!--<Button Text="Detalle" 
+                                            Command="{Binding Source={x:Reference ListaCompra}, Path=BindingContext.TapCommand}" 
+                                            CommandParameter="{Binding}" >
+                                        </Button>-->
+                                </StackLayout>
 
-                    </Grid>
-                    </Frame>
-                </DataTemplate>
-            </syncfusion:SfListView.ItemTemplate>
-        </syncfusion:SfListView>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+                
+                </pulltoRefresh:SfPullToRefresh.PullableContent>
+            </pulltoRefresh:SfPullToRefresh>
+
         </ScrollView>
     </StackLayout>
 </ContentPage>

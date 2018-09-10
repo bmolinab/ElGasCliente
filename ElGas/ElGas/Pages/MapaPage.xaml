@@ -12,7 +12,9 @@
             
             <Grid HorizontalOptions="FillAndExpand" 
                   VerticalOptions="FillAndExpand">
+                
                 <!--<Image HorizontalOptions="Center" VerticalOptions="Center" Source="camion.png"></Image>-->
+                
                 <tk:TKCustomMap 
                 x:Name="Mapa"
                 VerticalOptions="FillAndExpand"
