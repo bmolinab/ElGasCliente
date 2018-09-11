@@ -5,6 +5,7 @@ using ElGas.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -172,39 +173,15 @@ namespace ElGas.ViewModels
         #endregion
         #region Cosntructor
         public RegisterViewModel(Cliente cliente)
-        {
-            //Ciudades = new List<Ciudad>
-            //{
-            //    new Ciudad("1", "Quito"),
-            //    new Ciudad("2", "Guayaquil"),
-            //    new Ciudad("3", "Cuenca")
-            //};
-
-            //Sectores = new List<Sector>
-            //{
-            //    new Sector("1","1" ,"Norte"),
-            //    new Sector("2","1", "Sur"),
-            //    new Sector("3","1", "Centro"),
-            //    new Sector("4","1","Los Chillos"),
-            //    new Sector("5","2" ,"Norte"),
-            //    new Sector("6","2", "Sur"),
-            //    new Sector("7","2", "Centro")
-
-            //};
-
+        {           
             LoadCities();
             isError = false;
             IsError = false;
-
             Cliente = cliente;
             Username = cliente.Correo;
             Password = cliente.Identificacion;
             ConfirmPassword = cliente.Identificacion;
-
             cliente.Identificacion = "";
-
-
-
         }
         #endregion
         #region Commands
@@ -214,36 +191,44 @@ namespace ElGas.ViewModels
             {
                 return new Command(async () =>
                 {
-                    IsBusy = true;
-                    if (Password == ConfirmPassword)
+                    try
                     {
-                        Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}", CalleUno, Numero, CalleDos, Sector);
-                        Cliente.Habilitado = true;
-                        Cliente.IdSector = SectorSeleccionado.IdSector;
-
-                        var isRegistered = await _apiServices.RegisterUserAsync
-                        (Username, Password, ConfirmPassword, Cliente);
-                     
-
-                        IsBusy = false;
-
-                        if (isRegistered)
+                        IsBusy = true;
+                        if (Password == ConfirmPassword)
                         {
-                            Settings.Username = Username;
-                            Settings.Password = Password;
+                            Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}", CalleUno, Numero, CalleDos, Sector);
+                            Cliente.Habilitado = true;
+                            Cliente.IdSector = SectorSeleccionado.IdSector;
 
-                            Message = "Se registró con éxito";
+                            var isRegistered = await _apiServices.RegisterUserAsync
+                            (Username, Password, ConfirmPassword, Cliente);
+
+
+                            IsBusy = false;
+
+                            if (isRegistered)
+                            {
+                                Settings.Username = Username;
+                                Settings.Password = Password;
+
+                                Message = "Se registró con éxito";
+                                await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
+                                App.Current.MainPage = new NavigationPage(new LoginPage());
+
+                            }
+                        }
+                        else
+                        {
+                            IsBusy = false;
+                            Message = "Las contraseñas no coincide";
                             await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-                            App.Current.MainPage = new NavigationPage(new LoginPage());
-
-                        }                      
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        IsBusy = false;
-                        Message = "Las contraseñas no coincide";
-                        await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-                    }                
+
+                        Debug.Write(ex.Message);
+                    }            
                 });
             }
         }
@@ -268,45 +253,53 @@ namespace ElGas.ViewModels
                 {
                     //App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));                     Application.Current.MainPage.Navigation.PushAsync(new RegisterPage2(Cliente));
 
-                    if (IsAcceptPolicy)
+                    try
                     {
-                        if (Password != null && Password != "")
+                        if (IsAcceptPolicy)
                         {
-                            if (ConfirmPassword == Password)
+                            if (Password != null && Password != "")
                             {
-                                if (Password.Length > 3)
+                                if (ConfirmPassword == Password)
                                 {
-                                    Cliente.Correo = Username;
-                                    Cliente.Identificacion = Password;
-                                    App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));
+                                    if (Password.Length > 3)
+                                    {
+                                        Cliente.Correo = Username;
+                                        Cliente.Identificacion = Password;
+                                        App.Current.MainPage = new NavigationPage(new RegisterPage2(Cliente));
+                                    }
+                                    else
+                                    {
+                                        await App.Current.MainPage.DisplayAlert("Error", "Las contraseña debe tener al menos 4 caracteres", "Aceptar");
+
+                                    }
+
+
+
                                 }
                                 else
                                 {
-                                    await App.Current.MainPage.DisplayAlert("Error", "Las contraseña debe tener al menos 4 caracteres", "Aceptar");
-
+                                    await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
                                 }
-
-
 
                             }
                             else
                             {
-                                await App.Current.MainPage.DisplayAlert("Error", "Las contraseñas no coinciden", "Aceptar");
+                                await App.Current.MainPage.DisplayAlert("Error", "Todos los campos son obligatorios", "Aceptar");
+
                             }
 
                         }
                         else
                         {
-                            await App.Current.MainPage.DisplayAlert("Error", "Todos los campos son obligatorios", "Aceptar");
-
+                            await App.Current.MainPage.DisplayAlert("Error", "Debe haber leído y estar de acuerdo con los Términos y condiciones y las Políticas y tratamiento de datos personales", "Aceptar");
                         }
 
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        await App.Current.MainPage.DisplayAlert("Error", "Debe haber leído y estar de acuerdo con los Términos y condiciones y las Políticas y tratamiento de datos personales", "Aceptar");
-                    }
 
+                        Debug.Write(ex.Message);
+                    }
                 });
             }
         }
@@ -316,12 +309,29 @@ namespace ElGas.ViewModels
         #region Methods    
         public async void LoadCities()
         {
-            Ciudades = await _apiServices.GetCiudades();
+            try
+            {
+                Ciudades = await _apiServices.GetCiudades();
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
+            }
         }
 
         public async  void LoadSectors( int idCities)
         {
-            SectoresPorCiudad = await _apiServices.GetSectors(idCities);
+            try
+            {
+                SectoresPorCiudad = await _apiServices.GetSectors(idCities);
+
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
+            }
         }
         #endregion
         #region PropertyChanged

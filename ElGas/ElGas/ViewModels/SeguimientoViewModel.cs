@@ -95,35 +95,48 @@ namespace ElGas.ViewModels
         #region Constructor
         public SeguimientoViewModel()
         {
-            distribuidor = new Distribuidor();
-            camiones = new ObservableCollection<DistribuidorFirebase>();
-            Camiones = new ObservableCollection<DistribuidorFirebase>();
-            Locations = new ObservableCollection<TKCustomMapPin>();
-            locations = new ObservableCollection<TKCustomMapPin>();
-            centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.5)));
-
-            if (CrossConnectivity.Current.IsConnected)
+            try
             {
-                _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
-                //Device.BeginInvokeOnMainThread(async () =>
-                //{
-                //    await loadParametros();
-                //});
-                DatosVendedor();
+                distribuidor = new Distribuidor();
+                camiones = new ObservableCollection<DistribuidorFirebase>();
+                Camiones = new ObservableCollection<DistribuidorFirebase>();
+                Locations = new ObservableCollection<TKCustomMapPin>();
+                locations = new ObservableCollection<TKCustomMapPin>();
+                centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.5)));
+
+                if (CrossConnectivity.Current.IsConnected)
+                {
+                    _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
+                    //Device.BeginInvokeOnMainThread(async () =>
+                    //{
+                    //    await loadParametros();
+                    //});
+                    DatosVendedor();
+                }
             }
-
-
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);                
+            }
         }
         #endregion
         #region Commands
         public ICommand ContactCommand { get { return new RelayCommand(Contact); } }
         public async void Contact()
         {
-            
-            var PhoneCallTask = CrossMessaging.Current.PhoneDialer;
-            if (PhoneCallTask.CanMakePhoneCall)
+
+            try
             {
-                PhoneCallTask.MakePhoneCall(distribuidor.Telefono,distribuidor.Nombres);
+                var PhoneCallTask = CrossMessaging.Current.PhoneDialer;
+                if (PhoneCallTask.CanMakePhoneCall)
+                {
+                    PhoneCallTask.MakePhoneCall(distribuidor.Telefono, distribuidor.Nombres);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
             }
         }
 

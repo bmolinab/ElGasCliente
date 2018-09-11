@@ -90,11 +90,18 @@ namespace ElGas.ViewModels
         #region Constructor
         public ConfirmacionViewModel(TKCustomMapPin posicion)
         {
-            centerSearch = (MapSpan.FromCenterAndRadius(posicion.Position, Distance.FromMiles(.3)));
-            CenterSearch = centerSearch;
-            locations = new ObservableCollection<TKCustomMapPin>();
-            Locations.Add(posicion);
-            Direccion = Settings.Direccion;
+            try
+            {
+                centerSearch = (MapSpan.FromCenterAndRadius(posicion.Position, Distance.FromMiles(.3)));
+                CenterSearch = centerSearch;
+                locations = new ObservableCollection<TKCustomMapPin>();
+                Locations.Add(posicion);
+                Direccion = Settings.Direccion;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+            }
 
         }
         #endregion
@@ -124,31 +131,39 @@ namespace ElGas.ViewModels
         public ICommand OkCommand { get { return new RelayCommand(Ok); } }
         private async void Ok()
         {
-            ApiServices apiServices = new ApiServices();
-          
-            var action = await App.Current.MainPage.DisplayAlert("Confirmar", "Por favor confirma el pedido de "+cilindros+ " cilindros para:\n " + Direccion + " Ref: " + Referencia, "Confirmar", "Cancelar");
-            if(action)
+            try
             {
-                Compra compra = new Compra
+                ApiServices apiServices = new ApiServices();
+
+                var action = await App.Current.MainPage.DisplayAlert("Confirmar", "Por favor confirma el pedido de " + cilindros + " cilindros para:\n " + Direccion + " Ref: " + Referencia, "Confirmar", "Cancelar");
+                if (action)
                 {
-                    IdCliente=(int?)Settings.idCliente,
-                    ValorTotal=(double?)double.Parse(Valor.Replace("$", "")),
-                    Cantidad= (int?) int.Parse(Cilindros),
-                    Estado=0,
-                    Latitud=(double?) CenterSearch.Center.Latitude,
-                    Longitud=(double?) centerSearch.Center.Longitude,                    
-                };
-                var response = await ApiServices.InsertarAsync<Compra>(compra, new Uri(Constants.BaseApiAddress), "/api/Compras/PostCompras");
-                if (response.IsSuccess)
-                {
-                    await App.Current.MainPage.DisplayAlert("Gracias por tu pedido", "En breve confirmamos la entrega.", "Aceptar");
-                    Settings.TanquesGas = int.Parse(Cilindros);
-                    await App.Navigator.Navigation.PopToRootAsync();                
+                    Compra compra = new Compra
+                    {
+                        IdCliente = (int?)Settings.idCliente,
+                        ValorTotal = (double?)double.Parse(Valor.Replace("$", "")),
+                        Cantidad = (int?)int.Parse(Cilindros),
+                        Estado = 0,
+                        Latitud = (double?)CenterSearch.Center.Latitude,
+                        Longitud = (double?)centerSearch.Center.Longitude,
+                    };
+                    var response = await ApiServices.InsertarAsync<Compra>(compra, new Uri(Constants.BaseApiAddress), "/api/Compras/PostCompras");
+                    if (response.IsSuccess)
+                    {
+                        await App.Current.MainPage.DisplayAlert("Gracias por tu pedido", "En breve confirmamos la entrega.", "Aceptar");
+                        Settings.TanquesGas = int.Parse(Cilindros);
+                        await App.Navigator.Navigation.PopToRootAsync();
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("No hemos podido realizar el pedido, por favor, intenta más tarde.", response.Message, "Aceptar");
+                    }
                 }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("No hemos podido realizar el pedido, por favor, intenta más tarde.", response.Message, "Aceptar");
-                }             
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
             }
         }
         #endregion

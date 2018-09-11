@@ -214,49 +214,57 @@ namespace ElGas.ViewModels
         public async void Cancel()
         {
 
-            var action = await App.Current.MainPage.DisplayAlert("Pedido a Cancelar", string.Format("{0} Tanque(s)", Compra.Cantidad), "Confirmar", "Regresar");
-            if (action)
-
+            try
             {
-                if (Compra.IdDistribuidor==null)
-                {
-                    Compra.IdDistribuidor = 0;
-                }
+                var action = await App.Current.MainPage.DisplayAlert("Pedido a Cancelar", string.Format("{0} Tanque(s)", Compra.Cantidad), "Confirmar", "Regresar");
+                if (action)
 
-                var compracancelada = new CompraCancelada
                 {
-                    IdCompra = Compra.IdCompra,
-                    IdDistribuidor = (int)Compra.IdDistribuidor,
-                    CanceladaPor = 1,
-                    IdCliente =(int) Compra.IdCliente
-                };
-                var response = await ApiServices.InsertarAsync<CompraCancelada>(compracancelada, new Uri(Constants.BaseApiAddress), "api/Compras/Cancelar");
-                if (response.IsSuccess)
-                {
-                    await App.Current.MainPage.DisplayAlert("Pedido a Cancelar", string.Format("Su pedido de {0} tanque(s) ha sido cancelado", Compra.Cantidad), "Aceptar");
-                    Settings.Pedidos = false;
-                    await App.Navigator.Navigation.PopToRootAsync();
-                }
-                else
-                {
-                    await App.Current.MainPage.DisplayAlert("Problemas", string.Format("Tenemos problemas para cancelarsu pedido de {0} tanque(s), trabajamos para solucionarlo", Compra.Cantidad), "Aceptar");
-                    //Settear las variables globales
-                    if(Settings.IdCompra==Compra.IdCompra)
+                    if (Compra.IdDistribuidor == null)
                     {
-                        Settings.Pedidos = false;
-                        Settings.IdCompra = 0;
-                        Settings.IdDistribuidor = 0;
-                        Settings.TanquesGas = 0;
-                        Settings.Pedidos = false;
+                        Compra.IdDistribuidor = 0;
                     }
-                   
 
-                    await App.Navigator.Navigation.PopToRootAsync();
+                    var compracancelada = new CompraCancelada
+                    {
+                        IdCompra = Compra.IdCompra,
+                        IdDistribuidor = (int)Compra.IdDistribuidor,
+                        CanceladaPor = 1,
+                        IdCliente = (int)Compra.IdCliente
+                    };
+                    var response = await ApiServices.InsertarAsync<CompraCancelada>(compracancelada, new Uri(Constants.BaseApiAddress), "api/Compras/Cancelar");
+                    if (response.IsSuccess)
+                    {
+                        await App.Current.MainPage.DisplayAlert("Pedido a Cancelar", string.Format("Su pedido de {0} tanque(s) ha sido cancelado", Compra.Cantidad), "Aceptar");
+                        Settings.Pedidos = false;
+                        await App.Navigator.Navigation.PopToRootAsync();
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert("Problemas", string.Format("Tenemos problemas para cancelarsu pedido de {0} tanque(s), trabajamos para solucionarlo", Compra.Cantidad), "Aceptar");
+                        //Settear las variables globales
+                        if (Settings.IdCompra == Compra.IdCompra)
+                        {
+                            Settings.Pedidos = false;
+                            Settings.IdCompra = 0;
+                            Settings.IdDistribuidor = 0;
+                            Settings.TanquesGas = 0;
+                            Settings.Pedidos = false;
+                        }
+
+
+                        await App.Navigator.Navigation.PopToRootAsync();
+
+                    }
+
+
 
                 }
+            }
+            catch (Exception ex)
+            {
 
-
-
+                Debug.Write(ex.Message);
             }
 
         }

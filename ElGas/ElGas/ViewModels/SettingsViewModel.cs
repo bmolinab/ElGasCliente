@@ -65,15 +65,12 @@ namespace ElGas.ViewModels
             Helpers.Settings.TanquesGas = 0;
             Helpers.Settings.Password = "";
             Helpers.Settings.Username = "";
-            Helpers.Settings.TanquesGas = 0;
 
             Helpers.Settings.AccessToken = "";
             Helpers.Settings.AccessTokenExpirationDate = new DateTime();
 
             Helpers.Settings.Calificar = false;
             Helpers.Settings.Pedidos = false;
-
-
             App.Current.MainPage = new NavigationPage(new LoginPage());
         }        
         #endregion
