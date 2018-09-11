@@ -105,13 +105,13 @@ namespace ElGas.ViewModels
             if (CrossConnectivity.Current.IsConnected)
             {
                 _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
-
                 //Device.BeginInvokeOnMainThread(async () =>
                 //{
                 //    await loadParametros();
                 //});
                 DatosVendedor();
             }
+
 
         }
         #endregion
@@ -198,10 +198,15 @@ namespace ElGas.ViewModels
                         //accion para borrar
                 }
             });
+
+            SeguirA();
+
             #endregion
 
 
         }
+
+
 
 
         private void AdicionarPedido(string key, DistribuidorFirebase pedido, string idfirebase)
@@ -257,9 +262,38 @@ namespace ElGas.ViewModels
             }
         }
 
-        
 
 
-        #endregion
-    }
+        public async void SeguirA()
+        {
+            if (Settings.IdDistribuidor != 0)
+            {
+                var distribuidor = new Distribuidor
+                {
+                    IdDistribuidor = Settings.IdDistribuidor,
+
+                };
+                Point p = new Point(0.48, 0.96);
+
+
+                var response = await ApiServices.InsertarAsync<Distribuidor>(distribuidor, new Uri(Constants.BaseApiAddress), "/api/Rutas/GetLastPosition");
+                var ruta = JsonConvert.DeserializeObject<Ruta>(response.Result.ToString());
+
+                Locations.Clear();
+
+                Locations.Add(new TKCustomMapPin
+                {
+                    Image = "camion.png",
+                    Position = new TK.CustomMap.Position((double)ruta.Latitud, (double)ruta.Longitud),
+                    Anchor = p,
+                    ShowCallout = true,
+
+                });
+                CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position((double)ruta.Latitud, (double)ruta.Longitud)), Distance.FromMiles(.5)));
+            }
+        }
+
+
+            #endregion
+        }
 }

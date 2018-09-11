@@ -127,31 +127,47 @@ namespace ElGas.ViewModels
         public MapaViewModel()
         {
 
-            camiones = new ObservableCollection<DistribuidorFirebase>();
-            Camiones = new ObservableCollection<DistribuidorFirebase>();
-            geoCoder = new Xamarin.Forms.Maps.Geocoder();
-            Locations = new ObservableCollection<TKCustomMapPin>();
-            locations = new ObservableCollection<TKCustomMapPin>();
-            centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
-            if (CrossConnectivity.Current.IsConnected)
-            {
-                _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
 
-                Device.BeginInvokeOnMainThread(async () =>
+            try
+            {
+                camiones = new ObservableCollection<DistribuidorFirebase>();
+                Camiones = new ObservableCollection<DistribuidorFirebase>();
+                geoCoder = new Xamarin.Forms.Maps.Geocoder();
+                Locations = new ObservableCollection<TKCustomMapPin>();
+                locations = new ObservableCollection<TKCustomMapPin>();
+                centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
+                if (CrossConnectivity.Current.IsConnected)
                 {
-                    await loadParametros();
-                });
-                LoadVendedores(); 
+                    _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
+
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        await loadParametros();
+                    });
+                    LoadVendedores();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
             }
         }
         #endregion
         #region Events
         public void OnAppearing()
         {
-            Locations = new ObservableCollection<TKCustomMapPin>();
-            locations = new ObservableCollection<TKCustomMapPin>();
-            centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
-            LoadVendedores();
+            try
+            {
+                Locations = new ObservableCollection<TKCustomMapPin>();
+                locations = new ObservableCollection<TKCustomMapPin>();
+                centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
+                LoadVendedores();
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
+            }
             //Do whatever you like in here
         }
 
@@ -159,60 +175,78 @@ namespace ElGas.ViewModels
         #region Methods
         async void ObtenerDireccion(double lat, double lon)
         {
-            var position = new Xamarin.Forms.Maps.Position(lat, lon);
-            var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
-
-            foreach (var address in possibleAddresses)
+            try
             {
-                try
+                var position = new Xamarin.Forms.Maps.Position(lat, lon);
+                var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+                foreach (var address in possibleAddresses)
                 {
-                    string[] auxDireccion = address.Split(Convert.ToChar("\n"));
-                    Direccion = auxDireccion[0];
-                    break;
-                }
-                catch{
-                    Direccion = "Ups, no te localizamos";
-                }
+                    try
+                    {
+                        string[] auxDireccion = address.Split(Convert.ToChar("\n"));
+                        Direccion = auxDireccion[0];
+                        break;
+                    }
+                    catch
+                    {
+                        Direccion = "Ups, no te localizamos";
+                    }
 
-               
+
+                }
             }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
+            }
+
         }
 
         public async Task<bool> loadParametros()
         {
-            Cliente cliente = new Cliente
+            try
             {
-                IdCliente = Settings.idCliente,
-            };
-
-            var response = await ApiServices.InsertarAsync<Cliente>(cliente, new Uri(Constants.BaseApiAddress), "/api/Parametroes/GetAllParameters");
-            var parametros = JsonConvert.DeserializeObject<List<Parametro>>(response.Result.ToString());
-            if (parametros != null)
-
-            {
-                bool Actualizado = true;
-                foreach (var item in parametros)
+                Cliente cliente = new Cliente
                 {
-                    if (item.Nombre == "valor")
+                    IdCliente = Settings.idCliente,
+                };
+
+                var response = await ApiServices.InsertarAsync<Cliente>(cliente, new Uri(Constants.BaseApiAddress), "/api/Parametroes/GetAllParameters");
+                var parametros = JsonConvert.DeserializeObject<List<Parametro>>(response.Result.ToString());
+                if (parametros != null)
+
+                {
+                    bool Actualizado = true;
+                    foreach (var item in parametros)
                     {
-                        Settings.Precio = (double)item.Valor;
-                    }
-                    if (item.Nombre == "versioncliente")
-                    {
-                        if (Constants.VersionCliente >= item.Valor)
+                        if (item.Nombre == "valor")
                         {
-                            Actualizado = true;
+                            Settings.Precio = (double)item.Valor;
                         }
-                        else
+                        if (item.Nombre == "versioncliente")
                         {
-                            Actualizado = false;
+                            if (Constants.VersionCliente >= item.Valor)
+                            {
+                                Actualizado = true;
+                            }
+                            else
+                            {
+                                Actualizado = false;
+                            }
                         }
                     }
+                    if (!Actualizado) await App.Navigator.PushAsync(new UpdatePage());
+
+
                 }
-                if (!Actualizado) await App.Navigator.PushAsync(new UpdatePage());
-
-
             }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
+            }
+
             return true;
 
 
@@ -311,56 +345,64 @@ namespace ElGas.ViewModels
 
         private void AdicionarPedido(string key, DistribuidorFirebase pedido)
         {
-           // Locations.Clear();
+            // Locations.Clear();
 
-           if (!isVisible)
+            try
             {
-
-            
-            Point p = new Point(0.48, 0.96);
-            var found = Camiones.FirstOrDefault(x => x.id == pedido.id);
-            if (found != null)
-            {
-                int i = Camiones.IndexOf(found);
-                Camiones[i] = pedido;
-
-                int y = Locations.IndexOf( Locations.FirstOrDefault(x => x.ID == pedido.id.ToString()));
-
-                Locations.RemoveAt(y);
-                var Pindistribuidor = new TKCustomMapPin
+                if (!isVisible)
                 {
-                    Image = "camion",
-                    Position = new TK.CustomMap.Position((double)pedido.Latitud, (double)pedido.Longitud),
-                    Anchor = p,
-                    ShowCallout = true,
-                    ID = pedido.id.ToString()
-                };
-                Locations.Add(Pindistribuidor);
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Locations"));
+
+
+                    Point p = new Point(0.48, 0.96);
+                    var found = Camiones.FirstOrDefault(x => x.id == pedido.id);
+                    if (found != null)
+                    {
+                        int i = Camiones.IndexOf(found);
+                        Camiones[i] = pedido;
+
+                        int y = Locations.IndexOf(Locations.FirstOrDefault(x => x.ID == pedido.id.ToString()));
+
+                        Locations.RemoveAt(y);
+                        var Pindistribuidor = new TKCustomMapPin
+                        {
+                            Image = "camion",
+                            Position = new TK.CustomMap.Position((double)pedido.Latitud, (double)pedido.Longitud),
+                            Anchor = p,
+                            ShowCallout = true,
+                            ID = pedido.id.ToString()
+                        };
+                        Locations.Add(Pindistribuidor);
+                        //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Locations"));
+
+                    }
+                    else
+                    {
+
+                        Camiones.Add(new DistribuidorFirebase()
+                        {
+                            id = pedido.id,
+                            Latitud = pedido.Latitud,
+                            Longitud = pedido.Longitud,
+                        });
+                        var Pindistribuidor = new TKCustomMapPin
+                        {
+                            Image = "camion",
+                            Position = new TK.CustomMap.Position((double)pedido.Latitud, (double)pedido.Longitud),
+                            Anchor = p,
+                            ShowCallout = true,
+                            ID = pedido.id.ToString()
+                        };
+                        Locations.Add(Pindistribuidor);
+
+                    }
+                }
 
             }
-            else
+            catch (Exception ex)
             {
 
-                Camiones.Add(new DistribuidorFirebase()
-                {
-                    id = pedido.id,
-                    Latitud = pedido.Latitud,
-                    Longitud = pedido.Longitud,
-                });
-                var Pindistribuidor = new TKCustomMapPin
-                {
-                    Image = "camion",
-                    Position = new TK.CustomMap.Position((double)pedido.Latitud, (double)pedido.Longitud),
-                    Anchor = p,
-                    ShowCallout = true,
-                    ID = pedido.id.ToString()
-                };
-                Locations.Add(Pindistribuidor);
-
+                Debug.WriteLine(ex.Message);
             }
-            }
-
         }
         #endregion
         #region commands
@@ -400,25 +442,40 @@ namespace ElGas.ViewModels
         public ICommand CancelCommand { get { return new RelayCommand(Cancel); } }
         private async void Cancel()
         {
-            LoadVendedores();
-            isVisible = false;
-            OneButton = true;
+            try
+            {
+                LoadVendedores();
+                isVisible = false;
+                OneButton = true;
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+            }
 
         }
 
         public ICommand OkCommand { get { return new RelayCommand(Ok); } }
         private async void Ok()
         {
-            if(Locations.Count>0)
+            try
             {
-                isVisible = false;
-                OneButton = true;
-                var ubicacion =Locations[0];
-                Settings.Direccion = Direccion;
-                Debug.WriteLine("Latitud:{0} Longitud:{1}",ubicacion.Position.Latitude, ubicacion.Position.Longitude);
-                await App.Navigator.PushAsync(new Confirmacion(ubicacion));
+                if (Locations.Count > 0)
+                {
+                    isVisible = false;
+                    OneButton = true;
+                    var ubicacion = Locations[0];
+                    Settings.Direccion = Direccion;
+                    Debug.WriteLine("Latitud:{0} Longitud:{1}", ubicacion.Position.Latitude, ubicacion.Position.Longitude);
+                    await App.Navigator.PushAsync(new Confirmacion(ubicacion));
+                }
+
             }
-        }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
+            }        }
         public Command<TK.CustomMap.Position> MapClickedCommand
         {
             get
@@ -426,18 +483,27 @@ namespace ElGas.ViewModels
                 return new Command<TK.CustomMap.Position>((positon) =>
                 {
                     //Determine if a point was inside a circle
-                    if (isVisible)
-                    {                        
-                        Locations.Clear();               
-                        
-                        Locations.Add(new TKCustomMapPin {
-                            Image = "casa",
-                            Position = positon,
-                            Anchor = new Point(0.48, 0.96),
-                            ShowCallout = true, });
+                    try
+                    {
+                        if (isVisible)
+                        {
+                            Locations.Clear();
 
-                        ObtenerDireccion(positon.Latitude, positon.Longitude);
+                            Locations.Add(new TKCustomMapPin
+                            {
+                                Image = "casa",
+                                Position = positon,
+                                Anchor = new Point(0.48, 0.96),
+                                ShowCallout = true,
+                            });
 
+                            ObtenerDireccion(positon.Latitude, positon.Longitude);
+
+                        }
+                    }
+                    catch ( Exception ex)
+                    {
+                        Debug.Write(ex.Message);                        
                     }
                 });
             }

@@ -129,8 +129,6 @@ namespace ElGas.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-
-                throw;
             }
         }
 
@@ -149,21 +147,29 @@ namespace ElGas.ViewModels
 
         public async Task LoginAsyncFB()
         {
-            FacebookResponse<bool> response = await CrossFacebookClient.Current.LoginAsync(permisions);
-            switch (response.Status)
+            try
             {
-                case FacebookActionStatus.Completed:
-                    await LoadData(); 
-                    //App.Current.MainPage.DisplayAlert("Loggeado", response.Message, "Ok"); 
-                    break;
-                case FacebookActionStatus.Canceled:
-                    break;
-                case FacebookActionStatus.Unauthorized:
-                    await Application.Current.MainPage.DisplayAlert("Unauthorized", response.Message, "Ok");
-                    break;
-                case FacebookActionStatus.Error:
-                    await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Ok");
-                    break;
+                FacebookResponse<bool> response = await CrossFacebookClient.Current.LoginAsync(permisions);
+                switch (response.Status)
+                {
+                    case FacebookActionStatus.Completed:
+                        await LoadData();
+                        //App.Current.MainPage.DisplayAlert("Loggeado", response.Message, "Ok"); 
+                        break;
+                    case FacebookActionStatus.Canceled:
+                        break;
+                    case FacebookActionStatus.Unauthorized:
+                        await Application.Current.MainPage.DisplayAlert("Unauthorized", response.Message, "Ok");
+                        break;
+                    case FacebookActionStatus.Error:
+                        await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Ok");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
             }
 
         }
@@ -171,38 +177,45 @@ namespace ElGas.ViewModels
         public async Task LoadData()
         {
 
-            var jsonData = await CrossFacebookClient.Current.RequestUserDataAsync
-            (
-                  new string[] { "id", "name", "email"}, new string[] { }
-            );
-
-            var data = JObject.Parse(jsonData.Data);
-
-          var  Profile = new FacebookProfile()
+            try
             {
-              Id = data["id"].ToString(),
-              FullName = data["name"].ToString(),
-             Email= data["email"].ToString()
-            };
+                var jsonData = await CrossFacebookClient.Current.RequestUserDataAsync
+                   (
+                         new string[] { "id", "name", "email" }, new string[] { }
+                   );
 
-            var accesstoken = await _apiServices.LoginAsync(Profile.Email, Profile.Id);
+                var data = JObject.Parse(jsonData.Data);
 
-            if (accesstoken != null)
-            {
-                Settings.AccessToken = accesstoken;
-                var c = new Cliente { Correo = Profile.Email, DeviceID = Settings.DeviceID };
-                var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
-                var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
-                Settings.idCliente = cliente.IdCliente;
-                Settings.Username = Profile.Email;
-                Settings.Password = Profile.Id;
-                IsBusy = false;
-                Application.Current.MainPage = new NavigationPage(new MasterPage());
+                var Profile = new FacebookProfile()
+                {
+                    Id = data["id"].ToString(),
+                    FullName = data["name"].ToString(),
+                    Email = data["email"].ToString()
+                };
 
+                var accesstoken = await _apiServices.LoginAsync(Profile.Email, Profile.Id);
+
+                if (accesstoken != null)
+                {
+                    Settings.AccessToken = accesstoken;
+                    var c = new Cliente { Correo = Profile.Email, DeviceID = Settings.DeviceID };
+                    var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
+                    var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
+                    Settings.idCliente = cliente.IdCliente;
+                    Settings.Username = Profile.Email;
+                    Settings.Password = Profile.Id;
+                    IsBusy = false;
+                    Application.Current.MainPage = new NavigationPage(new MasterPage());
+
+                }
+                else
+                {
+                    await Application.Current.MainPage.Navigation.PushAsync(new AfterFBPage(Profile));
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new AfterFBPage(Profile));
+                Debug.Write(ex.Message);
             }
             //   Debug.WriteLine(data.Count);
         }
@@ -210,7 +223,15 @@ namespace ElGas.ViewModels
         public ICommand RegisterCommand { get { return new RelayCommand(Register); } }
         private async void Register()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+            try
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);
+            }
         }
 
        
@@ -222,16 +243,33 @@ namespace ElGas.ViewModels
         }
         private async  void OnTapped(object s)
         {
-            
-            await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+
+            try
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
+            }
         }
 
 
         public ICommand RecoveryCommand { get { return new RelayCommand(Recovery); } }
         private async void Recovery()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new RecoveryPassPage());
-        }
+            try
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(new RecoveryPassPage());
+
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
+            }        }
 
         #endregion
         #region Constructor

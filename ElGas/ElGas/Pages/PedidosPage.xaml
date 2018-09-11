@@ -141,7 +141,8 @@
                 
                     <syncfusion:SfListView x:Name="ListaCompra" 
                        ItemsSource="{Binding ListaCompra}"
-                       ItemSize="120"                               
+                       ItemSize="120"  
+                      
                        >
                 <syncfusion:SfListView.ItemTemplate>
                     <DataTemplate>
