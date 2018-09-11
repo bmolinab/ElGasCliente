@@ -76,7 +76,14 @@ namespace ElGas.ViewModels
                 return new Command(async () =>
                 {
                     IsBusy = true;
-                        var accesstoken = await _apiServices.LoginAsync(Username, Password);
+                    if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+                    {
+                        IsBusy = false;
+                        await App.Current.MainPage.DisplayAlert("Información", "Debe ingresar el usuario y la contraseña", "Aceptar");
+                        return;
+                    }
+
+                    var accesstoken = await _apiServices.LoginAsync(Username, Password);
 
                     if (accesstoken != null)
                     {
@@ -91,6 +98,9 @@ namespace ElGas.ViewModels
                         Application.Current.MainPage = new NavigationPage(new MasterTabPage());
 
                     }
+                    IsBusy = false;
+                    await App.Current.MainPage.DisplayAlert("Información", "Usuario o contraseña incorrecta, Vuelve a intertarlo o presiona Olvidé mi contraseña para recuperarla", "Aceptar");
+                    return;
 
                 });
             }
