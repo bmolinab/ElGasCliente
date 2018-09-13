@@ -24,5 +24,7 @@ namespace ElGas.Models
 
         public int? Calificacion { get; set; }
 
+        public string Direccion { get; set; }
+        public string Referencia { get; set; }
     }
 }

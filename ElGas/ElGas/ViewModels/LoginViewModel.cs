@@ -91,6 +91,7 @@ namespace ElGas.ViewModels
 
                         var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID };
                         var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
+
                         var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
                         Settings.idCliente = cliente.IdCliente;
                         Settings.NombreCompleto = cliente.Nombres + " " + cliente.Apellidos;

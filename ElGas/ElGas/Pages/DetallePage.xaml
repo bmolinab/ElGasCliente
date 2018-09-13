@@ -49,7 +49,7 @@
 
 
                 <Button Text="Cancelar el pedido" 
-                        BackgroundColor="#0072C6"
+                        BackgroundColor="Gray"
                         TextColor="White" 
                         VerticalOptions="End" 
                         HorizontalOptions="Center" 

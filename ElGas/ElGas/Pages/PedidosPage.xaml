@@ -5,8 +5,7 @@
              xmlns:pulltoRefresh="clr-namespace:Syncfusion.SfPullToRefresh.XForms;assembly=Syncfusion.SfPullToRefresh.XForms"
              x:Class="ElGas.Pages.PedidosPage"
              Title = "Histórico"
-             Icon="Purchase_Icon.png"
-             >
+             Icon="Purchase_Icon.png">
     
      <ContentPage.Resources>
         <ResourceDictionary>
@@ -131,7 +130,6 @@
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
             <pulltoRefresh:SfPullToRefresh x:Name="pullToRefresh" 
-                               ProgressBackgroundColor="#428BCA" 
                                TransitionMode="SlideOnTop"
                                IsRefreshing="False"
                                            Refreshing="pullToRefresh_Refreshing"

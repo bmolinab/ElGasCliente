@@ -102,7 +102,7 @@ namespace ElGas.ViewModels
                 Camiones = new ObservableCollection<DistribuidorFirebase>();
                 Locations = new ObservableCollection<TKCustomMapPin>();
                 locations = new ObservableCollection<TKCustomMapPin>();
-                centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.5)));
+                centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(-0.180653, -78.46783820000002)), Distance.FromMiles(2)));
 
                 if (CrossConnectivity.Current.IsConnected)
                 {
@@ -172,22 +172,14 @@ namespace ElGas.ViewModels
                     Settings.TanquesGas = 0;
                     Settings.Pedidos = false;
                     await App.Navigator.Navigation.PopToRootAsync();
-
-                }
-
-
-              
+                }              
             }
-
         }
-
-
         public async void DatosVendedor()
         {
             var d = new Distribuidor { IdDistribuidor=Settings.IdDistribuidor };
             var response = await ApiServices.InsertarAsync<Distribuidor>(d, new System.Uri(Constants.BaseApiAddress), "/api/Distribuidors/GetDistribuidorID");
             Distribuidor = JsonConvert.DeserializeObject<Distribuidor>(response.Result.ToString());
-
             #region Forma Firebase
 
             Locations.Clear();
@@ -212,15 +204,12 @@ namespace ElGas.ViewModels
                 }
             });
 
-            SeguirA();
+           // SeguirA();
 
             #endregion
 
 
         }
-
-
-
 
         private void AdicionarPedido(string key, DistribuidorFirebase pedido, string idfirebase)
         {
@@ -275,8 +264,6 @@ namespace ElGas.ViewModels
             }
         }
 
-
-
         public async void SeguirA()
         {
             if (Settings.IdDistribuidor != 0)
@@ -305,8 +292,7 @@ namespace ElGas.ViewModels
                 CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position((double)ruta.Latitud, (double)ruta.Longitud)), Distance.FromMiles(.5)));
             }
         }
-
-
-            #endregion
+           
+        #endregion
         }
 }

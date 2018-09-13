@@ -112,6 +112,8 @@ namespace ElGas.ViewModels
         { 
             Int64 x = int.Parse(Cilindros);
             x = x + 1;
+            if (x >= 4)
+                x = x - 1;
             Cilindros = x.ToString();
 
         }
@@ -146,6 +148,8 @@ namespace ElGas.ViewModels
                         Estado = 0,
                         Latitud = (double?)CenterSearch.Center.Latitude,
                         Longitud = (double?)centerSearch.Center.Longitude,
+                        Direccion= Direccion,
+                        Referencia=Referencia
                     };
                     var response = await ApiServices.InsertarAsync<Compra>(compra, new Uri(Constants.BaseApiAddress), "/api/Compras/PostCompras");
                     if (response.IsSuccess)

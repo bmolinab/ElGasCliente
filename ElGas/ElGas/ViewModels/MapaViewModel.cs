@@ -135,7 +135,7 @@ namespace ElGas.ViewModels
                 geoCoder = new Xamarin.Forms.Maps.Geocoder();
                 Locations = new ObservableCollection<TKCustomMapPin>();
                 locations = new ObservableCollection<TKCustomMapPin>();
-                centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
+                centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(-0.180653, -78.46783820000002)), Distance.FromMiles(2)));
                 if (CrossConnectivity.Current.IsConnected)
                 {
                     _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
@@ -160,7 +160,8 @@ namespace ElGas.ViewModels
             {
                 Locations = new ObservableCollection<TKCustomMapPin>();
                 locations = new ObservableCollection<TKCustomMapPin>();
-                centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.3)));
+                Locations.Clear();
+                centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(-0.180653, -78.46783820000002)), Distance.FromMiles(2)));
                 LoadVendedores();
             }
             catch (Exception ex)
@@ -409,9 +410,31 @@ namespace ElGas.ViewModels
         public ICommand BuyCommand { get { return new RelayCommand(Buy); } }
         private async void Buy()
         {
-
             try
             {
+                var d = new Cliente { IdCliente = Settings.idCliente };
+                var response = await ApiServices.InsertarAsync<Cliente>(d, new System.Uri(Constants.BaseApiAddress), "/api/Compras/CompraPendiente");
+                var pedidos = JsonConvert.DeserializeObject<int>(response.Result.ToString());
+
+                if (pedidos > 0)
+                {
+                    bool action = false;
+
+                    if(pedidos>1)
+                    {
+                         action = await App.Current.MainPage.DisplayAlert("Aviso", "Usted tiene  " + pedidos + " pedidos pendiente, desea continuar", "Continuar", "Cancelar");
+                    }
+                    else
+                    {
+                         action = await App.Current.MainPage.DisplayAlert("Aviso", "Usted tiene  " + pedidos + " pedido pendiente, desea continuar", "Continuar", "Cancelar");
+                    }
+                    if (!action)
+                    {
+                        return;
+                    }
+                }
+
+
                 var lat = CenterSearch.Center.Latitude;
                 var lon = CenterSearch.Center.Longitude;
                 CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(lat, lon)), Distance.FromMiles(.10)));
@@ -425,7 +448,10 @@ namespace ElGas.ViewModels
                     Position = CenterSearch.Center,
                     Anchor = new Point(0.48, 0.96),
                     ShowCallout = true,
+                    ID="casa"
                 });
+
+
                 ObtenerDireccion(CenterSearch.Center.Latitude, CenterSearch.Center.Longitude);
                 isVisible = true;
                 OneButton = false;
@@ -444,6 +470,7 @@ namespace ElGas.ViewModels
         {
             try
             {
+                Locations.Clear();
                 LoadVendedores();
                 isVisible = false;
                 OneButton = true;
@@ -467,15 +494,16 @@ namespace ElGas.ViewModels
                     var ubicacion = Locations[0];
                     Settings.Direccion = Direccion;
                     Debug.WriteLine("Latitud:{0} Longitud:{1}", ubicacion.Position.Latitude, ubicacion.Position.Longitude);
+                    Locations.Clear();
                     await App.Navigator.PushAsync(new Confirmacion(ubicacion));
                 }
 
             }
             catch (Exception ex)
             {
-
                 Debug.Write(ex.Message);
-            }        }
+            }
+        }
         public Command<TK.CustomMap.Position> MapClickedCommand
         {
             get
@@ -508,7 +536,8 @@ namespace ElGas.ViewModels
                 });
             }
         }
-      
+
+
         #endregion
     }
 }
