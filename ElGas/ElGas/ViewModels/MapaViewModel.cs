@@ -410,7 +410,10 @@ namespace ElGas.ViewModels
         public ICommand BuyCommand { get { return new RelayCommand(Buy); } }
         private async void Buy()
         {
-            try
+
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                try
             {
                 var d = new Cliente { IdCliente = Settings.idCliente };
                 var response = await ApiServices.InsertarAsync<Cliente>(d, new System.Uri(Constants.BaseApiAddress), "/api/Compras/CompraPendiente");
@@ -461,7 +464,11 @@ namespace ElGas.ViewModels
                 Debug.Write(ex.Message);
                 throw;
             }
-            
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
+            }
 
 
         }
@@ -485,25 +492,32 @@ namespace ElGas.ViewModels
         public ICommand OkCommand { get { return new RelayCommand(Ok); } }
         private async void Ok()
         {
-            try
+            if (CrossConnectivity.Current.IsConnected)
             {
-                if (Locations.Count > 0)
+                try
                 {
-                    isVisible = false;
-                    OneButton = true;
-                    var ubicacion = Locations[0];
-                    Settings.Direccion = Direccion;
-                    Debug.WriteLine("Latitud:{0} Longitud:{1}", ubicacion.Position.Latitude, ubicacion.Position.Longitude);
-                    Locations.Clear();
-                    await App.Navigator.PushAsync(new Confirmacion(ubicacion));
-                }
+                    if (Locations.Count > 0)
+                    {
+                        isVisible = false;
+                        OneButton = true;
+                        var ubicacion = Locations[0];
+                        Settings.Direccion = Direccion;
+                        Debug.WriteLine("Latitud:{0} Longitud:{1}", ubicacion.Position.Latitude, ubicacion.Position.Longitude);
+                        Locations.Clear();
+                        await App.Navigator.PushAsync(new Confirmacion(ubicacion));
+                    }
 
+                }
+                catch (Exception ex)
+                {
+                    Debug.Write(ex.Message);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                Debug.Write(ex.Message);
+                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
             }
-        }
+            }
         public Command<TK.CustomMap.Position> MapClickedCommand
         {
             get

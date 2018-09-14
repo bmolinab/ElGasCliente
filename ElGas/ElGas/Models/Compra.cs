@@ -26,5 +26,8 @@ namespace ElGas.Models
 
         public string Direccion { get; set; }
         public string Referencia { get; set; }
+
+        public int? EstadoNotificacion { get; set; }
+
     }
 }

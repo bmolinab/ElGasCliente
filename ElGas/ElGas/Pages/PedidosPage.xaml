@@ -128,6 +128,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Label  IsVisible="{Binding NoHayPedidos}" FontSize="Medium" Text="No tiene pedidos." FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center"></Label>
         <ScrollView VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
             <pulltoRefresh:SfPullToRefresh x:Name="pullToRefresh" 
                                TransitionMode="SlideOnTop"

@@ -5,6 +5,7 @@ using ElGas.Services;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Plugin.Connectivity;
 using Plugin.FacebookClient;
 using Plugin.FacebookClient.Abstractions;
 using Plugin.Geolocator;
@@ -75,61 +76,74 @@ namespace ElGas.ViewModels
             {
                 return new Command(async () =>
                 {
-                    IsBusy = true;
-                    if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+                    if (CrossConnectivity.Current.IsConnected)
                     {
+
+                        IsBusy = true;
+                        if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
+                        {
+                            IsBusy = false;
+                            await App.Current.MainPage.DisplayAlert("Información", "Debe ingresar el usuario y la contraseña", "Aceptar");
+                            return;
+                        }
+
+                        var accesstoken = await _apiServices.LoginAsync(Username, Password);
+
+                        if (accesstoken != null)
+                        {
+                            if (isRemember) Settings.AccessToken = accesstoken;
+
+                            var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID };
+                            var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
+
+                            var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
+                            Settings.idCliente = cliente.IdCliente;
+                            Settings.NombreCompleto = cliente.Nombres + " " + cliente.Apellidos;
+                            IsBusy = false;
+                            Application.Current.MainPage = new NavigationPage(new MasterTabPage());
+
+                        }
                         IsBusy = false;
-                        await App.Current.MainPage.DisplayAlert("Información", "Debe ingresar el usuario y la contraseña", "Aceptar");
+                        await App.Current.MainPage.DisplayAlert("Información", "Usuario o contraseña incorrecta, Vuelve a intertarlo o presiona Olvidé mi contraseña para recuperarla", "Aceptar");
                         return;
                     }
-
-                    var accesstoken = await _apiServices.LoginAsync(Username, Password);
-
-                    if (accesstoken != null)
+                    else
                     {
-                        if (isRemember) Settings.AccessToken = accesstoken;
-
-                        var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID };
-                        var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
-
-                        var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
-                        Settings.idCliente = cliente.IdCliente;
-                        Settings.NombreCompleto = cliente.Nombres + " " + cliente.Apellidos;
-                        IsBusy = false;
-                        Application.Current.MainPage = new NavigationPage(new MasterTabPage());
-
+                        await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
                     }
-                    IsBusy = false;
-                    await App.Current.MainPage.DisplayAlert("Información", "Usuario o contraseña incorrecta, Vuelve a intertarlo o presiona Olvidé mi contraseña para recuperarla", "Aceptar");
-                    return;
 
                 });
+
             }
         }
 
         public async  void permisos()
         {
-            try
+            if (CrossConnectivity.Current.IsConnected)
             {
-                var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-                if (status != PermissionStatus.Granted)
+
+                try
                 {
-                    var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
-
-                    Debug.WriteLine(results.Count.ToString());
-
-                    if (status != PermissionStatus.Unknown)
+                    var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+                    if (status != PermissionStatus.Granted)
                     {
-                         Debug.WriteLine("Location Denied");
+                        var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+
+                        Debug.WriteLine(results.Count.ToString());
+
+                        if (status != PermissionStatus.Unknown)
+                        {
+                            Debug.WriteLine("Location Denied");
+                        }
                     }
+
+
+
                 }
-
-              
-
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
             }
         }
 
@@ -224,15 +238,20 @@ namespace ElGas.ViewModels
         public ICommand RegisterCommand { get { return new RelayCommand(Register); } }
         private async void Register()
         {
-            try
+            if (CrossConnectivity.Current.IsConnected)
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
 
+                try
+                {
+                    await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.Write(ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                Debug.Write(ex.Message);
-            }
+          
         }
 
        
@@ -242,10 +261,12 @@ namespace ElGas.ViewModels
         {
             get { return tapCommand; }
         }
-        private async  void OnTapped(object s)
+        private async void OnTapped(object s)
         {
+            if (CrossConnectivity.Current.IsConnected)
+            {
 
-            try
+                try
             {
                 await Application.Current.MainPage.Navigation.PushAsync(new RegisterPage());
 
@@ -257,20 +278,35 @@ namespace ElGas.ViewModels
             }
         }
 
+              else
+            {
+                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
+            }
+        }
+
 
         public ICommand RecoveryCommand { get { return new RelayCommand(Recovery); } }
         private async void Recovery()
         {
-            try
+            if (CrossConnectivity.Current.IsConnected)
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new RecoveryPassPage());
+                try
+                {
+                    await Application.Current.MainPage.Navigation.PushAsync(new RecoveryPassPage());
+
+                }
+                catch (Exception ex)
+                {
+
+                    Debug.Write(ex.Message);
+                }
 
             }
-            catch (Exception ex)
+            else
             {
-
-                Debug.Write(ex.Message);
-            }        }
+                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
+            }
+        }
 
         #endregion
         #region Constructor

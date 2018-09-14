@@ -30,11 +30,9 @@ namespace ElGas.ViewModels
             {
                 if (this.valor != value)
                 {
-
                     this.valor = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Valor"));
-                }
-               
+                }               
             }
         }
         #endregion
@@ -68,6 +66,5 @@ namespace ElGas.ViewModels
 
         }
         #endregion
-
     }
 }

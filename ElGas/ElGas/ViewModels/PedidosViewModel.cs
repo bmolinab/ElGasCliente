@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -16,23 +17,58 @@ using Xamarin.Forms;
 
 namespace ElGas.ViewModels
 {
-    public class PedidosViewModel
+    public class PedidosViewModel : INotifyPropertyChanged
     {
         private Command<object> tapCommand;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<ComprasRequest> ListaCompra { get; set; }
+
+        public ObservableCollection<ComprasRequest> listaCompra;
+        public ObservableCollection<ComprasRequest> ListaCompra
+        {
+            protected set
+            {
+                listaCompra = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ListaCompra"));
+            }
+            get { return listaCompra; }
+        }
+
+
+        public bool noHayPedidos = false;
+
+        public bool NoHayPedidos
+        {
+            set
+            {
+                noHayPedidos = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("NoHayPedidos"));
+
+            }
+            get
+            {
+                return noHayPedidos;
+            }
+        }
+
         // api/ListCompraByClient
 
-            //Actualizar pedidos, cuando se realice una accion
+        //Actualizar pedidos, cuando se realice una accion
         public PedidosViewModel()
         {
             try
             {
+                listaCompra = new ObservableCollection<ComprasRequest>();
+                ListaCompra = new ObservableCollection<ComprasRequest>();
 
                 if (CrossConnectivity.Current.IsConnected)
                 {
                     MisPedidos();
                     tapCommand = new Command<object>(iralDetalle);
+                }
+                else
+                {
+                     App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
                 }
             }
             catch (Exception ex)
@@ -56,6 +92,11 @@ namespace ElGas.ViewModels
                 var d = new Cliente { IdCliente = Settings.idCliente };
                 var response = await ApiServices.InsertarAsync<Cliente>(d, new System.Uri(Constants.BaseApiAddress), "/api/Compras/ListCompraByClient");
                 var list = JsonConvert.DeserializeObject<List<ComprasRequest>>(response.Result.ToString());
+                if (list.Count == 0)
+                {
+                    NoHayPedidos = true;
+                }
+                
                 foreach (var item in list.OrderByDescending(o => o.IdCompra).ToList())
                 {
                     var fecha = TimeZoneInfo.ConvertTime(item.FechaPedido.Value.Date, TimeZoneInfo.Local);

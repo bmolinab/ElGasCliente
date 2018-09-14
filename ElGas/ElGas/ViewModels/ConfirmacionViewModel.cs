@@ -106,7 +106,6 @@ namespace ElGas.ViewModels
         }
         #endregion
         #region commands 
-
         public ICommand PlusCommand { get { return new RelayCommand(Plus); } }
         private async void Plus()
         { 
@@ -115,9 +114,7 @@ namespace ElGas.ViewModels
             if (x >= 4)
                 x = x - 1;
             Cilindros = x.ToString();
-
         }
-
         public ICommand LessCommand { get { return new RelayCommand(Less); } }
         private async void Less()
         {
@@ -126,17 +123,13 @@ namespace ElGas.ViewModels
             if (x <= 0)
                 x = x + 1;
             Cilindros = x.ToString();
-
         }
-
-
         public ICommand OkCommand { get { return new RelayCommand(Ok); } }
         private async void Ok()
         {
             try
             {
                 ApiServices apiServices = new ApiServices();
-
                 var action = await App.Current.MainPage.DisplayAlert("Confirmar", "Por favor confirma el pedido de " + cilindros + " cilindros para:\n " + Direccion + " Ref: " + Referencia, "Confirmar", "Cancelar");
                 if (action)
                 {
@@ -166,7 +159,6 @@ namespace ElGas.ViewModels
             }
             catch (Exception ex)
             {
-
                 Debug.Write(ex.Message);
             }
         }
