@@ -215,10 +215,10 @@
                     />
                     </Label.GestureRecognizers>
                    </Label>
-                                <Button Text="Detalle" 
+                               <!-- <Button Text="Detalle" 
                                         Command="{Binding Source={x:Reference ListaCompra}, Path=BindingContext.TapCommand}" 
                                         CommandParameter="{Binding}" >
-                                    </Button>
+                                    </Button>-->
                         </StackLayout>
 
                     </Grid>
