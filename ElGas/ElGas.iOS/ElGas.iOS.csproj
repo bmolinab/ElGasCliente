@@ -178,6 +178,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfListView">
       <Version>16.2.0.41</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfPullToRefresh">
+      <Version>16.2.0.41</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRating">
       <Version>16.2.0.41</Version>
     </PackageReference>

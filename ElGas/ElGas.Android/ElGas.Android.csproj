@@ -87,6 +87,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfListView">
       <Version>16.2.0.41</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfPullToRefresh">
+      <Version>16.2.0.41</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRating">
       <Version>16.2.0.41</Version>
     </PackageReference>
@@ -557,8 +560,6 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\scart.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\drawable-mdpi\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

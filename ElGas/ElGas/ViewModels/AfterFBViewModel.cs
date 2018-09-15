@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -102,20 +103,28 @@ namespace ElGas.ViewModels
         #region Constructor
         public AfterFBViewModel(FacebookProfile facebookProfile)
         {
-            isError = false;
-            IsError = false;
-            Cliente = new Cliente();
-            FBProfile = facebookProfile;
-            Username = fbProfile.Email;
-            Password = fbProfile.Id;
-            ConfirmPassword = fbProfile.Id;
-            Cliente.Correo = fbProfile.Email;
-            Char delimiter = ' ';
-            String[] words = facebookProfile.FullName.Split(delimiter);
-            if (words.Length>1)
+            try
             {
-                Cliente.Nombres = words[0];
-                Cliente.Apellidos = words[1];
+                isError = false;
+                IsError = false;
+                Cliente = new Cliente();
+                FBProfile = facebookProfile;
+                Username = fbProfile.Email;
+                Password = fbProfile.Id;
+                ConfirmPassword = fbProfile.Id;
+                Cliente.Correo = fbProfile.Email;
+                Char delimiter = ' ';
+                String[] words = facebookProfile.FullName.Split(delimiter);
+                if (words.Length > 1)
+                {
+                    Cliente.Nombres = words[0];
+                    Cliente.Apellidos = words[1];
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
             }
         }
         #endregion
@@ -126,44 +135,52 @@ namespace ElGas.ViewModels
             {
                 return new Command(async () =>
                 {
-                    IsBusy = true;
-                    if (Password == ConfirmPassword)
+                    try
                     {
-                        Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}", CalleUno, Numero, CalleDos, Sector);
-                        Cliente.Habilitado = true;
+                        IsBusy = true;
+                        if (Password == ConfirmPassword)
+                        {
+                            Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}", CalleUno, Numero, CalleDos, Sector);
+                            Cliente.Habilitado = true;
 
-                        var isRegistered = await apiService.RegisterUserAsync
-                        (Username, Password, ConfirmPassword, Cliente);
-                        Settings.Username = Username;
-                        Settings.Password = Password;
+                            var isRegistered = await apiService.RegisterUserAsync
+                            (Username, Password, ConfirmPassword, Cliente);
+                            Settings.Username = Username;
+                            Settings.Password = Password;
 
-                        IsBusy = false;
+                            IsBusy = false;
 
-                        if (isRegistered)
-                        {                         
-                            var accesstoken = await apiService.LoginAsync(Username, Password);
-                            if (accesstoken != null)
+                            if (isRegistered)
                             {
-                                Settings.AccessToken = accesstoken;
-                                var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID };
-                                var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
-                                var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
-                                Settings.idCliente = cliente.IdCliente;
-                                IsBusy = false;
-                                Application.Current.MainPage = new NavigationPage(new MasterPage());
+                                var accesstoken = await apiService.LoginAsync(Username, Password);
+                                if (accesstoken != null)
+                                {
+                                    Settings.AccessToken = accesstoken;
+                                    var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID };
+                                    var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
+                                    var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
+                                    Settings.idCliente = cliente.IdCliente;
+                                    IsBusy = false;
+                                    Application.Current.MainPage = new NavigationPage(new MasterPage());
+                                }
+                            }
+                            else
+                            {
+                                Message = "Tenemos un error su cuenta, reintentelo";
+                                await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
                             }
                         }
                         else
                         {
-                            Message = "Tenemos un error su cuenta, reintentelo";
+                            IsBusy = false;
+                            Message = "Las contraseñas no coincide";
                             await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
-                        }                       
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        IsBusy = false;
-                        Message = "Las contraseñas no coincide";
-                        await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
+
+                        Debug.Write(ex.Message);
                     }
                 });
             }

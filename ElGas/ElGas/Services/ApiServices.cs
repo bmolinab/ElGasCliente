@@ -85,6 +85,10 @@ namespace ElGas.Services
 
                 } 
             }
+            else
+            {
+              await  App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
+            }
 
             return false;
         }
@@ -130,6 +134,10 @@ namespace ElGas.Services
 
                 return accessToken; 
             }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
+            }
             return null;
         }
         
@@ -168,6 +176,10 @@ namespace ElGas.Services
                     return null;
                 } 
             }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
+            }
             return null;
             
         }
@@ -198,10 +210,11 @@ namespace ElGas.Services
                     };
                 } 
             }
+          
             return new Response
             {
                 IsSuccess = false,
-                Message = "No existe conección a internet",
+                Message = Mensaje.Contenido.SinInternet,
             };
 
         }
@@ -236,10 +249,11 @@ namespace ElGas.Services
                 }
 
             }
+          
             return new Response
             {
                 IsSuccess = false,
-                Message = "No existe conección a internet",
+                Message = Mensaje.Contenido.SinInternet,
             };
 
         }
@@ -270,6 +284,10 @@ namespace ElGas.Services
 
                 }
 
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
             }
             return false;
         }
@@ -316,6 +334,10 @@ namespace ElGas.Services
                     }
 
                 } 
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
             }
             return false;
         }
@@ -385,6 +407,10 @@ namespace ElGas.Services
                     return null;
                 }
 
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
             }
             return null;
         }

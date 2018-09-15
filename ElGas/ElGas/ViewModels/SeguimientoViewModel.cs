@@ -18,6 +18,10 @@ using TK.CustomMap;
 using ElGas.Models;
 using Xamarin.Forms;
 using Newtonsoft.Json;
+using Firebase.Xamarin.Database;
+using Plugin.Connectivity;
+using Firebase.Xamarin.Database.Streaming;
+using System.Linq;
 
 namespace ElGas.ViewModels
 {
@@ -51,6 +55,19 @@ namespace ElGas.ViewModels
                 }
             }
         }
+
+        public ObservableCollection<DistribuidorFirebase> camiones;
+        public ObservableCollection<DistribuidorFirebase> Camiones
+        {
+            protected set
+            {
+                camiones = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Camiones"));
+            }
+            get { return camiones; }
+        }
+
+
         public MapSpan centerSearch = null;
         public MapSpan CenterSearch
         {
@@ -65,27 +82,61 @@ namespace ElGas.ViewModels
                 }
             }
         }
+
+
+        private readonly string ElGAS_FIREBASE = "https://elgas-f24e8.firebaseio.com/-LJVkHULelfySFjNF9-Q/Equipo-ElGas/";
+        private readonly FirebaseClient _firebaseClient;
+
+
         #endregion
+
+
+
         #region Constructor
         public SeguimientoViewModel()
         {
-            distribuidor = new Distribuidor();
-            Locations = new ObservableCollection<TKCustomMapPin>();
-            locations = new ObservableCollection<TKCustomMapPin>();
-            centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(0, 0)), Distance.FromMiles(.5)));
-            SeguirA();
-            DatosVendedor();
+            try
+            {
+                distribuidor = new Distribuidor();
+                camiones = new ObservableCollection<DistribuidorFirebase>();
+                Camiones = new ObservableCollection<DistribuidorFirebase>();
+                Locations = new ObservableCollection<TKCustomMapPin>();
+                locations = new ObservableCollection<TKCustomMapPin>();
+                centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(-0.180653, -78.46783820000002)), Distance.FromMiles(2)));
+
+                if (CrossConnectivity.Current.IsConnected)
+                {
+                    _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
+                    //Device.BeginInvokeOnMainThread(async () =>
+                    //{
+                    //    await loadParametros();
+                    //});
+                    DatosVendedor();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex.Message);                
+            }
         }
         #endregion
         #region Commands
         public ICommand ContactCommand { get { return new RelayCommand(Contact); } }
         public async void Contact()
         {
-            
-            var PhoneCallTask = CrossMessaging.Current.PhoneDialer;
-            if (PhoneCallTask.CanMakePhoneCall)
+
+            try
             {
-                PhoneCallTask.MakePhoneCall(distribuidor.Telefono,distribuidor.Nombres);
+                var PhoneCallTask = CrossMessaging.Current.PhoneDialer;
+                if (PhoneCallTask.CanMakePhoneCall)
+                {
+                    PhoneCallTask.MakePhoneCall(distribuidor.Telefono, distribuidor.Nombres);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Write(ex.Message);
             }
         }
 
@@ -121,28 +172,111 @@ namespace ElGas.ViewModels
                     Settings.TanquesGas = 0;
                     Settings.Pedidos = false;
                     await App.Navigator.Navigation.PopToRootAsync();
+                }              
+            }
+        }
+        public async void DatosVendedor()
+        {
+            var d = new Distribuidor { IdDistribuidor=Settings.IdDistribuidor };
+            var response = await ApiServices.InsertarAsync<Distribuidor>(d, new System.Uri(Constants.BaseApiAddress), "/api/Distribuidors/GetDistribuidorID");
+            Distribuidor = JsonConvert.DeserializeObject<Distribuidor>(response.Result.ToString());
+            #region Forma Firebase
+
+            Locations.Clear();
+            // Point p = new Point(0.48, 0.96);
+
+            _firebaseClient
+                .Child("Distribuidores")
+
+            .AsObservable<DistribuidorFirebase>()
+            .Subscribe(evento =>
+            {
+                if (evento.EventType == FirebaseEventType.InsertOrUpdate)
+                {
+                    Device.BeginInvokeOnMainThread(() => {
+                        AdicionarPedido(evento.Key, evento.Object,Distribuidor.FirebaseID);
+                    });
 
                 }
+                if (evento.EventType == FirebaseEventType.Delete)
+                {
+                        //accion para borrar
+                }
+            });
+
+           // SeguirA();
+
+            #endregion
 
 
-              
+        }
+
+        private void AdicionarPedido(string key, DistribuidorFirebase pedido, string idfirebase)
+        {
+            // Locations.Clear();
+
+
+
+            if (key==idfirebase)
+            {
+                Point p = new Point(0.48, 0.96);
+                var found = Camiones.FirstOrDefault(x => x.id == pedido.id);
+                if (found != null)
+                {
+                    int i = Camiones.IndexOf(found);
+                    Camiones[i] = pedido;
+
+                    int y = Locations.IndexOf(Locations.FirstOrDefault(x => x.ID == pedido.id.ToString()));
+
+                    Locations.RemoveAt(y);
+                    var Pindistribuidor = new TKCustomMapPin
+                    {
+                        Image = "camion",
+                        Position = new TK.CustomMap.Position((double)pedido.Latitud, (double)pedido.Longitud),
+                        Anchor = p,
+                        ShowCallout = true,
+                        ID = pedido.id.ToString()
+                    };
+                    Locations.Add(Pindistribuidor);
+                    //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Locations"));
+
+                }
+                else
+                {
+
+                    Camiones.Add(new DistribuidorFirebase()
+                    {
+                        id = pedido.id,
+                        Latitud = pedido.Latitud,
+                        Longitud = pedido.Longitud,
+                    });
+                    var Pindistribuidor = new TKCustomMapPin
+                    {
+                        Image = "camion",
+                        Position = new TK.CustomMap.Position((double)pedido.Latitud, (double)pedido.Longitud),
+                        Anchor = p,
+                        ShowCallout = true,
+                        ID = pedido.id.ToString()
+                    };
+                    Locations.Add(Pindistribuidor);
+
+                } 
             }
-
         }
 
         public async void SeguirA()
         {
-            if (Settings.IdDistribuidor!=0)
-            {               
+            if (Settings.IdDistribuidor != 0)
+            {
                 var distribuidor = new Distribuidor
                 {
                     IdDistribuidor = Settings.IdDistribuidor,
-                   
+
                 };
                 Point p = new Point(0.48, 0.96);
 
 
-                var response = await ApiServices.InsertarAsync<Distribuidor>(distribuidor, new Uri(Constants.BaseApiAddress), "/api/Rutas/GetLastPosition");                
+                var response = await ApiServices.InsertarAsync<Distribuidor>(distribuidor, new Uri(Constants.BaseApiAddress), "/api/Rutas/GetLastPosition");
                 var ruta = JsonConvert.DeserializeObject<Ruta>(response.Result.ToString());
 
                 Locations.Clear();
@@ -157,23 +291,8 @@ namespace ElGas.ViewModels
                 });
                 CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position((double)ruta.Latitud, (double)ruta.Longitud)), Distance.FromMiles(.5)));
             }
-
-            //await Task.Delay(2000);
-            //await App.Current.MainPage.DisplayAlert("Notificación", "su pedido está a pocos metros de llegar", "Aceptar");
-            //await Task.Delay(2000);
-
-            //var page = new Calificacion();
-            //await   PopupNavigation.PushAsync(page);
         }
-
-        public async void DatosVendedor()
-        {
-            var d = new Distribuidor { IdDistribuidor=Settings.IdDistribuidor };
-            var response = await ApiServices.InsertarAsync<Distribuidor>(d, new System.Uri(Constants.BaseApiAddress), "/api/Distribuidors/GetDistribuidorID");
-            Distribuidor = JsonConvert.DeserializeObject<Distribuidor>(response.Result.ToString());
-
-
-        }
+           
         #endregion
-    }
+        }
 }
