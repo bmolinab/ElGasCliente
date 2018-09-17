@@ -177,8 +177,7 @@
                                 </Grid>
 
                                 <!-- Content -->
-                                <StackLayout Grid.Row="1" 
-                          >
+                                <StackLayout Grid.Row="1">
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="Cilindros:"
                                                HorizontalOptions = "Start"
@@ -223,8 +222,7 @@
                          
                              NumberOfTapsRequired="1" 
                         
-<<<<<<< HEAD
-                    />
+  />
                     </Label.GestureRecognizers>
                    </Label>
                                <!-- <Button Text="Detalle" 
@@ -238,26 +236,12 @@
                 </DataTemplate>
             </syncfusion:SfListView.ItemTemplate>
         </syncfusion:SfListView>
-=======
-                        />
-                                        </Label.GestureRecognizers>
-                                    </Label>
-                                    <!--<Button Text="Detalle" 
-                                            Command="{Binding Source={x:Reference ListaCompra}, Path=BindingContext.TapCommand}" 
-                                            CommandParameter="{Binding}" >
-                                        </Button>-->
-                                </StackLayout>
-
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </syncfusion:SfListView.ItemTemplate>
-            </syncfusion:SfListView>
+                        
+                                        
                 
                 </pulltoRefresh:SfPullToRefresh.PullableContent>
             </pulltoRefresh:SfPullToRefresh>
 
->>>>>>> 8273e690a1e2102cc446312b2a59eebbc92fd4ed
         </ScrollView>
     </StackLayout>
 </ContentPage>
