@@ -106,6 +106,9 @@ namespace ElGas.iOS
 
                 string alert = string.Empty;
 
+                string data = string.Empty;
+
+
                 //Extract the alert text
                 // NOTE: If you're using the simple alert by just specifying
                 // "  aps:{alert:"alert msg here"}  ", this will work fine.
@@ -115,6 +118,37 @@ namespace ElGas.iOS
                 // so keep that in mind.
                 if (aps.ContainsKey(new NSString("alert")))
                     alert = (aps[new NSString("alert")] as NSString).ToString();
+
+                if(aps.ContainsKey(new NSString("Data")))
+                    data = (aps[new NSString("Data")] as NSString).ToString();
+
+
+                //Método para setear 
+                string tipo = data.Data["tipo"];
+                string idcompra = data.Data["idCompra"];
+                string iddistribuidor = data.Data["idDistribuidor"];
+
+                switch (tipo)
+                {
+                    case "1":
+                        Helpers.Settings.Pedidos = true;
+                        if (iddistribuidor != null && iddistribuidor != "")
+                        {
+                            Helpers.Settings.IdDistribuidor = int.Parse(iddistribuidor);
+                        }
+                        Helpers.Settings.IdCompra = int.Parse(idcompra);
+                        break;
+                    case "3":
+                        Helpers.Settings.Pedidos = false;
+                        Helpers.Settings.Calificar = true;
+                        break;
+                    case "5":
+                        Helpers.Settings.Pedidos = false;
+                        Helpers.Settings.IdDistribuidor = new int();
+
+                        break;
+                }
+
 
                 //If this came from the ReceivedRemoteNotification while the app was running,
                 // we of course need to manually process things like the sound, badge, and alert.
