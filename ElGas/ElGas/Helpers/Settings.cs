@@ -29,6 +29,29 @@ namespace ElGas.Helpers
             }
         }
 
+        public static double HoraIncial
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("HoraIncial", 0.0);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("HoraIncial", value);
+            }
+        }
+        public static double HoraFinal
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("HoraFinal", 0.0);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("HoraFinal", value);
+            }
+        }
+
         public static string DeviceID
         {
             get

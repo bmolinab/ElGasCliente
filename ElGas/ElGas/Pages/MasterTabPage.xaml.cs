@@ -10,6 +10,7 @@ namespace ElGas.Pages
     public partial class MasterTabPage : TabbedPage
     {
         int vista = 0;
+        string paginaactual = "Inicio";
         public MasterTabPage()
         {
             InitializeComponent();
@@ -22,7 +23,7 @@ namespace ElGas.Pages
         {
             TabbedPage np = (TabbedPage)sender;
 
-
+            paginaactual = np.CurrentPage.Title;
             switch (np.CurrentPage.Title)
             {
                 case "Pedidos":
@@ -56,6 +57,17 @@ namespace ElGas.Pages
                 var page = new Calificacion();
                 await PopupNavigation.PushAsync(page);
             }
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (paginaactual != "Inicio")
+            {
+                Tbpage.CurrentPage = NavigatorM;
+
+                return true;
+            }
+            return base.OnBackButtonPressed();
         }
     }
 }

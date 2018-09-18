@@ -236,6 +236,25 @@ namespace ElGas.ViewModels
                                 Actualizado = false;
                             }
                         }
+
+                        if (item.Nombre == "horainicial")
+                        {
+                           var valor = (double)item.Valor;
+                            Settings.HoraIncial = valor;
+                            //TimeSpan timespan = TimeSpan.FromHours(Settings.HoraIncial);
+                            //string output = timespan.ToString("h\\:mm");
+                            //Debug.WriteLine(output);
+                        }
+
+                        if (item.Nombre == "horafinal")
+                        {
+                            var valor = (double)item.Valor;
+                            Settings.HoraFinal=valor;
+                            //TimeSpan timespan = TimeSpan.FromHours(valor);
+                            //string output = timespan.ToString("h\\:mm");
+                            //Debug.WriteLine(output);
+                        }
+
                     }
                     if (!Actualizado) await App.Navigator.PushAsync(new UpdatePage());
 
@@ -413,57 +432,87 @@ namespace ElGas.ViewModels
 
             if (CrossConnectivity.Current.IsConnected)
             {
-                try
-            {
-                var d = new Cliente { IdCliente = Settings.idCliente };
-                var response = await ApiServices.InsertarAsync<Cliente>(d, new System.Uri(Constants.BaseApiAddress), "/api/Compras/CompraPendiente");
-                var pedidos = JsonConvert.DeserializeObject<int>(response.Result.ToString());
+                Debug.Write(Settings.HoraIncial);
 
-                if (pedidos > 0)
+                var  HoraIncial = TimeSpan.FromHours(Settings.HoraIncial);
+                var  HoraFinal = TimeSpan.FromHours(Settings.HoraFinal);
+
+
+                var HoraActual = DateTime.Now.TimeOfDay;
+
+
+
+               
+                Debug.Write(string.Format("si {0} es mayor a {1} y menor que {2}",HoraActual, HoraIncial, HoraFinal));
+
+                bool overlap = HoraActual>HoraIncial && HoraActual <HoraFinal;
+                if (overlap)
                 {
-                    bool action = false;
-
-                    if(pedidos>1)
+                    var servidor = await apiService.Horario();
+                    if (!servidor.IsSuccess&& int.Parse(servidor.Result.ToString())==0)
                     {
-                         action = await App.Current.MainPage.DisplayAlert("Aviso", "Usted tiene  " + pedidos + " pedidos pendiente, desea continuar", "Continuar", "Cancelar");
-                    }
-                    else
-                    {
-                         action = await App.Current.MainPage.DisplayAlert("Aviso", "Usted tiene  " + pedidos + " pedido pendiente, desea continuar", "Continuar", "Cancelar");
-                    }
-                    if (!action)
-                    {
+                        await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.FueraDelHorario, Mensaje.TextoBoton.Aceptar);
                         return;
                     }
+
+
+                    try
+                    {
+                        var d = new Cliente { IdCliente = Settings.idCliente };
+                        var response = await ApiServices.InsertarAsync<Cliente>(d, new System.Uri(Constants.BaseApiAddress), "/api/Compras/CompraPendiente");
+                        var pedidos = JsonConvert.DeserializeObject<int>(response.Result.ToString());
+
+                        if (pedidos > 0)
+                        {
+                            bool action = false;
+
+                            if (pedidos > 1)
+                            {
+                                action = await App.Current.MainPage.DisplayAlert("Aviso", "Usted tiene  " + pedidos + " pedidos pendiente, desea continuar", "Continuar", "Cancelar");
+                            }
+                            else
+                            {
+                                action = await App.Current.MainPage.DisplayAlert("Aviso", "Usted tiene  " + pedidos + " pedido pendiente, desea continuar", "Continuar", "Cancelar");
+                            }
+                            if (!action)
+                            {
+                                return;
+                            }
+                        }
+
+
+                        var lat = CenterSearch.Center.Latitude;
+                        var lon = CenterSearch.Center.Longitude;
+                        CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(lat, lon)), Distance.FromMiles(.10)));
+
+                        Locations.Clear();
+                        Camiones.Clear();
+
+                        Locations.Add(new TKCustomMapPin
+                        {
+                            Image = "casa",
+                            Position = CenterSearch.Center,
+                            Anchor = new Point(0.48, 0.96),
+                            ShowCallout = true,
+                            ID = "casa"
+                        });
+
+
+                        ObtenerDireccion(CenterSearch.Center.Latitude, CenterSearch.Center.Longitude);
+                        isVisible = true;
+                        OneButton = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.Write(ex.Message);
+                        throw;
+                    }
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.FueraDelHorario, Mensaje.TextoBoton.Aceptar);
                 }
 
-
-                var lat = CenterSearch.Center.Latitude;
-                var lon = CenterSearch.Center.Longitude;
-                CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(lat, lon)), Distance.FromMiles(.10)));
-
-                Locations.Clear();
-                Camiones.Clear();
-
-                Locations.Add(new TKCustomMapPin
-                {
-                    Image = "casa",
-                    Position = CenterSearch.Center,
-                    Anchor = new Point(0.48, 0.96),
-                    ShowCallout = true,
-                    ID="casa"
-                });
-
-
-                ObtenerDireccion(CenterSearch.Center.Latitude, CenterSearch.Center.Longitude);
-                isVisible = true;
-                OneButton = false;
-            }
-            catch (Exception ex)
-            {
-                Debug.Write(ex.Message);
-                throw;
-            }
             }
             else
             {

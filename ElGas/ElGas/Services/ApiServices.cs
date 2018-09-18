@@ -415,5 +415,50 @@ namespace ElGas.Services
             return null;
         }
 
+
+
+        public async Task<Response> Horario()
+        {
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                try
+                {
+                    var client = new HttpClient();
+                    client.BaseAddress = new Uri(Constants.BaseApiAddress);
+                    var url = "api/Compras/HorarioDeAtencion";
+                    var response = await client.GetAsync(url);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return new Response {
+                            IsSuccess=false,
+                            Result=-2
+                        };
+                    }
+
+                    var result = await response.Content.ReadAsStringAsync();
+                    var Respuesta = JsonConvert.DeserializeObject<Response>(result);
+                    return Respuesta;
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message= ex.Message,
+                        Result = -2
+                    };
+                }
+
+            }
+             return new Response
+            {
+                IsSuccess = false,
+                Result = -2
+            }; ;
+        }
+
+
     }
 }

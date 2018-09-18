@@ -35,6 +35,8 @@ namespace ElGas.ViewModels
         }
 
 
+
+
         public bool noHayPedidos = false;
 
         public bool NoHayPedidos
@@ -77,6 +79,9 @@ namespace ElGas.ViewModels
                 Debug.Write(ex.Message);
             }
         }
+
+
+      
 
         async void MisPedidos()
         {
