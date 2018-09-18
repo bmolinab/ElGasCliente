@@ -19,6 +19,8 @@ namespace ElGas.Models
         public string DeviceID { get; set; }
         public bool Habilitado { get; set; }
         public int? IdSector { get; set; }
+        public int? SistemaOperativo { get; set; }
+
 
 
     }
