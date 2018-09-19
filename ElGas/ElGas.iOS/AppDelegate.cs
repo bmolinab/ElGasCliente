@@ -1,6 +1,7 @@
 ﻿
 
 using Foundation;
+using Plugin.DeviceInfo;
 using Plugin.FacebookClient;
 using Syncfusion.ListView.XForms.iOS;
 using TK.CustomMap.iOSUnified;
@@ -34,8 +35,7 @@ namespace ElGas.iOS
             Rg.Plugins.Popup.Popup.Init();
          //  EnhancedEntryRenderer.Init();
             var renderer = new TKCustomMapRenderer();          
-            LoadApplication(new App());
-            FacebookClientManager.Initialize(app, options);
+           
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
@@ -61,6 +61,8 @@ namespace ElGas.iOS
                 UIApplication.SharedApplication.RegisterForRemoteNotificationTypes(notificationTypes);
             }
 
+            LoadApplication(new App());
+            FacebookClientManager.Initialize(app, options);
 
             return base.FinishedLaunching(app, options);
 
@@ -77,8 +79,11 @@ namespace ElGas.iOS
                     System.Diagnostics.Debug.WriteLine("Error calling Unregister: {0}", error.ToString());
                     return;
                 }
+                Helpers.Settings.DeviceID = CrossDeviceInfo.Current.Id;
 
-                NSSet tags = null; // create tags if you want
+                NSSet tags = new NSSet(Helpers.Settings.DeviceID,"Cliente")  ;
+
+                // create tags if you want
                 Hub.RegisterNativeAsync(deviceToken, tags, (errorCallback) => {
                     if (errorCallback != null)
                         System.Diagnostics.Debug.WriteLine("RegisterNativeAsync error: " + errorCallback.ToString());
