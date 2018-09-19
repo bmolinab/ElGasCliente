@@ -104,7 +104,7 @@ namespace ElGas.ViewModels
                 
                 foreach (var item in list.OrderByDescending(o => o.IdCompra).ToList())
                 {
-                    var fecha = TimeZoneInfo.ConvertTime(item.FechaPedido.Value.Date, TimeZoneInfo.Local);
+                    var fecha = TimeZoneInfo.ConvertTime(item.FechaPedido.Value, TimeZoneInfo.Local);
 
 
                     switch (item.Estado)

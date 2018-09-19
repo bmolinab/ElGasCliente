@@ -23,7 +23,6 @@
                 MinimumWidthRequest="300"
                 IsClusteringEnabled="False"
                 MapRegion="{Binding CenterSearch}"
-                MapClickedCommand="{Binding MapClickedCommand}"
                 Pins="{Binding Locations}" 
                 HasZoomEnabled="True"
                 IsShowingUser="True"
@@ -31,6 +30,17 @@
                  
                 MapType="Street"                
                 />
+
+                <!--MapClickedCommand="{Binding MapClickedCommand}"-->
+
+
+                <Image 
+        Source="casa.png" 
+        WidthRequest="50" HeightRequest="50"
+        VerticalOptions="Center"
+        HorizontalOptions="Center"
+        IsVisible="{Binding isVisible}" 
+        />
 
                 <StackLayout Orientation="Horizontal" 
                              VerticalOptions="End" 
