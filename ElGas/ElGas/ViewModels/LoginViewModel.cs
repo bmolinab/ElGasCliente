@@ -107,6 +107,7 @@ namespace ElGas.ViewModels
                             Settings.NombreCompleto = cliente.Nombres + " " + cliente.Apellidos;
                             IsBusy = false;
                             Application.Current.MainPage = new NavigationPage(new MasterTabPage());
+                            return;
 
                         }
                         IsBusy = false;
