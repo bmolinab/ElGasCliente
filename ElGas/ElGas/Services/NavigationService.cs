@@ -15,7 +15,7 @@ namespace ElGas.Services
 
         public async Task Navigate(string pageName)
         {
-            App.Master.IsPresented = false;
+          //  App.Master.IsPresented = false;
             switch (pageName)
             {
                 //case "VerificarAutoPage":

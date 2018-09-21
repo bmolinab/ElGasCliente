@@ -51,7 +51,7 @@ namespace ElGas.ViewModels
 
         private async void Pedidos()
         {
-            App.Master.IsPresented = false;
+            //App.Master.IsPresented = false;
 
             await App.Navigator.PushAsync(new PedidosPage(), true);
         }

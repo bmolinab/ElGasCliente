@@ -161,7 +161,7 @@ namespace ElGas.ViewModels
                                     var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
                                     Settings.idCliente = cliente.IdCliente;
                                     IsBusy = false;
-                                    Application.Current.MainPage = new NavigationPage(new MasterPage());
+                                    Application.Current.MainPage = new NavigationPage(new MasterTabPage());
                                 }
                             }
                             else

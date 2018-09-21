@@ -227,7 +227,7 @@ namespace ElGas.ViewModels
                     Settings.Username = Profile.Email;
                     Settings.Password = Profile.Id;
                     IsBusy = false;
-                    Application.Current.MainPage = new NavigationPage(new MasterPage());
+                    Application.Current.MainPage = new NavigationPage(new MasterTabPage());
 
                 }
                 else

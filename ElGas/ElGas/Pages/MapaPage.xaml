@@ -35,8 +35,8 @@
 
 
                 <Image 
-        Source="casa.png" 
-        WidthRequest="50" HeightRequest="50"
+        Source="casaimg.png" 
+        WidthRequest="50" HeightRequest="100"
         VerticalOptions="Center"
         HorizontalOptions="Center"
         IsVisible="{Binding isVisible}" 
