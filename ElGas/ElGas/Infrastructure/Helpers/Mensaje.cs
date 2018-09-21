@@ -11,6 +11,7 @@ namespace ElGas.Helpers
         {
 
             public static string SinInternet { get { return "No se ha podido completar la solicitud, por favor revise su conexión."; } }
+            public static string SinCobertura { get { return "El pedido se encuentra fuera de nuestra cobertura, pronto estaremos en su sector."; } }
             public static string Excepcion { get { return "No se ha podido completar la solicitud, hemos tenido problema al conectarnos al servicio intente de nuevo por favor."; } }
             public static string NoDeterminaPosicion { get { return "No se ha podido determinar la posición actual, es posible que no esté activo el GPS o no tenga conección a internet."; } }
             public static string PedidoAtendidoOtroDistribuidor { get { return "El pedido fue atendido por otro distribuidor"; } }

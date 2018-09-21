@@ -194,52 +194,32 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
-    <AndroidResource Include="Resources\drawable\LoginFacebook.png" />
     <AndroidResource Include="Resources\drawable\facebook_login.png" />
     <AndroidResource Include="Resources\drawable\MenuIcon.png" />
     <AndroidResource Include="Resources\drawable\LoginIcon.png" />
     <AndroidResource Include="Resources\drawable\History_Icon.png" />
     <AndroidResource Include="Resources\drawable\home_icon.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\home_icon.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\home_icon.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\home_icon.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\home_icon.png" />
     <AndroidResource Include="Resources\drawable\shop_icon.png" />
     <AndroidResource Include="Resources\drawable\Purchase_Icon.png" />
     <AndroidResource Include="Resources\drawable\Settings_Icon.png" />
     <AndroidResource Include="Resources\drawable\shop2.png" />
-    <AndroidResource Include="Resources\drawable\Cancelcon.png" />
-    <AndroidResource Include="Resources\drawable\OKIcon.png" />
-    <AndroidResource Include="Resources\drawable\CancelIcon1.png" />
-    <AndroidResource Include="Resources\drawable\OkIcon1.png" />
     <AndroidResource Include="Resources\drawable\ElGasLogo.png" />
     <AndroidResource Include="Resources\drawable-hdpi\aceptado.png" />
     <AndroidResource Include="Resources\drawable-hdpi\camion.png" />
     <AndroidResource Include="Resources\drawable-hdpi\cancelado.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\Cancelcon.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\CancelIcon1.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\cart.png" />
     <AndroidResource Include="Resources\drawable-hdpi\casa.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\closecircle.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ElGas.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ElGasLogo.png" />
     <AndroidResource Include="Resources\drawable-hdpi\email.png" />
     <AndroidResource Include="Resources\drawable-hdpi\facebook_login.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\History_Icon.png" />
     <AndroidResource Include="Resources\drawable-hdpi\iccall.png" />
     <AndroidResource Include="Resources\drawable-hdpi\iccheck.png" />
     <AndroidResource Include="Resources\drawable-hdpi\icdate.png" />
     <AndroidResource Include="Resources\drawable-hdpi\icdirection.png" />
     <AndroidResource Include="Resources\drawable-hdpi\icpay.png" />
     <AndroidResource Include="Resources\drawable-hdpi\lastpass.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\LoginFacebook.png" />
     <AndroidResource Include="Resources\drawable-hdpi\LoginIcon.png" />
     <AndroidResource Include="Resources\drawable-hdpi\logo.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\menucircle.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\MenuIcon.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\OKIcon.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\OkIcon1.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\outercircle.png" />
     <AndroidResource Include="Resources\drawable-hdpi\pendiente.png" />
     <AndroidResource Include="Resources\drawable-hdpi\person.png" />
     <AndroidResource Include="Resources\drawable-hdpi\phone.png" />
@@ -256,35 +236,22 @@
     <AndroidResource Include="Resources\drawable-xhdpi\aceptado.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\camion.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\cancelado.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\Cancelcon.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\CancelIcon1.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\cart.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\casa.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\closecircle.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ElGas.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ElGasLogo.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\email.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\facebook_login.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\History_Icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\iccall.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\iccheck.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icdate.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icdirection.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icpay.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\lastpass.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\LoginFacebook.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\LoginIcon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\logo.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\menucircle.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\MenuIcon.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\OKIcon.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\OkIcon1.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\outercircle.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\pendiente.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\person.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\phone.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\pincamion.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\pincliente.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\Purchase_Icon.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\routes.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\scart.png" />
@@ -298,35 +265,22 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\aceptado.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\camion.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\cancelado.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\Cancelcon.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\CancelIcon1.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\cart.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\casa.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\closecircle.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ElGas.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ElGasLogo.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\email.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\facebook_login.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\History_Icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\iccall.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\iccheck.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icdate.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icdirection.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icpay.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\lastpass.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\LoginFacebook.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\LoginIcon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\logo.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\menucircle.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\MenuIcon.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\OKIcon.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\OkIcon1.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\outercircle.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\pendiente.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\person.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\phone.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\pincamion.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\pincliente.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\Purchase_Icon.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\routes.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\scart.png" />
@@ -340,36 +294,22 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\aceptado.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\camion.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\cancelado.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\Cancelcon.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\CancelIcon1.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\cart.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\casa.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\closecircle.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ElGas.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ElGasLogo.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\email.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\facebook_login.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\History_Icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\iccall.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\iccheck.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\icdate.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\icdirection.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\icpay.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\imgheaderbackground2.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\lastpass.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\LoginFacebook.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\LoginIcon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\logo.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\menucircle.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\MenuIcon.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\OKIcon.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\OkIcon1.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\outercircle.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\pendiente.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\person.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\phone.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\pincamion.png" />
-    <AndroidResource Include="Resources\drawable-xxxhdpi\pincliente.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\Purchase_Icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\routes.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\scart.png" />
@@ -412,9 +352,6 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\UserBtn.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\imgheaderbackground1.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ElGas\ElGas.csproj">
       <Project>{387901C1-4BA7-48CB-AD77-2BC78CC9DB39}</Project>
       <Name>ElGas</Name>
@@ -436,17 +373,6 @@
     <AndroidResource Include="Resources\drawable\iclauncher.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\imgheaderbackground2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\imgheaderbackground1.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\imgheaderbackground2.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\splash_background.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -454,12 +380,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\splashLogo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\cart.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\closecircle.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\iccall.png" />
@@ -477,55 +397,7 @@
     <AndroidResource Include="Resources\drawable\icpay.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\menucircle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\outercircle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxxhdpi\imgheaderbackground1.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\pincliente.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\pincamion.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\pincliente.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-hdpi\pincamion.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\ElGas.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\imgheaderbackground1.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xhdpi\imgheaderbackground2.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\imgheaderbackground1.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable-xxhdpi\imgheaderbackground2.png">
-      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-      <SubType>Designer</SubType>
-    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\TabElGas.png" />

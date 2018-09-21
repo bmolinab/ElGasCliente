@@ -153,6 +153,12 @@ namespace ElGas.ViewModels
                     }
                     else
                     {
+                        if((int)response.Result==1)
+                        {
+                            await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.SinCobertura, Mensaje.TextoBoton.Aceptar);
+
+                            return;
+                        }
                         await App.Current.MainPage.DisplayAlert("No hemos podido realizar el pedido, por favor, intenta más tarde.", response.Message, "Aceptar");
                     }
                 }
