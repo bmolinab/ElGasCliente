@@ -1,6 +1,9 @@
 ﻿
 
+using System.Diagnostics;
+using ElGas.iOS.Models;
 using Foundation;
+using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using Plugin.FacebookClient;
 using Syncfusion.ListView.XForms.iOS;
@@ -104,39 +107,24 @@ namespace ElGas.iOS
                 //Get the aps dictionary
                 NSDictionary aps = options.ObjectForKey(new NSString("aps")) as NSDictionary;
 
-                string alert = string.Empty;
+                NSDictionary result = options.ObjectForKey(new NSString("Data")) as NSDictionary;
 
-                string data = string.Empty;
+                var data = new DataRequest();
+                data.idCompra=(result[new NSString("idCompra")] as NSString).ToString();
+                data.tipo = (result[new NSString("tipo")] as NSString).ToString();
+                data.idDistribuidor = (result[new NSString("idDistribuidor")] as NSString).ToString();
 
-
-                //Extract the alert text
-                // NOTE: If you're using the simple alert by just specifying
-                // "  aps:{alert:"alert msg here"}  ", this will work fine.
-                // But if you're using a complex alert with Localization keys, etc.,
-                // your "alert" object from the aps dictionary will be another NSDictionary.
-                // Basically the JSON gets dumped right into a NSDictionary,
-                // so keep that in mind.
-                if (aps.ContainsKey(new NSString("alert")))
-                    alert = (aps[new NSString("alert")] as NSString).ToString();
-
-                if(aps.ContainsKey(new NSString("Data")))
-                    data = (aps[new NSString("Data")] as NSString).ToString();
-
-
-                //Método para setear 
-                string tipo = data.Data["tipo"];
-                string idcompra = data.Data["idCompra"];
-                string iddistribuidor = data.Data["idDistribuidor"];
-
-                switch (tipo)
+                switch (data.tipo)
                 {
                     case "1":
                         Helpers.Settings.Pedidos = true;
-                        if (iddistribuidor != null && iddistribuidor != "")
+                        if (data.idDistribuidor != null && data.idDistribuidor != "")
                         {
-                            Helpers.Settings.IdDistribuidor = int.Parse(iddistribuidor);
+                            Helpers.Settings.IdDistribuidor = int.Parse(data.idDistribuidor);
                         }
-                        Helpers.Settings.IdCompra = int.Parse(idcompra);
+
+                        Helpers.Settings.IdCompra = int.Parse(data.idCompra);
+
                         break;
                     case "3":
                         Helpers.Settings.Pedidos = false;
@@ -150,6 +138,28 @@ namespace ElGas.iOS
                 }
 
 
+
+                string alert = string.Empty;
+
+
+
+                //Extract the alert text
+                // NOTE: If you're using the simple alert by just specifying
+                // "  aps:{alert:"alert msg here"}  ", this will work fine.
+                // But if you're using a complex alert with Localization keys, etc.,
+                // your "alert" object from the aps dictionary will be another NSDictionary.
+                // Basically the JSON gets dumped right into a NSDictionary,
+                // so keep that in mind.
+                if (aps.ContainsKey(new NSString("alert")))
+                    alert = (aps[new NSString("alert")] as NSString).ToString();
+
+
+
+               
+
+
+
+
                 //If this came from the ReceivedRemoteNotification while the app was running,
                 // we of course need to manually process things like the sound, badge, and alert.
                 if (!fromFinishedLaunching)
@@ -157,7 +167,7 @@ namespace ElGas.iOS
                     //Manually show an alert
                     if (!string.IsNullOrEmpty(alert))
                     {
-                        UIAlertView avAlert = new UIAlertView("Notification", alert, null, "OK", null);
+                        UIAlertView avAlert = new UIAlertView("El Gas", alert, null, "OK", null);
                         avAlert.Show();
                     }
                 }
