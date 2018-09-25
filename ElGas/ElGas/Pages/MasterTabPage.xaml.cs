@@ -48,10 +48,23 @@ namespace ElGas.Pages
 
             Paginaprincipal();
 
+            MessagingCenter.Subscribe<string>("update", "Hi", (sender) => {
+                Paginaprincipal();
+            });
+
         }
+
+
+        
+
+
         public async void Paginaprincipal()
         {
-            if (Settings.Pedidos) await App.Navigator.PushAsync(new SeguimientoPage());
+            if (Settings.Pedidos)
+            {
+                await App.Navigator.PushAsync(new SeguimientoPage());
+
+            }
             if (Settings.Calificar)
             {
                 var page = new Calificacion();

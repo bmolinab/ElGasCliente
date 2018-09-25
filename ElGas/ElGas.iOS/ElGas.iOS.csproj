@@ -281,6 +281,7 @@
     <BundleResource Include="Resources\SalirBtn.png" />
     <BundleResource Include="Resources\AlarmBtn.png" />
     <BundleResource Include="Resources\UserBtn.png" />
+    <BundleResource Include="Resources\casaimg.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\vendido.png" />

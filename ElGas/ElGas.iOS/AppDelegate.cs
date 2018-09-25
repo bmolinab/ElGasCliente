@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using Plugin.FacebookClient;
 using Syncfusion.ListView.XForms.iOS;
+using Syncfusion.SfRating.XForms.iOS;
 using TK.CustomMap.iOSUnified;
 using UIKit;
 using UserNotifications;
@@ -35,10 +36,12 @@ namespace ElGas.iOS
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();
             SfListViewRenderer.Init();
+
+            var render= new SfRatingRenderer();
+
             Rg.Plugins.Popup.Popup.Init();
          //  EnhancedEntryRenderer.Init();
             var renderer = new TKCustomMapRenderer();          
-           
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
@@ -125,10 +128,12 @@ namespace ElGas.iOS
 
                         Helpers.Settings.IdCompra = int.Parse(data.idCompra);
 
+
                         break;
                     case "3":
                         Helpers.Settings.Pedidos = false;
                         Helpers.Settings.Calificar = true;
+
                         break;
                     case "5":
                         Helpers.Settings.Pedidos = false;
@@ -169,6 +174,9 @@ namespace ElGas.iOS
                     {
                         UIAlertView avAlert = new UIAlertView("El Gas", alert, null, "OK", null);
                         avAlert.Show();
+
+                        Xamarin.Forms.MessagingCenter.Send<string>("update", "Hi");
+
                     }
                 }
             }
