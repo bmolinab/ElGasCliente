@@ -21,7 +21,7 @@
 	<key>MinimumOSVersion</key>
 	<string>11.4</string>
 	<key>CFBundleDisplayName</key>
-	<string>ElGas</string>
+	<string>El Gas</string>
 	<key>CFBundleIdentifier</key>
 	<string>digitalstrategy.com.ec.ElGas</string>
 	<key>CFBundleVersion</key>
