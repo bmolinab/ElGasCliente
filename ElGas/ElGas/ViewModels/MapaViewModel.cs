@@ -90,9 +90,9 @@ namespace ElGas.ViewModels
             {
                 if (this.centerSearch != value)
                 {
-
                     this.centerSearch = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CenterSearch"));
+                    ObtenerDireccion(value.Center.Latitude, value.Center.Longitude);
                 }
             }
         }
@@ -488,14 +488,14 @@ namespace ElGas.ViewModels
                         Locations.Clear();
                         Camiones.Clear();
 
-                        Locations.Add(new TKCustomMapPin
-                        {
-                            Image = "casa",
-                            Position = CenterSearch.Center,
-                            Anchor = new Point(0.48, 0.96),
-                            ShowCallout = true,
-                            ID = "casa"
-                        });
+                        //Locations.Add(new TKCustomMapPin
+                        //{
+                        //    Image = "casa",
+                        //    Position = CenterSearch.Center,
+                        //    Anchor = new Point(0.48, 0.96),
+                        //    ShowCallout = true,
+                        //    ID = "casa"
+                        //});
 
 
                         ObtenerDireccion(CenterSearch.Center.Latitude, CenterSearch.Center.Longitude);
@@ -545,16 +545,35 @@ namespace ElGas.ViewModels
             {
                 try
                 {
-                    if (Locations.Count > 0)
-                    {
+                   
                         isVisible = false;
                         OneButton = true;
-                        var ubicacion = Locations[0];
-                        Settings.Direccion = Direccion;
+                        var ubicacion = new TKCustomMapPin { Position=CenterSearch.Center,
+                            Image = "casa",
+                            Anchor = new Point(0.48, 0.96),
+                            ShowCallout = true,
+                            ID = "casa"};
+                            Settings.Direccion = Direccion;
                         Debug.WriteLine("Latitud:{0} Longitud:{1}", ubicacion.Position.Latitude, ubicacion.Position.Longitude);
                         Locations.Clear();
+
+                    var posicion = new Posicion { Latitud = ubicacion.Position.Latitude, Longitud = ubicacion.Position.Longitude };
+
+                    var response = await ApiServices.InsertarAsync<Posicion>(posicion, new Uri(Constants.BaseApiAddress), "/api/Cobertura/TieneCobertura");
+                    if (response.IsSuccess)
+                    {
                         await App.Navigator.PushAsync(new Confirmacion(ubicacion));
+                        return;
                     }
+                    else if (int.Parse(response.Result.ToString()) == 1)
+                    {
+                         await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.SinCobertura, Mensaje.TextoBoton.Aceptar);
+                         return;
+                    }
+
+
+
+
 
                 }
                 catch (Exception ex)
