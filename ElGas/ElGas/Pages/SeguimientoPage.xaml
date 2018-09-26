@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
@@ -23,33 +23,34 @@
 
             <StackLayout Grid.Row="1">
 
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" Margin="10">
                     <Label Text="Su pedido fue atendido por: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
                     <Label Text="{Binding Distribuidor.Nombres}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" Margin="10,0,0,0">
                     <Label Text="En el vehiculo con placas: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
                     <Label Text="{Binding Distribuidor.PlacaVehiculo}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
                 </StackLayout>
 
                 <Button 
-                        Text="Contactar Distribuidor" 
+                        Text="  Contactar Distribuidor  " 
                         VerticalOptions="End" 
                         HorizontalOptions="Center" 
-                        HeightRequest="50" 
                         BackgroundColor="#0072C6" 
                         TextColor="White" 
                         FontFamily="calibril.ttf#Calibri Light"
-                        Command="{Binding ContactCommand}"/>
+                        Command="{Binding ContactCommand}"
+                    
+                
+                />
 
-                <Button Text="Cancelar Pedido" 
+                <Button Text="  Cancelar Pedido  " 
                         Command="{Binding CancelCommand}"
                        
                         BackgroundColor="Gray"
                         TextColor="White" 
                         VerticalOptions="End" 
                         HorizontalOptions="Center" 
-                        HeightRequest="50" 
                         FontFamily="calibril.ttf#Calibri Light"
                         >
                     
