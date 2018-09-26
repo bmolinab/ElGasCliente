@@ -30,17 +30,14 @@ namespace ElGas.Droid
         NotificationHub hub;
   
 
-
         protected override void OnCreate(Bundle bundle)
         {
-
             try
             {
                 TabLayoutResource = Resource.Layout.Tabbar;
                 ToolbarResource = Resource.Layout.Toolbar;
                 Rg.Plugins.Popup.Popup.Init(this, bundle);
                 base.OnCreate(bundle);
-
                 if (Intent.Extras != null)
                 {
                     foreach (var key in Intent.Extras.KeySet())
@@ -53,16 +50,10 @@ namespace ElGas.Droid
                     }
                 }
                 FacebookClientManager.Initialize(this);
-
                 global::Xamarin.Forms.Forms.Init(this, bundle);
-
-
-
                 Plugin.CurrentActivity.CrossCurrentActivity.Current.Activity = this;
                 Xamarin.FormsMaps.Init(this, bundle);
-
                 TKGoogleMaps.Init(this, bundle);
-
                 LoadApplication(new App());
             }
             catch (Exception ex )
@@ -72,12 +63,9 @@ namespace ElGas.Droid
             }
         }
 
-
-
         protected override void OnStart()
         {
             base.OnStart();
-
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessCoarseLocation) != Permission.Granted)
             {
                 ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation }, 0);
@@ -87,23 +75,15 @@ namespace ElGas.Droid
                 System.Diagnostics.Debug.WriteLine("Permission Granted!!!");
             }
         }
-
-
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent intent)
         {
             base.OnActivityResult(requestCode, resultCode, intent);
             FacebookClientManager.OnActivityResult(requestCode, resultCode, intent);
         }
-
-
-
-
-
     }
 }
 
