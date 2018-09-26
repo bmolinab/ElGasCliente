@@ -1,9 +1,13 @@
 ﻿
 
+using System.Diagnostics;
+using ElGas.iOS.Models;
 using Foundation;
+using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using Plugin.FacebookClient;
 using Syncfusion.ListView.XForms.iOS;
+using Syncfusion.SfRating.XForms.iOS;
 using TK.CustomMap.iOSUnified;
 using UIKit;
 using UserNotifications;
@@ -32,10 +36,12 @@ namespace ElGas.iOS
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();
             SfListViewRenderer.Init();
+
+            var render= new SfRatingRenderer();
+
             Rg.Plugins.Popup.Popup.Init();
          //  EnhancedEntryRenderer.Init();
             var renderer = new TKCustomMapRenderer();          
-           
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
             {
@@ -104,9 +110,42 @@ namespace ElGas.iOS
                 //Get the aps dictionary
                 NSDictionary aps = options.ObjectForKey(new NSString("aps")) as NSDictionary;
 
+                NSDictionary result = options.ObjectForKey(new NSString("Data")) as NSDictionary;
+
+                var data = new DataRequest();
+                data.idCompra=(result[new NSString("idCompra")] as NSString).ToString();
+                data.tipo = (result[new NSString("tipo")] as NSString).ToString();
+                data.idDistribuidor = (result[new NSString("idDistribuidor")] as NSString).ToString();
+
+                switch (data.tipo)
+                {
+                    case "1":
+                        Helpers.Settings.Pedidos = true;
+                        if (data.idDistribuidor != null && data.idDistribuidor != "")
+                        {
+                            Helpers.Settings.IdDistribuidor = int.Parse(data.idDistribuidor);
+                        }
+
+                        Helpers.Settings.IdCompra = int.Parse(data.idCompra);
+
+
+                        break;
+                    case "3":
+                        Helpers.Settings.Pedidos = false;
+                        Helpers.Settings.Calificar = true;
+
+                        break;
+                    case "5":
+                        Helpers.Settings.Pedidos = false;
+                        Helpers.Settings.IdDistribuidor = new int();
+
+                        break;
+                }
+
+
+
                 string alert = string.Empty;
 
-                string data = string.Empty;
 
 
                 //Extract the alert text
@@ -119,35 +158,11 @@ namespace ElGas.iOS
                 if (aps.ContainsKey(new NSString("alert")))
                     alert = (aps[new NSString("alert")] as NSString).ToString();
 
-                if(aps.ContainsKey(new NSString("Data")))
-                    data = (aps[new NSString("Data")] as NSString).ToString();
 
 
-                //Método para setear 
-                string tipo = data.Data["tipo"];
-                string idcompra = data.Data["idCompra"];
-                string iddistribuidor = data.Data["idDistribuidor"];
+               
 
-                switch (tipo)
-                {
-                    case "1":
-                        Helpers.Settings.Pedidos = true;
-                        if (iddistribuidor != null && iddistribuidor != "")
-                        {
-                            Helpers.Settings.IdDistribuidor = int.Parse(iddistribuidor);
-                        }
-                        Helpers.Settings.IdCompra = int.Parse(idcompra);
-                        break;
-                    case "3":
-                        Helpers.Settings.Pedidos = false;
-                        Helpers.Settings.Calificar = true;
-                        break;
-                    case "5":
-                        Helpers.Settings.Pedidos = false;
-                        Helpers.Settings.IdDistribuidor = new int();
 
-                        break;
-                }
 
 
                 //If this came from the ReceivedRemoteNotification while the app was running,
@@ -157,8 +172,11 @@ namespace ElGas.iOS
                     //Manually show an alert
                     if (!string.IsNullOrEmpty(alert))
                     {
-                        UIAlertView avAlert = new UIAlertView("Notification", alert, null, "OK", null);
+                        UIAlertView avAlert = new UIAlertView("El Gas", alert, null, "OK", null);
                         avAlert.Show();
+
+                        Xamarin.Forms.MessagingCenter.Send<string>("update", "Hi");
+
                     }
                 }
             }

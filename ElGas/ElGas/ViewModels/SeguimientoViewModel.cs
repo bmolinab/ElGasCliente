@@ -124,7 +124,6 @@ namespace ElGas.ViewModels
         public ICommand ContactCommand { get { return new RelayCommand(Contact); } }
         public async void Contact()
         {
-
             try
             {
                 var PhoneCallTask = CrossMessaging.Current.PhoneDialer;
