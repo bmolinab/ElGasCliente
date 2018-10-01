@@ -59,12 +59,16 @@
 		<true/>
 	</dict>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
 	</array>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Esta aplicación necesita acceso a tu bluetooth</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Esta aplicación necesita permiso para usar tu calendario</string>
 </dict>
 </plist>
