@@ -69,8 +69,9 @@
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer: Luis Villafuerte (3HU2F3NB9Z)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
     <MtouchSdkVersion>12.0</MtouchSdkVersion>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <CodesignProvision>VS: WildCard Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
