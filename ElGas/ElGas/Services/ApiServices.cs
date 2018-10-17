@@ -100,44 +100,61 @@ namespace ElGas.Services
         /// <returns></returns>
         public async Task<string> LoginAsync(string userName, string password)
         {
-            if (CrossConnectivity.Current.IsConnected)
+            try
             {
-                var keyValues = new List<KeyValuePair<string, string>>
+                if (CrossConnectivity.Current.IsConnected)
+                {
+                    var keyValues = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("username", userName),
                 new KeyValuePair<string, string>("password", password),
                 new KeyValuePair<string, string>("grant_type", "password")
             };
 
-                var request = new HttpRequestMessage(
-                    HttpMethod.Post, Constants.BaseApiAddress + "Token");
+                    var request = new HttpRequestMessage(
+                        HttpMethod.Post, Constants.BaseApiAddress + "Token");
 
-                request.Content = new FormUrlEncodedContent(keyValues);
+                    request.Content = new FormUrlEncodedContent(keyValues);
 
-                var client = new HttpClient();
-                var response = await client.SendAsync(request);
+                    var client = new HttpClient();
+                    var response = await client.SendAsync(request);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
 
-                var content = await response.Content.ReadAsStringAsync();
+                        JObject jwtDynamic = JsonConvert.DeserializeObject<dynamic>(content);
 
-                JObject jwtDynamic = JsonConvert.DeserializeObject<dynamic>(content);
+                        var accessTokenExpiration = jwtDynamic.Value<DateTime>(".expires");
+                        var accessToken = jwtDynamic.Value<string>("access_token");
 
-                var accessTokenExpiration = jwtDynamic.Value<DateTime>(".expires");
-                var accessToken = jwtDynamic.Value<string>("access_token");
+                        Settings.AccessTokenExpirationDate = accessTokenExpiration;
 
-                Settings.AccessTokenExpirationDate = accessTokenExpiration;
+                        Debug.WriteLine(accessTokenExpiration);
 
+                        Debug.WriteLine(content);
 
+                        return accessToken;
+                    }
+                    else
+                    {
+                        await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.Excepcion, Mensaje.TextoBoton.Aceptar);
+                        return "1";
 
-                Debug.WriteLine(accessTokenExpiration);
+                    }
 
-                Debug.WriteLine(content);
-
-                return accessToken; 
+                }
+                else
+                {
+                    await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
+                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.Excepcion, Mensaje.TextoBoton.Aceptar);
+                return "1";
+
             }
+
             return null;
         }
         

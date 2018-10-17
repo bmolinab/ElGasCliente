@@ -91,22 +91,27 @@ namespace ElGas.ViewModels
 
                         if (accesstoken != null)
                         {
-                            if (isRemember) Settings.AccessToken = accesstoken;
-                            int OS = 0;
-                            if (Device.RuntimePlatform.Equals("iOS"))
+                            if(accesstoken!="1")
                             {
-                                OS=1;
+                                if (isRemember) Settings.AccessToken = accesstoken;
+                                int OS = 0;
+                                if (Device.RuntimePlatform.Equals("iOS"))
+                                {
+                                    OS = 1;
+                                }
+
+
+                                var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID, SistemaOperativo = OS };
+                                var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
+
+                                var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
+                                Settings.idCliente = cliente.IdCliente;
+                                Settings.NombreCompleto = cliente.Nombres + " " + cliente.Apellidos;
+                                IsBusy = false;
+                                Application.Current.MainPage = new NavigationPage(new MasterTabPage());
+
                             }
-
-
-                            var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID, SistemaOperativo=OS };
-                            var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
-
-                            var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
-                            Settings.idCliente = cliente.IdCliente;
-                            Settings.NombreCompleto = cliente.Nombres + " " + cliente.Apellidos;
                             IsBusy = false;
-                            Application.Current.MainPage = new NavigationPage(new MasterTabPage());
                             return;
 
                         }
