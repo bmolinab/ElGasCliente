@@ -185,13 +185,12 @@ namespace ElGas.ViewModels
                 Password = fbProfile.Id;
                 ConfirmPassword = fbProfile.Id;
                 Cliente.Correo = fbProfile.Email;
-                Char delimiter = ' ';
-                String[] words = facebookProfile.FullName.Split(delimiter);
-                if (words.Length > 1)
-                {
-                    Cliente.Nombres = words[0];
-                    Cliente.Apellidos = words[1];
-                }
+                Cliente.Identificacion = "";
+
+
+                Cliente.Nombres = fbProfile.FirstName;
+                Cliente.Apellidos = fbProfile.LastName;
+
             }
             catch (Exception ex)
             {
