@@ -251,6 +251,17 @@ namespace ElGas.Services
 
                         var response = await client.PostAsync(new Uri(uri), content);
 
+                        if (! response.IsSuccessStatusCode)
+                        {
+                            if (!response.IsSuccessStatusCode)
+                            {
+                                return new Response
+                                {
+                                    IsSuccess = false,
+                                    Result = -2
+                                };
+                            }
+                        }
                         var resultado = await response.Content.ReadAsStringAsync();
                         var respuesta = JsonConvert.DeserializeObject<Response>(resultado);
                         return respuesta;

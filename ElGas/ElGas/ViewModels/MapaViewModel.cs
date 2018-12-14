@@ -546,18 +546,32 @@ namespace ElGas.ViewModels
                         ID = "casa"
                     };
                     Settings.Direccion = Direccion;
-                    Debug.WriteLine("Latitud:{0} Longitud:{1}", ubicacion.Position.Latitude, ubicacion.Position.Longitude);
                     Locations.Clear();
 
-                    var posicion = new Posicion { Latitud = ubicacion.Position.Latitude, Longitud = ubicacion.Position.Longitude };
+                    var response = await ApiServices.InsertarAsync<Posicion>(new SolicitudesFallidas
+                                                                                 { IdCliente=Settings.idCliente,
+                                                                                   Latitud =ubicacion.Position.Latitude,
+                                                                                   Longitud =ubicacion.Position.Longitude }, 
+                                                                                 new Uri(Constants.BaseApiAddress), "/api/Cobertura/TieneCobertura");
 
-                    var response = await ApiServices.InsertarAsync<Posicion>(posicion, new Uri(Constants.BaseApiAddress), "/api/Cobertura/TieneCobertura");
+                    if (response.IsSuccess == false && Convert.ToInt32(response.Result.ToString()) == -2)
+                    {
+                        await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, "No se ha podido conectar al servicio", Mensaje.TextoBoton.Aceptar);
+                        return;
+                    }
+
+                    if (response.IsSuccess==false && Convert.ToInt32(response.Result.ToString())==-1)
+                    {
+                        await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.NoDeterminaPosicion, Mensaje.TextoBoton.Aceptar);
+                        return;
+                    }
+
                     if (response.IsSuccess)
                     {
                         await App.Navigator.PushAsync(new Confirmacion(ubicacion));
                         return;
                     }
-                    else if (int.Parse(response.Result.ToString()) == 1)
+                    else if (response.IsSuccess == false)
                     {
                         await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.SinCobertura, Mensaje.TextoBoton.Aceptar);
                         return;
