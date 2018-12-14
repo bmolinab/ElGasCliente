@@ -33,6 +33,16 @@
 
                 <!--MapClickedCommand="{Binding MapClickedCommand}"-->
 
+                <StackLayout VerticalOptions="Center" HorizontalOptions="Center"  Margin="10"  IsVisible="{Binding IsBusy}" >
+                    <ActivityIndicator 
+                        Color="#2196F3"
+                        IsRunning="{Binding IsBusy}" 
+                        IsVisible="{Binding IsBusy}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                       >
+                    </ActivityIndicator>
+                </StackLayout>
 
                 <Image 
         Source="casaimg.png" 

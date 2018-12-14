@@ -34,6 +34,26 @@ namespace ElGas.ViewModels
         Xamarin.Forms.Maps.Geocoder geoCoder;
         #endregion
         #region Properties
+
+
+
+        private bool _isBusy = false;
+        public bool IsBusy
+        {
+            set
+            {
+                if (_isBusy != value)
+                {
+                    _isBusy = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy"));
+                }
+            }
+            get
+            {
+                return _isBusy;
+            }
+        }
+
         private bool _isVisible = false;
         public bool isVisible
         {
@@ -430,7 +450,7 @@ namespace ElGas.ViewModels
         public ICommand BuyCommand { get { return new RelayCommand(Buy); } }
         private async void Buy()
         {
-
+            IsBusy = true;
             if (CrossConnectivity.Current.IsConnected)
             {
                 var locator = CrossGeolocator.Current;
@@ -439,12 +459,14 @@ namespace ElGas.ViewModels
                 var servidor = await apiService.Horario(new SolicitudesFallidas { Latitud = position.Longitude, Longitud = position.Longitude,IdCliente=Settings.idCliente});
                 if (servidor.IsSuccess==false && Convert.ToInt32(servidor.Result.ToString())==-2)
                 {
+                    IsBusy = false;
                     await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, "No se ha podido conectar al servicio", Mensaje.TextoBoton.Aceptar);
                     return;
                 }
 
                 if (servidor.IsSuccess==false && int.Parse(servidor.Result.ToString()) == 0)
                 {
+                    IsBusy = false;
                     await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.FueraDelHorario, Mensaje.TextoBoton.Aceptar);
                     return;
                 }
@@ -495,6 +517,7 @@ namespace ElGas.ViewModels
                     ObtenerDireccion(CenterSearch.Center.Latitude, CenterSearch.Center.Longitude);
                     isVisible = true;
                     OneButton = false;
+                    IsBusy = false;
                 }
                 catch (Exception ex)
                 {
@@ -505,6 +528,7 @@ namespace ElGas.ViewModels
             }
             else
             {
+                IsBusy = false;
                 await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
             }
 
@@ -534,7 +558,7 @@ namespace ElGas.ViewModels
             {
                 try
                 {
-
+                    IsBusy = true;
                     isVisible = false;
                     OneButton = true;
                     var ubicacion = new TKCustomMapPin
@@ -556,29 +580,33 @@ namespace ElGas.ViewModels
 
                     if (response.IsSuccess == false && Convert.ToInt32(response.Result.ToString()) == -2)
                     {
+                        IsBusy = false;
                         await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, "No se ha podido conectar al servicio", Mensaje.TextoBoton.Aceptar);
                         return;
                     }
 
                     if (response.IsSuccess==false && Convert.ToInt32(response.Result.ToString())==-1)
                     {
+                        IsBusy = false;
                         await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.NoDeterminaPosicion, Mensaje.TextoBoton.Aceptar);
                         return;
                     }
 
                     if (response.IsSuccess)
                     {
+                        IsBusy = false;
                         await App.Navigator.PushAsync(new Confirmacion(ubicacion));
                         return;
                     }
                     else if (response.IsSuccess == false)
                     {
+                        IsBusy = false;
                         await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.SinCobertura, Mensaje.TextoBoton.Aceptar);
                         return;
                     }
 
 
-
+                    IsBusy = false;
 
 
                 }
