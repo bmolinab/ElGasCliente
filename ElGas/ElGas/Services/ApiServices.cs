@@ -434,27 +434,46 @@ namespace ElGas.Services
 
 
 
-        public async Task<Response> Horario()
+        public async Task<Response> Horario(SolicitudesFallidas solicitudes)
         {
             if (CrossConnectivity.Current.IsConnected)
             {
                 try
                 {
-                    var client = new HttpClient();
-                    client.BaseAddress = new Uri(Constants.BaseApiAddress);
-                    var url = "api/Compras/HorarioDeAtencion";
-                    var response = await client.GetAsync(url);
-                    if (!response.IsSuccessStatusCode)
+                    using (HttpClient client = new HttpClient())
                     {
-                        return new Response {
-                            IsSuccess=false,
-                            Result=-2
-                        };
+                        var request = JsonConvert.SerializeObject(solicitudes);
+                        var content = new StringContent(request, Encoding.UTF8, "application/json");
+                        var uri = string.Format("{0}{1}", Constants.BaseApiAddress, "api/Compras/HorarioDeAtencion");
+                        var response = await client.PostAsync(new Uri(uri), content);
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            return new Response
+                            {
+                                IsSuccess = false,
+                                Result = -2
+                            };
+                        }
+                        var resultado = await response.Content.ReadAsStringAsync();
+                        var respuesta = JsonConvert.DeserializeObject<Response>(resultado);
+                        return respuesta;
                     }
 
-                    var result = await response.Content.ReadAsStringAsync();
-                    var Respuesta = JsonConvert.DeserializeObject<Response>(result);
-                    return Respuesta;
+                    //var client = new HttpClient();
+                    //client.BaseAddress = new Uri(Constants.BaseApiAddress);
+                    //var url = "api/Compras/HorarioDeAtencion";
+                    //var response = await client.GetAsync(url);
+                    //if (!response.IsSuccessStatusCode)
+                    //{
+                    //    return new Response {
+                    //        IsSuccess=false,
+                    //        Result=-2
+                    //    };
+                    //}
+
+                    //var result = await response.Content.ReadAsStringAsync();
+                    //var Respuesta = JsonConvert.DeserializeObject<Response>(result);
+                    //return Respuesta;
 
                 }
                 catch (Exception ex)
