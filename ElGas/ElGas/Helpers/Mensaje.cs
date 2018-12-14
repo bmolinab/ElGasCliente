@@ -17,7 +17,7 @@ namespace ElGas.Helpers
             public static string PedidoAtendidoOtroDistribuidor { get { return "El pedido fue atendido por otro distribuidor"; } }
             public static string PedidoAnuladoCliente { get { return "La solicitud del pedido ha sido anulada por el cliente"; } }
 
-            public static string FueraDelHorario { get { return string.Format("Gracias por su intetes, nuestro horario de atención es de {0} a {1}. \nLe esperamos", TimeSpan.FromHours(Settings.HoraIncial).ToString("h\\:mm")  , TimeSpan.FromHours(Settings.HoraFinal).ToString("h\\:mm")); } }
+            public static string FueraDelHorario { get { return string.Format("Gracias por su preferencia, nuestro horario de atención es de {0} a {1}. \nLe esperamos", TimeSpan.FromHours(Settings.HoraIncial).ToString("h\\:mm")  , TimeSpan.FromHours(Settings.HoraFinal).ToString("h\\:mm")); } }
 
 
 
