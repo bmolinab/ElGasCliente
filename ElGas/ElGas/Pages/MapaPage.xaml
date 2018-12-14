@@ -4,7 +4,7 @@
              xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"         
              x:Class="ElGas.Pages.MapaPage"
              Title="Pedido"
-             Icon="shop2.png"
+             Icon="ic_compra_01.png"
              >
     <ContentPage.Content>
         <StackLayout >
@@ -48,8 +48,8 @@
                             IsVisible="{Binding isVisible}"
                               Margin="0,0,0,25"
                              >
-                    
-                     <Image Source="OkBtn.png"
+
+                    <Image Source="ic_aceptar_01.png"
                     
                     
                     WidthRequest = "65"
@@ -62,8 +62,8 @@
                     />
                    </Image.GestureRecognizers>
               </Image>
-                    
-                     <Image Source="CancelBtn.png"
+
+                    <Image Source="ic_cancelar_01.png"
                     
                     
                     WidthRequest = "65"

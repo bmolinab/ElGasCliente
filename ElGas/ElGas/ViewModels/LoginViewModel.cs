@@ -208,7 +208,7 @@ namespace ElGas.ViewModels
             {
                 var jsonData = await CrossFacebookClient.Current.RequestUserDataAsync
                    (
-                         new string[] { "id", "name", "email" }, new string[] { }
+                         new string[] { "id", "name", "email","first_name", "last_name" }, new string[] { }
                    );
 
                 var data = JObject.Parse(jsonData.Data);
@@ -217,8 +217,12 @@ namespace ElGas.ViewModels
                 {
                     Id = data["id"].ToString(),
                     FullName = data["name"].ToString(),
-                    Email = data["email"].ToString()
+                    Email = data["email"].ToString(),
+                    LastName  = data["last_name"].ToString(),
+                    FirstName = data["first_name"].ToString()
+
                 };
+
 
                 var accesstoken = await _apiServices.LoginAsync(Profile.Email, Profile.Id);
 

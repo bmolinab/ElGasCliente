@@ -50,9 +50,9 @@
 	<key>FacebookAppID</key>
 	<string>271035156827517</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>New Entry</string>
+	<string>El Gas usará tu ubicación para poder direccionar al camión repartidor tus pedidos.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>New Entry</string>
+	<string>El Gas usará tu ubicación para poder direccionar al camión repartidor tus pedidos.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

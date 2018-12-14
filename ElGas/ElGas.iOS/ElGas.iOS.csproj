@@ -302,7 +302,14 @@
   <ItemGroup>
     <BundleResource Include="Resources\pendiente.png" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Models\" />
+    <BundleResource Include="Resources\ic_compra_01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_aceptar_01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_cancelar_01.png" />
   </ItemGroup>
 </Project>

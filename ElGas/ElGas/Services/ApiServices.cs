@@ -137,8 +137,8 @@ namespace ElGas.Services
                     }
                     else
                     {
-                        await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.Excepcion, Mensaje.TextoBoton.Aceptar);
-                        return "1";
+                        //await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.Excepcion, Mensaje.TextoBoton.Aceptar);
+                        return null;
 
                     }
 
