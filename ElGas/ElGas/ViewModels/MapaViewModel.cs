@@ -54,6 +54,8 @@ namespace ElGas.ViewModels
             }
         }
 
+       
+
         private bool _isVisible = false;
         public bool isVisible
         {
@@ -155,6 +157,7 @@ namespace ElGas.ViewModels
                 geoCoder = new Xamarin.Forms.Maps.Geocoder();
                 Locations = new ObservableCollection<TKCustomMapPin>();
                 locations = new ObservableCollection<TKCustomMapPin>();
+              
                 centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(-0.180653, -78.46783820000002)), Distance.FromMiles(2)));
                 if (CrossConnectivity.Current.IsConnected)
                 {
@@ -451,15 +454,16 @@ namespace ElGas.ViewModels
         private async void Buy()
         {
             IsBusy = true;
+            OneButton = false;
+
             if (CrossConnectivity.Current.IsConnected)
             {
-                var locator = CrossGeolocator.Current;
-
-                var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(3), null, true);
-                var servidor = await apiService.Horario(new SolicitudesFallidas { Latitud = position.Longitude, Longitud = position.Longitude,IdCliente=Settings.idCliente});
+                
+                var servidor = await apiService.Horario(new SolicitudesFallidas { Latitud = CenterSearch.Center.Latitude, Longitud = CenterSearch.Center.Longitude,IdCliente=Settings.idCliente});
                 if (servidor.IsSuccess==false && Convert.ToInt32(servidor.Result.ToString())==-2)
                 {
                     IsBusy = false;
+                    OneButton = true;
                     await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, "No se ha podido conectar al servicio", Mensaje.TextoBoton.Aceptar);
                     return;
                 }
@@ -467,6 +471,7 @@ namespace ElGas.ViewModels
                 if (servidor.IsSuccess==false && int.Parse(servidor.Result.ToString()) == 0)
                 {
                     IsBusy = false;
+                    OneButton = true;
                     await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.FueraDelHorario, Mensaje.TextoBoton.Aceptar);
                     return;
                 }
@@ -475,6 +480,7 @@ namespace ElGas.ViewModels
                 try
                 {
                     var d = new Cliente { IdCliente = Settings.idCliente };
+                    
                     var response = await ApiServices.InsertarAsync<Cliente>(d, new System.Uri(Constants.BaseApiAddress), "/api/Compras/CompraPendiente");
                     var pedidos = JsonConvert.DeserializeObject<int>(response.Result.ToString());
 
@@ -492,11 +498,13 @@ namespace ElGas.ViewModels
                         }
                         if (!action)
                         {
+                            OneButton = true;
+                            IsBusy = false;
                             return;
                         }
                     }
 
-
+                    
                     var lat = CenterSearch.Center.Latitude;
                     var lon = CenterSearch.Center.Longitude;
                     CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(lat, lon)), Distance.FromMiles(.10)));
@@ -518,6 +526,7 @@ namespace ElGas.ViewModels
                     isVisible = true;
                     OneButton = false;
                     IsBusy = false;
+                  
                 }
                 catch (Exception ex)
                 {
@@ -558,6 +567,7 @@ namespace ElGas.ViewModels
             {
                 try
                 {
+                  
                     IsBusy = true;
                     isVisible = false;
                     OneButton = true;

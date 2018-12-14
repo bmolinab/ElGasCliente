@@ -20,7 +20,6 @@ namespace ElGas.Pages
             viewModel = new ConfirmacionViewModel(posicion);
             BindingContext = viewModel;
 			InitializeComponent ();
-            Debug.WriteLine(posicion.Position.Latitude);
         
 		}
 	}

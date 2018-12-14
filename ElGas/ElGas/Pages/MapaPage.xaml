@@ -124,7 +124,7 @@
                    <Image.GestureRecognizers>
                      <TapGestureRecognizer
                         Command="{Binding BuyCommand}"
-                         
+                        
                     />
                    </Image.GestureRecognizers>
               </Image>
