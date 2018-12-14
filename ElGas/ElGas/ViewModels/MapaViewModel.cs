@@ -437,13 +437,13 @@ namespace ElGas.ViewModels
 
                 var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(3), null, true);
                 var servidor = await apiService.Horario(new SolicitudesFallidas { Latitud = position.Longitude, Longitud = position.Longitude,IdCliente=Settings.idCliente});
-                if (servidor.IsSuccess=false && Convert.ToInt32(servidor.Result.ToString())==-2)
+                if (servidor.IsSuccess==false && Convert.ToInt32(servidor.Result.ToString())==-2)
                 {
                     await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, "No se ha podido conectar al servicio", Mensaje.TextoBoton.Aceptar);
                     return;
                 }
 
-                if (!servidor.IsSuccess && int.Parse(servidor.Result.ToString()) == 0)
+                if (servidor.IsSuccess==false && int.Parse(servidor.Result.ToString()) == 0)
                 {
                     await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.FueraDelHorario, Mensaje.TextoBoton.Aceptar);
                     return;
