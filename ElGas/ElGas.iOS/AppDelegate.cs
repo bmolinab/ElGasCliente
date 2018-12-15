@@ -1,9 +1,5 @@
-﻿
-
-using System.Diagnostics;
-using ElGas.iOS.Models;
+﻿using ElGas.iOS.Models;
 using Foundation;
-using Newtonsoft.Json;
 using Plugin.DeviceInfo;
 using Plugin.FacebookClient;
 using Syncfusion.ListView.XForms.iOS;
@@ -33,14 +29,14 @@ namespace ElGas.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            Rg.Plugins.Popup.Popup.Init();
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();
             SfListViewRenderer.Init();
 
             var render= new SfRatingRenderer();
-
-            Rg.Plugins.Popup.Popup.Init();
-         //  EnhancedEntryRenderer.Init();
+         
+            //  EnhancedEntryRenderer.Init();
             var renderer = new TKCustomMapRenderer();          
 
             if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))

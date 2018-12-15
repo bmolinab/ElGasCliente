@@ -5,11 +5,9 @@ using ElGas.Services;
 using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Streaming;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Views;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
 using Plugin.Geolocator;
-using Plugin.Geolocator.Abstractions;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System;
@@ -18,7 +16,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TK.CustomMap;
@@ -457,6 +454,9 @@ namespace ElGas.ViewModels
         }
         #endregion
         #region commands
+
+        
+
         public ICommand BuyCommand { get { return new RelayCommand(Buy); } }
         private async void Buy()
         {
