@@ -190,7 +190,7 @@
       <Version>7.1.1</Version>
     </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
-      <Version>1.1.4.158-pre</Version>
+      <Version>1.1.5.180</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfListView">
       <Version>16.2.0.41</Version>

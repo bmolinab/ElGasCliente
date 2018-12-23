@@ -107,7 +107,7 @@ namespace ElGas.ViewModels
         #endregion
         #region commands 
         public ICommand PlusCommand { get { return new RelayCommand(Plus); } }
-        private async void Plus()
+        private void Plus()
         { 
             Int64 x = int.Parse(Cilindros);
             x = x + 1;
@@ -116,7 +116,7 @@ namespace ElGas.ViewModels
             Cilindros = x.ToString();
         }
         public ICommand LessCommand { get { return new RelayCommand(Less); } }
-        private async void Less()
+        private  void Less()
         {
             Int64 x = int.Parse(Cilindros);
             x = x - 1;

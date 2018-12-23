@@ -5,11 +5,9 @@ using ElGas.Services;
 using Firebase.Xamarin.Database;
 using Firebase.Xamarin.Database.Streaming;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Views;
 using Newtonsoft.Json;
 using Plugin.Connectivity;
 using Plugin.Geolocator;
-using Plugin.Geolocator.Abstractions;
 using Plugin.Permissions;
 using Plugin.Permissions.Abstractions;
 using System;
@@ -18,7 +16,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TK.CustomMap;
@@ -148,16 +145,22 @@ namespace ElGas.ViewModels
         #region Constructor
         public MapaViewModel()
         {
-
-
+            _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
+           
+            Task.Run(() => this.Inicializar(_firebaseClient)).Wait();
+           
+        }
+        private async Task Inicializar(FirebaseClient _firebaseClient)
+        {
             try
             {
+                IsBusy = true;
                 camiones = new ObservableCollection<DistribuidorFirebase>();
                 Camiones = new ObservableCollection<DistribuidorFirebase>();
                 geoCoder = new Xamarin.Forms.Maps.Geocoder();
                 Locations = new ObservableCollection<TKCustomMapPin>();
                 locations = new ObservableCollection<TKCustomMapPin>();
-              
+
                 centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(-0.180653, -78.46783820000002)), Distance.FromMiles(2)));
                 if (CrossConnectivity.Current.IsConnected)
                 {
@@ -167,8 +170,9 @@ namespace ElGas.ViewModels
                     {
                         await loadParametros();
                     });
-                    LoadVendedores();
+                    await LoadVendedores();
                 }
+                IsBusy = false;
             }
             catch (Exception ex)
             {
@@ -185,7 +189,7 @@ namespace ElGas.ViewModels
                 locations = new ObservableCollection<TKCustomMapPin>();
                 Locations.Clear();
                 centerSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(-0.180653, -78.46783820000002)), Distance.FromMiles(2)));
-                LoadVendedores();
+                Task.Run(() => this.LoadVendedores()).Wait();
             }
             catch (Exception ex)
             {
@@ -295,7 +299,7 @@ namespace ElGas.ViewModels
 
 
         }
-        public async void LoadVendedores()
+        public async Task LoadVendedores()
         {
             try
             {
@@ -381,7 +385,7 @@ namespace ElGas.ViewModels
                 });
                 #endregion
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Debug.WriteLine("Uh oh", "Algo salió mal, ¡pero no te preocupes capturamos para el análisis! Gracias.", "OK");
             }
@@ -450,6 +454,9 @@ namespace ElGas.ViewModels
         }
         #endregion
         #region commands
+
+        
+
         public ICommand BuyCommand { get { return new RelayCommand(Buy); } }
         private async void Buy()
         {
@@ -543,13 +550,13 @@ namespace ElGas.ViewModels
 
 
         }
-        public ICommand CancelCommand { get { return new RelayCommand(Cancel); } }
+        public  ICommand CancelCommand { get { return new RelayCommand( Cancel); } }
         private async void Cancel()
         {
             try
             {
                 Locations.Clear();
-                LoadVendedores();
+                await LoadVendedores();
                 isVisible = false;
                 OneButton = true;
             }

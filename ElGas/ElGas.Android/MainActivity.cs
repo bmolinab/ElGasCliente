@@ -38,6 +38,7 @@ namespace ElGas.Droid
                 ToolbarResource = Resource.Layout.Toolbar;
                 Rg.Plugins.Popup.Popup.Init(this, bundle);
                 base.OnCreate(bundle);
+                Rg.Plugins.Popup.Popup.Init(this, bundle);
                 if (Intent.Extras != null)
                 {
                     foreach (var key in Intent.Extras.KeySet())

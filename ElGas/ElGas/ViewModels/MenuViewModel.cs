@@ -28,7 +28,7 @@ namespace ElGas.ViewModels
 
         #region Commands
         public ICommand LogoutCommand { get { return new RelayCommand(Salir); } }
-        private async void Salir()
+        private void Salir()
         {
             Helpers.Settings.idCliente = 0;
             Helpers.Settings.IdCompra = 0;
