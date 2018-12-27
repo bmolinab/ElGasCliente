@@ -47,12 +47,12 @@ namespace ElGas.Pages
         protected override void OnAppearing()
         {
 
-             Paginaprincipal();
+            Paginaprincipal();
 
-            MessagingCenter.Subscribe<string>("update", "Hi", (sender) =>
-            {
-                Paginaprincipal();
-            });
+            //MessagingCenter.Subscribe<string>("update", "Hi", (sender) =>
+            //{
+            //    Paginaprincipal();
+            //});
 
         }
 

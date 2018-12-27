@@ -35,6 +35,42 @@ namespace ElGas.ViewModels
                 }               
             }
         }
+
+
+        private bool isVisible = true;
+        public bool IsVisible
+        {
+            set
+            {
+                if (isVisible != value)
+                {
+                    isVisible = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("IsVisible"));
+                }
+            }
+            get
+            {
+                return isVisible;
+            }
+        }
+
+        private bool isBusy = false;
+        public bool IsBusy
+        {
+            set
+            {
+                if (isBusy != value)
+                {
+                    isBusy = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("IsBusy"));
+                }
+            }
+            get
+            {
+                return isBusy;
+            }
+        }
+
         #endregion
         #region commands
         public ICommand CalificarCommand { get { return new RelayCommand(Calificar); } }
@@ -42,6 +78,8 @@ namespace ElGas.ViewModels
         {
             try
             {
+                IsBusy = true;
+                IsVisible = false;
                 var compra = new Compra
                 {
                     IdCompra = Settings.IdCompra,
@@ -55,6 +93,8 @@ namespace ElGas.ViewModels
 
                 Settings.Pedidos = false;
                 Settings.Calificar = false;
+                IsBusy = true;
+                IsVisible = false;
                 await PopupNavigation.PopAllAsync();
                 await App.Navigator.Navigation.PopToRootAsync();
 

@@ -66,6 +66,24 @@ namespace ElGas.ViewModels
             }
         }
 
+
+        private bool isVisible=true;
+        public bool IsVisible
+        {
+            set
+            {
+                if (isVisible != value)
+                {
+                    isVisible = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("IsVisible"));
+                }
+            }
+            get
+            {
+                return isVisible;
+            }
+        }
+
         public string Username { get; set; }
         public string Password { get; set; }
         #endregion
@@ -80,10 +98,12 @@ namespace ElGas.ViewModels
                     {
 
                         IsBusy = true;
+                        IsVisible = false;
                         if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password))
                         {
                             IsBusy = false;
                             await App.Current.MainPage.DisplayAlert("Información", "Debe ingresar el usuario y la contraseña", "Aceptar");
+                            IsVisible = true;
                             return;
                         }
 
@@ -111,10 +131,12 @@ namespace ElGas.ViewModels
                                 Application.Current.MainPage = new NavigationPage(new MasterTabPage());
 
                             }
+                            IsVisible = true;
                             IsBusy = false;
                             return;
 
                         }
+                        IsVisible = true;
                         IsBusy = false;
                         await App.Current.MainPage.DisplayAlert("Información", "Usuario o contraseña incorrecta, Vuelve a intertarlo o presiona Olvidé mi contraseña para recuperarla", "Aceptar");
                         return;
@@ -166,6 +188,8 @@ namespace ElGas.ViewModels
             {
                 return new Command(async () =>
                 {
+                    IsBusy = true;
+                    IsVisible = false;
                     await LoginAsyncFB();                   
 
                 });
@@ -243,11 +267,15 @@ namespace ElGas.ViewModels
                     Settings.Password = Profile.Id;
                     IsBusy = false;
                     Application.Current.MainPage = new NavigationPage(new MasterTabPage());
+                    IsVisible = true;
+                    IsBusy = false;
 
                 }
                 else
                 {
                     await Application.Current.MainPage.Navigation.PushAsync(new AfterFBPage(Profile));
+                    IsVisible = true;
+                    IsBusy = false;
                 }
             }
             catch (Exception ex)
@@ -337,8 +365,9 @@ namespace ElGas.ViewModels
             Username = Settings.Username;
             Password = Settings.Password;
             tapCommand = new Command(OnTapped);
-           // Application.Current.MainPage.Navigation.PushAsync(new Calificacion());
-           // permisos();
+           
+            // Application.Current.MainPage.Navigation.PushAsync(new Calificacion());
+            // permisos();
         }
         #endregion
     }

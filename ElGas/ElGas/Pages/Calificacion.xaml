@@ -7,26 +7,43 @@
             
     x:Class="ElGas.Pages.Calificacion">
     <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20, 20, 20, 20" BackgroundColor="White">
-        
-        <Label Text="Notificación"
+
+        <Label IsVisible="{Binding IsVisible}" Text="Notificación"
                FontAttributes="Bold"
                FontSize="Large"
                 VerticalOptions="Start" 
                 HorizontalOptions="Start"  FontFamily="calibril.ttf#Calibri Light" />
-        <Label Text="Gracias por confiar en nosotros, por favor califique el servicio brindado"   
+        <Label IsVisible="{Binding IsVisible}" Text="Gracias por confiar en nosotros, por favor califique el servicio brindado"   
                 LineBreakMode="WordWrap"
                 VerticalOptions="Start" 
                 HorizontalOptions="Start"  FontFamily="calibril.ttf#Calibri Light"  />
 
-        <rating:SfRating x:Name="rating" Value="{Binding Valor}" HorizontalOptions="Center"/>
+        <rating:SfRating IsVisible="{Binding IsVisible}" x:Name="rating" Value="{Binding Valor}" HorizontalOptions="Center"/>
 
-        <StackLayout Orientation="Horizontal"
+        <StackLayout IsVisible="{Binding IsVisible}" Orientation="Horizontal"
                        HeightRequest="60">
 
         </StackLayout>
+        <ActivityIndicator 
+                IsRunning="{Binding IsBusy}" 
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+            <ActivityIndicator.WidthRequest>
+                <OnPlatform x:TypeArguments="x:Double">
+                    <On Platform="Android, iOS" Value="100" />
+                    <On Platform="UWP" Value="300" />
+                </OnPlatform>
+            </ActivityIndicator.WidthRequest>
+        </ActivityIndicator>
+        <Label IsVisible="{Binding IsBusy}"
+                      Text="Calificando"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                FontSize="Medium" />
 
-
-        <Button HorizontalOptions="Center" 
+        <Button IsVisible="{Binding IsVisible}" HorizontalOptions="Center" 
                 VerticalOptions="End" 
                 Text="ACEPTAR" 
                 Command="{Binding CalificarCommand}"

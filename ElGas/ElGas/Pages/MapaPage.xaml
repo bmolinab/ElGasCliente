@@ -86,29 +86,7 @@
                     />
                    </Image.GestureRecognizers>
               </Image>
-                    
-                   <!-- <Button
-                        Text="Confirmar" 
-                        VerticalOptions="End" 
-                        HorizontalOptions="FillAndExpand" 
-                        HeightRequest="50" 
-                        BackgroundColor="#0072C6" 
-                        TextColor="White" 
-                        TranslationY="-10" 
-                        FontFamily="calibril.ttf#Calibri Light"
-                        Command="{Binding OkCommand}">
-                    </Button>
-                    <Button  
-                        Text="Cancelar" 
-                        VerticalOptions="End" 
-                        HorizontalOptions="FillAndExpand" 
-                        HeightRequest="50" 
-                        BackgroundColor="#0072C6" 
-                        TextColor="White" 
-                        TranslationY="-10" 
-                        FontFamily="calibril.ttf#Calibri Light"
-                        Command="{Binding CancelCommand}">
-                    </Button>-->
+                 
                 </StackLayout>
                 
               <StackLayout 

@@ -67,6 +67,23 @@ namespace ElGas.ViewModels
             }
         }
 
+        private bool isVisible = true;
+        public bool IsVisible
+        {
+            set
+            {
+                if (isVisible != value)
+                {
+                    isVisible = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("IsVisible"));
+                }
+            }
+            get
+            {
+                return isVisible;
+            }
+        }
+
         private bool isAcceptPolicy = false;
         public bool IsAcceptPolicy
         {
@@ -193,6 +210,7 @@ namespace ElGas.ViewModels
                 {
                     try
                     {
+                        IsVisible = false;
                         IsBusy = true;
                         if (Password == ConfirmPassword)
                         {
@@ -209,7 +227,7 @@ namespace ElGas.ViewModels
                             var isRegistered = await _apiServices.RegisterUserAsync
                             (Username, Password, ConfirmPassword, Cliente);
 
-
+                            IsVisible = true;
                             IsBusy = false;
 
                             if (isRegistered)
@@ -225,6 +243,7 @@ namespace ElGas.ViewModels
                         }
                         else
                         {
+                            IsVisible = true;
                             IsBusy = false;
                             Message = "Las contraseñas no coincide";
                             await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");

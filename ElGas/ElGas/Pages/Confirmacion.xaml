@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
              x:Class="ElGas.Pages.Confirmacion">
-    
-     <ContentPage.Resources>
+
+    <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="AccentColor">#BC4C1B</Color>
             <Color x:Key="WhiteColor">#FFFFFF</Color>
@@ -38,66 +38,6 @@
                         Android="18"
                         WinPhone="18"/>
 
-            <!--<Style x:Key="LogoStyle" 
-                   TargetType="Image">
-                <Setter Property="Aspect" 
-                        Value="AspectFit" />
-                <Setter Property="HeightRequest" 
-                        Value="95" />
-                <Setter Property="Margin" 
-                        Value="30, 16" />
-                <Setter Property="HorizontalOptions"
-                        Value="Center" />
-                <Setter Property="VerticalOptions"
-                        Value="Start" />
-            </Style>-->
-
-           <!-- <Style x:Key="HeaderTextStyle" 
-                   TargetType="Label">
-                <Setter Property="TextColor" 
-                        Value="{StaticResource WhiteColor}" />
-                <Setter Property="HorizontalOptions" 
-                        Value="FillAndExpand" />
-                <Setter Property="FontSize" 
-                        Value="{StaticResource LittleSize}" />
-                <Setter Property="Margin" >
-                    <Setter.Value>
-                        <OnPlatform x:TypeArguments="Thickness">
-                            <On Platform="Android" Value="5, 0, 0, 0" />
-                            <On Platform="iOS" Value="0, 8, 0, 0" />
-                        </OnPlatform>
-                    </Setter.Value>
-                </Setter>
-            </Style>-->
-
-            <!--<Style x:Key="ForgotPwdLabelStyle"
-                   TargetType="{x:Type Label}">
-                <Setter Property="TextColor"
-                        Value="{StaticResource WhiteColor}" />
-                <Setter Property="HorizontalOptions"
-                        Value="End" />
-                <Setter Property="FontSize"
-                        Value="{StaticResource LittleSize}" />
-                <Setter Property="Margin" >
-                    <Setter.Value>
-                        <OnPlatform x:TypeArguments="Thickness">
-                            <On Platform="Android" Value="0, -3, 5, 0" />
-                        </OnPlatform>
-                    </Setter.Value>
-                </Setter>
-            </Style>-->
-
-           <!-- <Style x:Key="SignUpPanelStyle"
-                   TargetType="{x:Type StackLayout}">
-                <Setter Property="Orientation"
-                        Value="Horizontal" />
-                <Setter Property="HorizontalOptions"
-                        Value="Center" />
-                <Setter Property="VerticalOptions"
-                        Value="End" />
-                <Setter Property="Margin"
-                        Value="0, 0, 0, 36" />
-            </Style>-->
 
             <Style x:Key="NormalStyle"
                    TargetType="{x:Type Label}">
@@ -106,8 +46,8 @@
                 <Setter Property="TextColor"
                         Value="{StaticResource BlackTextColor}" />
             </Style>
-            
-           <Style x:Key="SignUpTextStyle"
+
+            <Style x:Key="SignUpTextStyle"
                    TargetType="{x:Type Label}">
                 <Setter Property="FontSize"
                         Value="{StaticResource MidMediumSize}" />
@@ -124,28 +64,28 @@
 
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
-        
+
         <StackLayout>
-            
-            <tk:TKCustomMap HeightRequest="200"                 
+
+            <tk:TKCustomMap IsVisible="{Binding IsVisible}" HeightRequest="200"                 
                             Pins="{Binding Locations}" 
                             MapRegion="{Binding CenterSearch}"
                              IsClusteringEnabled="False"
 
 ></tk:TKCustomMap>
-<ScrollView>
-            <StackLayout Margin="15,15,15,45">
-            <Label Text="¿Dónde lo entregamos?" 
+            <ScrollView>
+                <StackLayout Margin="15,15,15,45">
+                    <Label IsVisible="{Binding IsVisible}" Text="¿Dónde lo entregamos?" 
                    HorizontalOptions="Center"
                    FontFamily="calibril.ttf#Calibri Light"
                    FontAttributes="Bold"
                    Style="{StaticResource SignUpTextStyle}"
                    >
-            </Label>
-            
-             <Entry  Placeholder="Dirección" 
+                    </Label>
+
+                    <Entry IsVisible="{Binding IsVisible}" Placeholder="Dirección" 
                     
                     FontFamily="calibril.ttf#Calibri Light"   
                     Text="{Binding Direccion}"
@@ -153,8 +93,8 @@
                      
                      
             />
-                
-            <Entry  Placeholder="Agrega alguna referencia" 
+
+                    <Entry IsVisible="{Binding IsVisible}" Placeholder="Agrega alguna referencia" 
                     
                     FontFamily="calibril.ttf#Calibri Light"   
                     Text="{Binding Referencia}"
@@ -162,28 +102,20 @@
                      
                      
             />
-            
-            
-            
-           <!-- <Label Text="{Binding Direccion}" 
-                   FontFamily="calibril.ttf#Calibri Light" 
-                   FontSize="Large" FontAttributes="Bold" >
-                
-            </Label>-->
 
-            <Label Text="¿Cuántos cilindros necesitas?" 
+                    <Label IsVisible="{Binding IsVisible}" Text="¿Cuántos cilindros necesitas?" 
                    HorizontalOptions="Center"
                    FontFamily="calibril.ttf#Calibri Light"
                    FontAttributes="Bold"
                    Style="{StaticResource SignUpTextStyle}"
                    >
-            </Label>
-               
-                <StackLayout Margin="15,15,15,15" 
+                    </Label>
+
+                    <StackLayout IsVisible="{Binding IsVisible}" Margin="15,15,15,15" 
                              HorizontalOptions="Center"
                              Orientation="Horizontal">
-                    
-                     <Button 
+
+                        <Button IsVisible="{Binding IsVisible}"
                         FontFamily="calibril.ttf#Calibri Light"
                         Text="-" 
                        
@@ -197,10 +129,10 @@
                         FontSize="Large"
                         
                         >
-                        
-            </Button>
-                    
-                 <Entry  Placeholder="0" 
+
+                        </Button>
+
+                        <Entry IsVisible="{Binding IsVisible}" Placeholder="0" 
                     
                     FontFamily="calibril.ttf#Calibri Light" 
                          FontSize="Large"
@@ -211,7 +143,7 @@
                          HorizontalOptions="Center"
                          HorizontalTextAlignment="Center"
                    />
-                    <Button 
+                        <Button IsVisible="{Binding IsVisible}"
                         FontFamily="calibril.ttf#Calibri Light"
                         Text="+" 
                        
@@ -225,13 +157,32 @@
                         FontSize="Large"
                         
                         >
-                        
-            </Button>
-                    
-           
-               </StackLayout>
-                
-                 <Label
+
+                        </Button>
+
+
+                    </StackLayout>
+                    <ActivityIndicator 
+                IsRunning="{Binding IsBusy}" 
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center">
+                        <ActivityIndicator.WidthRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <On Platform="Android, iOS" Value="100" />
+                                <On Platform="UWP" Value="300" />
+                            </OnPlatform>
+                        </ActivityIndicator.WidthRequest>
+                    </ActivityIndicator>
+                    <Label IsVisible="{Binding IsBusy}"
+                      Text="Buscando Disponibilidad"
+                       FontAttributes="Bold"
+                      Style="{StaticResource NormalStyle}"
+                       HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                FontSize="Medium" />
+
+                    <Label IsVisible="{Binding IsVisible}"
                        Text="Confirmar el Pedido"
                        FontFamily="calibril.ttf#Calibri Light"
                        Style="{StaticResource SignUpAccentTextStyle}"
@@ -239,31 +190,19 @@
                      HorizontalOptions="CenterAndExpand"
                      FontSize = "Medium"
                   VerticalOptions="FillAndExpand"
-                   > 
-                   <Label.GestureRecognizers>
-                                
-                   <TapGestureRecognizer
+                   >
+                        <Label.GestureRecognizers>
+
+                            <TapGestureRecognizer
                          Command="{Binding OkCommand}"
                          
                          NumberOfTapsRequired="1" 
                         
                     />
-                    </Label.GestureRecognizers>
-                   </Label>
-        <!--     <Button 
-                        FontFamily="calibril.ttf#Calibri Light"
-                        Text="Confirmar" 
-                        VerticalOptions="End" 
-                        HorizontalOptions="Center" 
-                        WidthRequest="200"  
-                        HeightRequest="50" 
-                        BackgroundColor="#0072C6" 
-                        TextColor="White" 
-                        TranslationY="-10" 
-                        Command="{Binding OkCommand}">
-            </Button>-->
+                        </Label.GestureRecognizers>
+                    </Label>
 
-            </StackLayout>
+                </StackLayout>
             </ScrollView>
         </StackLayout>
     </ContentPage.Content>

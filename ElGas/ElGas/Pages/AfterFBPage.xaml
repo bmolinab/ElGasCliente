@@ -67,7 +67,7 @@
         <StackLayout Margin="0,10,0,10" >
             <ScrollView>
                 <StackLayout Margin="15,30,15,30">
-                    <Picker   
+                    <Picker   IsVisible="{Binding IsVisible}"
                 ItemsSource = "{Binding Ciudades}"
                 ItemDisplayBinding="{Binding Nombre}"
                 HeightRequest="40"
@@ -80,7 +80,7 @@
                 >
                     </Picker>
 
-                    <Picker   
+                    <Picker   IsVisible="{Binding IsVisible}"
                 ItemsSource = "{Binding SectoresPorCiudad}"
                 ItemDisplayBinding="{Binding Nombre}"
                 HeightRequest="40"
@@ -93,7 +93,7 @@
 
 
 
-                    <Grid>
+                    <Grid IsVisible="{Binding IsVisible}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="7*" />
                             <ColumnDefinition Width="3*" />
@@ -114,27 +114,27 @@
 
                     </Grid>
 
-                    <Entry  
+                    <Entry  IsVisible="{Binding IsVisible}"
                 Placeholder="Calle Secundaria" 
                 Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"    
                 Text="{Binding CalleDos}" 
                 HeightRequest = "40"/>
 
-                    <Entry  
+                    <Entry  IsVisible="{Binding IsVisible}"
                 Placeholder="Teléfono" 
                 Keyboard="Numeric" 
                 FontFamily="calibril.ttf#Calibri Light"   
                 Text="{Binding Cliente.Telefono}" 
                 HeightRequest = "40"
             />
-                    <Entry  Placeholder="Referencia" 
+                    <Entry  Placeholder="Referencia" IsVisible="{Binding IsVisible}"
                     Keyboard="Chat" 
                     FontFamily="calibril.ttf#Calibri Light"    
                     Text="{Binding Sector}" 
                     HeightRequest = "40"/>
 
                     <ActivityIndicator 
-                Color="#0072C6"
+                
                 IsRunning="{Binding IsBusy}" 
                 IsVisible="{Binding IsBusy}"
                 VerticalOptions="Center"
@@ -146,10 +146,17 @@
                             </OnPlatform>
                         </ActivityIndicator.WidthRequest>
                     </ActivityIndicator>
+                    <Label IsVisible="{Binding IsBusy}"
+                      Text="Creando Cuenta"
+                       FontAttributes="Bold"
+                      Style="{StaticResource NormalStyle}"
+                       HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                FontSize="Medium" />
 
 
 
-                    <Label
+                    <Label IsVisible="{Binding IsVisible}"
                        Text="Actualizar Datos"
                        FontFamily="calibril.ttf#Calibri Light"
                        Style="{StaticResource SignUpAccentTextStyle}"

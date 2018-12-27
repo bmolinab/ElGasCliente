@@ -134,27 +134,9 @@
         <StackLayout
             
             Margin="8,40,8,20"
-            BackgroundColor="White"
-            
-            >
-
-           <!-- <Grid Margin="0,30,0,0">
-                
-                 <Grid.RowDefinitions>
-                    
-                    <RowDefinition Height="3*" />
-                    
-                </Grid.RowDefinitions>
-              <Grid.ColumnDefinitions>
-                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="*" />
-               
-              </Grid.ColumnDefinitions>
-            -->
-            <StackLayout>
+            BackgroundColor="White">
+            <StackLayout IsVisible="{Binding IsVisible}">
                         <Image
-                     
                     VerticalOptions="Start"
                 WidthRequest="150"
                     HeightRequest="100"
@@ -167,20 +149,7 @@
                             </Image.Source>
                         </Image>
                 </StackLayout>
-               <!--</Grid>-->
-           <!--<Grid>
-                <Grid.RowDefinitions>
-                    
-                    <RowDefinition Height="*" />
-                    
-                </Grid.RowDefinitions>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="*" />
-              </Grid.ColumnDefinitions>-->
-            
-            <StackLayout Margin="0,30,0,0">
+            <StackLayout IsVisible="{Binding IsVisible}" Margin="0,30,0,0">
              <Image Source="facebook_login.png"
                     
                     VerticalOptions = "Center"
@@ -197,34 +166,16 @@
                 </StackLayout>
                 
            <!-- </Grid>-->
-            <StackLayout Margin="0,15,0,0">
-            <Label
+            <StackLayout  Margin="0,15,0,0">
+                <Label IsVisible="{Binding IsVisible}"
                       Text="O ingresa con tu cuenta:"
                       FontFamily="calibril.ttf#Calibri Light"
                       Style="{StaticResource NormalStyle}"
                        HorizontalOptions="Center"
                         VerticalOptions="Start"
                     
-                FontSize="Medium"
-             />
-            
-           <!-- <Grid Margin="20"
-                  Padding="5"
-                  HorizontalOptions="FillAndExpand"
-                  >
-                <Grid.RowDefinitions>
-                    
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-              <Grid.ColumnDefinitions>
-                
-                <ColumnDefinition Width="2*" />
-                
-              </Grid.ColumnDefinitions>-->
-          
-                    <Entry
+                FontSize="Medium" />
+                <Entry IsVisible="{Binding IsVisible}"
                         x:Name="UsernameEntry"
                         Grid.Row="0"
                         Grid.Column ="0"
@@ -244,8 +195,8 @@
                             </OnPlatform>
                         </Entry.TextColor>
                     </Entry>
-                   
-                    <Entry
+
+                <Entry IsVisible="{Binding IsVisible}"
                         
                         x:Name="PasswordEntry"
                         IsPassword="True" 
@@ -265,8 +216,8 @@
                             </OnPlatform>
                         </Entry.TextColor>
                     </Entry>
-                
-                 <StackLayout
+
+                <StackLayout IsVisible="{Binding IsVisible}"
                     Margin="8,0"
                     Orientation="Horizontal"
                     VerticalOptions="CenterAndExpand">
@@ -293,8 +244,15 @@
                 HorizontalOptions="Center">
                 
             </ActivityIndicator>
-                
-                <Label
+                <Label IsVisible="{Binding IsBusy}"
+                      Text="Autenticando"
+                       FontAttributes="Bold"
+                      Style="{StaticResource NormalStyle}"
+                       HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                FontSize="Medium" />
+
+                <Label IsVisible="{Binding IsVisible}"
                        Text="Ingresar"
                        FontFamily="calibril.ttf#Calibri Light"
                        Style="{StaticResource SignUpAccentTextStyle}"
@@ -314,56 +272,19 @@
                     </Label.GestureRecognizers>
                     </Label>
                 
-                <!--<Frame
-                    
-                        HasShadow="True"
-                        Padding="0"
-                        CornerRadius="0">
-                        <Button 
-                            Text="Ingresar"
-                            FontFamily="calibril.ttf#Calibri Light"
-                            FontSize="Medium"
-                            Command="{Binding LoginCommand}"
-                            BackgroundColor="{StaticResource WhiteColor}"
-                            TextColor="{StaticResource OrangeColor}" 
-                            BorderRadius="0"/>
-                </Frame>-->
-                <!--</Grid>-->
+              
                 </StackLayout>
-            <!--
-            <Grid>
-                <Grid.RowDefinitions>
-                    
-                    <RowDefinition Height="Auto" />
-                    
-                </Grid.RowDefinitions>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="3*" />
-                <ColumnDefinition Width="*" />
-              </Grid.ColumnDefinitions>
-               
-                </Grid>
-            
-            <StackLayout
-                    Margin="10,0"
-                    Orientation="Horizontal"
-                    VerticalOptions="CenterAndExpand">
-                    
-                </StackLayout>
-             -->
-          
-            
-                      <Label
+
+
+
+            <Label IsVisible="{Binding IsVisible}"
                        Text="Olvidé mi contraseña"
                        FontFamily="calibril.ttf#Calibri Light"
                        Style="{StaticResource SignUpAccentTextStyle}"
                        x:Name="ForgotPassword"
                        HorizontalOptions="CenterAndExpand"
                        FontSize = "Medium"
-                       VerticalOptions="CenterAndExpand"
-                          
-                   > 
+                       VerticalOptions="CenterAndExpand"> 
                    <Label.GestureRecognizers>
                                 
                    <TapGestureRecognizer
@@ -373,19 +294,19 @@
                     />
                     </Label.GestureRecognizers>
                     </Label>
-            
-           
-              
-            
-                <Label
+
+
+
+
+            <Label IsVisible="{Binding IsVisible}"
                       Text="¿No tienes cuenta?"
                       FontFamily="calibril.ttf#Calibri Light"
                       Style="{StaticResource SignUpTextStyle}"
                        HorizontalOptions="CenterAndExpand"
                     VerticalOptions="End"
                  />
-                        
-                  <Label
+
+            <Label IsVisible="{Binding IsVisible}"
                        Text="Regístrate Aquí"
                        FontFamily="calibril.ttf#Calibri Light"
                        Style="{StaticResource SignUpAccentTextStyle}"
@@ -402,12 +323,12 @@
                          NumberOfTapsRequired="1"                         
                     />
                     </Label.GestureRecognizers>
-                    </Label> 
-               
-            
-            
-      
-             <Label
+                    </Label>
+
+
+
+
+            <Label IsVisible="{Binding IsVisible}"
                       Text="Powered by: Digital Strategy Cia. Ltda. "
                       FontFamily="calibril.ttf#Calibri Light"
                       Style="{StaticResource NormalStyle}"

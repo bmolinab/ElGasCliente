@@ -5,56 +5,50 @@
              x:Class="ElGas.Pages.SeguimientoPage">
     <ContentPage.Content>
 
-        <Grid 
-                RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="3*" />
-            </Grid.RowDefinitions>
-
+        <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
             <tk:TKCustomMap  
                 Pins="{Binding Locations}" 
                 IsClusteringEnabled="False"
                 MapRegion="{Binding CenterSearch}"
-                IsShowingUser="True"
+                 IsShowingUser="True" 
                 MapType="Street" 
-                            Grid.Row="0"
-></tk:TKCustomMap>
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand">
+            </tk:TKCustomMap>
 
-            <StackLayout Grid.Row="1">
-
-                <StackLayout Orientation="Horizontal" Margin="10">
-                    <Label Text="Su pedido fue atendido por: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
-                    <Label Text="{Binding Distribuidor.Nombres}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" Margin="10,0,0,0">
-                    <Label Text="En el vehiculo con placas: " FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
-                    <Label Text="{Binding Distribuidor.PlacaVehiculo}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
-                </StackLayout>
-
-                <Button 
+            <StackLayout BackgroundColor="Transparent"  Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="StartAndExpand" Padding="10" >
+                <Frame CornerRadius="4" BackgroundColor="White" >
+                    <StackLayout>
+                        <Label VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" TextColor="Black" FontAttributes="Bold"  Text="{Binding Distribuidor.Nombres}"></Label>
+                        <Label VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" TextColor="Black" FontAttributes="Bold"  Text="{Binding Distribuidor.PlacaVehiculo}"></Label>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            <StackLayout BackgroundColor="Transparent"  Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="End" Padding="10" >
+                <Frame CornerRadius="4" BackgroundColor="Transparent" >
+                    <StackLayout Orientation="Horizontal">
+                    <Button 
                         Text="  Contactar Distribuidor  " 
                         VerticalOptions="End" 
-                        HorizontalOptions="Center" 
+                        HorizontalOptions="Start" 
                         BackgroundColor="#0072C6" 
                         TextColor="White" 
                         FontFamily="calibril.ttf#Calibri Light"
-                        Command="{Binding ContactCommand}"
-                    
-                
-                />
+                        Command="{Binding ContactCommand}"/>
 
-                <Button Text="  Cancelar Pedido  " 
+                    <Button Text="  Cancelar Pedido  " 
                         Command="{Binding CancelCommand}"
-                       
                         BackgroundColor="Gray"
                         TextColor="White" 
                         VerticalOptions="End" 
-                        HorizontalOptions="Center" 
+                        HorizontalOptions="End" 
                         FontFamily="calibril.ttf#Calibri Light"
                         >
-                    
-                </Button>
+                    </Button>
+                    </StackLayout>
+
+                </Frame>
+               
 
             </StackLayout>
 

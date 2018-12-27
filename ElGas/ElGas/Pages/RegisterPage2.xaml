@@ -68,21 +68,16 @@
     <ContentPage.Content>
         <StackLayout Margin="0,10,0,10" >
             <ScrollView>
-              <StackLayout Margin="15,30,15,30"> 
-            <Picker   
+              <StackLayout Margin="15,30,15,30">
+                    <Picker  IsVisible="{Binding IsVisible}" 
                 ItemsSource = "{Binding Ciudades}"
                 ItemDisplayBinding="{Binding Nombre}"
                 HeightRequest="40"
                 Title="Ciudad"  
-
-                    SelectedItem = "{Binding CiudadSeleccionada}"
-
-                
-                
-                >
+                SelectedItem = "{Binding CiudadSeleccionada}">
             </Picker>
-                
-            <Picker   
+
+                    <Picker IsVisible="{Binding IsVisible}"  
                 ItemsSource = "{Binding SectoresPorCiudad}"
                 ItemDisplayBinding="{Binding Nombre}"
                 HeightRequest="40"
@@ -92,10 +87,10 @@
                 >
             </Picker>
 
-        
-           
-           
-            <Grid>
+
+
+
+                    <Grid IsVisible="{Binding IsVisible}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="7*" />
                     <ColumnDefinition Width="3*" />
@@ -115,28 +110,27 @@
                        HeightRequest = "40"/>
 
             </Grid>
-            
-            <Entry  
+
+                    <Entry IsVisible="{Binding IsVisible}" 
                 Placeholder="Calle Secundaria" 
                 Keyboard="Chat" FontFamily="calibril.ttf#Calibri Light"    
                 Text="{Binding CalleDos}" 
                 HeightRequest = "40"/>
-            
-             <Entry  
+
+                    <Entry  IsVisible="{Binding IsVisible}"
                 Placeholder="Teléfono" 
                 Keyboard="Numeric" 
                 FontFamily="calibril.ttf#Calibri Light"   
                 Text="{Binding Cliente.Telefono}" 
                 HeightRequest = "40"
             />
-            <Entry  Placeholder="Sector" 
+                    <Entry IsVisible="{Binding IsVisible}" Placeholder="Sector" 
                     Keyboard="Chat" 
                     FontFamily="calibril.ttf#Calibri Light"    
                     Text="{Binding Sector}" 
                     HeightRequest = "40"/>
             
             <ActivityIndicator 
-                Color="#0072C6"
                 IsRunning="{Binding IsBusy}" 
                 IsVisible="{Binding IsBusy}"
                 VerticalOptions="Center"
@@ -147,11 +141,18 @@
                         <On Platform="UWP" Value="300" />
                     </OnPlatform>
                 </ActivityIndicator.WidthRequest>
-            </ActivityIndicator>
-            
-           
-            
-             <Label
+              </ActivityIndicator>
+             <Label IsVisible="{Binding IsBusy}"
+                      Text="Creando Cuenta"
+                       FontAttributes="Bold"
+                      Style="{StaticResource NormalStyle}"
+                       HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                FontSize="Medium" />
+
+
+
+                    <Label IsVisible="{Binding IsVisible}"
                        Text="Crear Cuenta"
                        FontFamily="calibril.ttf#Calibri Light"
                        Style="{StaticResource SignUpAccentTextStyle}"

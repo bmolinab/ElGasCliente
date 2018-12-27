@@ -53,6 +53,23 @@ namespace ElGas.ViewModels
             }
         }
 
+        private bool isVisible = true;
+        public bool IsVisible
+        {
+            set
+            {
+                if (isVisible != value)
+                {
+                    isVisible = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("IsVisible"));
+                }
+            }
+            get
+            {
+                return isVisible;
+            }
+        }
+
 
         public string message = "";
         public string Message
@@ -239,6 +256,7 @@ namespace ElGas.ViewModels
                     try
                     {
                         IsBusy = true;
+                        IsVisible = false;
                         if (Password == ConfirmPassword)
                         {
                             Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}", CalleUno, Numero, CalleDos, Sector);
@@ -250,24 +268,31 @@ namespace ElGas.ViewModels
                             Settings.Username = Username;
                             Settings.Password = Password;
 
-                            IsBusy = false;
-
+                           
                             if (isRegistered)
                             {
                                 var accesstoken = await _apiServices.LoginAsync(Username, Password);
                                 if (accesstoken != null)
                                 {
                                     Settings.AccessToken = accesstoken;
-                                    var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID };
+                                    int OS = 0;
+                                    if (Device.RuntimePlatform.Equals("iOS"))
+                                    {
+                                        OS = 1;
+                                    }
+                                    var c = new Cliente { Correo = Username, DeviceID = Settings.DeviceID,SistemaOperativo=OS };
                                     var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
                                     var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
                                     Settings.idCliente = cliente.IdCliente;
                                     IsBusy = false;
+                                    IsVisible = true;
                                     Application.Current.MainPage = new NavigationPage(new MasterTabPage());
                                 }
                             }
                             else
                             {
+                                IsBusy = false;
+                                IsVisible = true;
                                 Message = "Ups! algo ha salido mal, por favor vuelve a intentar.";
                                 await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
                             }
@@ -275,6 +300,7 @@ namespace ElGas.ViewModels
                         else
                         {
                             IsBusy = false;
+                            IsVisible = true;
                             Message = "No hemos podido validar tu cuenta de Facebook, por favor vuelve a intentar";
                             await App.Current.MainPage.DisplayAlert("El Gas", Message, "Aceptar");
                         }

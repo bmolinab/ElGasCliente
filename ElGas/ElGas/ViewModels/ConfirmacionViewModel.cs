@@ -20,6 +20,44 @@ namespace ElGas.ViewModels
     {
         #region Properties
         public string cilindros = "1";
+
+
+
+        private bool _isBusy = false;
+        public bool IsBusy
+        {
+            set
+            {
+                if (_isBusy != value)
+                {
+                    _isBusy = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("IsBusy"));
+                }
+            }
+            get
+            {
+                return _isBusy;
+            }
+        }
+
+
+        private bool _isVisible = true;
+        public bool IsVisible
+        {
+            set
+            {
+                if (_isVisible != value)
+                {
+                    _isVisible = value;
+                    PropertyChanged.Invoke(this, new PropertyChangedEventArgs("IsVisible"));
+                }
+            }
+            get
+            {
+                return _isVisible;
+            }
+        }
+
         public string Cilindros
         {
             get { return cilindros; }
@@ -138,6 +176,8 @@ namespace ElGas.ViewModels
                 var action = await App.Current.MainPage.DisplayAlert("Confirmar", "Por favor confirma el pedido de " + cilindros + unoomas+"\nDirección: " + Direccion + "\nRef:" + Referencia, "Confirmar", "Cancelar");
                 if (action)
                 {
+                    IsBusy = true;
+                    IsVisible = false;
                     Compra compra = new Compra
                     {
                         IdCliente = (int?)Settings.idCliente,
@@ -152,6 +192,8 @@ namespace ElGas.ViewModels
                     var response = await ApiServices.InsertarAsync<Compra>(compra, new Uri(Constants.BaseApiAddress), "/api/Compras/PostCompras");
                     if (response.IsSuccess)
                     {
+                        IsBusy = false;
+                        IsVisible = true;
                         await App.Current.MainPage.DisplayAlert("Gracias por tu pedido", "En breve confirmamos la entrega.", "Aceptar");
                         Settings.TanquesGas = int.Parse(Cilindros);
                         await App.Navigator.Navigation.PopToRootAsync();
@@ -160,10 +202,14 @@ namespace ElGas.ViewModels
                     {
                         if(int.Parse(response.Result.ToString())==1)
                         {
+                            IsBusy = false;
+                            IsVisible = true;
                             await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Informacion, Mensaje.Contenido.SinCobertura, Mensaje.TextoBoton.Aceptar);
                             await App.Navigator.PopAsync();
                             return;
                         }
+                        IsBusy = false;
+                        IsVisible = true;
                         await App.Current.MainPage.DisplayAlert("No hemos podido realizar el pedido, por favor, intenta más tarde.", response.Message, "Aceptar");
                     }
                 }

@@ -559,9 +559,11 @@ namespace ElGas.ViewModels
         {
             try
             {
+                IsBusy = true;
+                isVisible = false;
                 Locations.Clear();
                 await LoadVendedores();
-                isVisible = false;
+                IsBusy = false;
                 OneButton = true;
             }
             catch (Exception ex)

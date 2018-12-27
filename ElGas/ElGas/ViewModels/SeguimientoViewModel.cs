@@ -179,6 +179,9 @@ namespace ElGas.ViewModels
             var d = new Distribuidor { IdDistribuidor=Settings.IdDistribuidor };
             var response = await ApiServices.InsertarAsync<Distribuidor>(d, new System.Uri(Constants.BaseApiAddress), "/api/Distribuidors/GetDistribuidorID");
             Distribuidor = JsonConvert.DeserializeObject<Distribuidor>(response.Result.ToString());
+
+            Distribuidor.Nombres = string.Format("{0} {1}","Su pedido fue atendido por:",Distribuidor.Nombres);
+            Distribuidor.PlacaVehiculo = string.Format("{0} {1}", "Placa del vehículo:", Distribuidor.PlacaVehiculo);
             #region Forma Firebase
 
             Locations.Clear();
