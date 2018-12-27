@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:PopupPage 
+<ContentPage 
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
@@ -36,4 +36,4 @@
         </Button>
         
     </StackLayout>
-</pages:PopupPage>
+</ContentPage>

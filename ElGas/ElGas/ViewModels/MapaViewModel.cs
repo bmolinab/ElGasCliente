@@ -146,9 +146,11 @@ namespace ElGas.ViewModels
         public MapaViewModel()
         {
             _firebaseClient = new FirebaseClient(ElGAS_FIREBASE);
+
            
             Task.Run(() => this.Inicializar(_firebaseClient)).Wait();
-           
+
+
         }
         private async Task Inicializar(FirebaseClient _firebaseClient)
         {
@@ -181,10 +183,12 @@ namespace ElGas.ViewModels
         }
         #endregion
         #region Events
-        public void OnAppearing()
+        public  void OnAppearing()
         {
             try
             {
+               
+
                 Locations = new ObservableCollection<TKCustomMapPin>();
                 locations = new ObservableCollection<TKCustomMapPin>();
                 Locations.Clear();

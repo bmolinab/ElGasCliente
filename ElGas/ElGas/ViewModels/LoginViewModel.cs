@@ -331,7 +331,7 @@ namespace ElGas.ViewModels
             Username = Settings.Username;
             Password = Settings.Password;
             tapCommand = new Command(OnTapped);
-           
+           // Application.Current.MainPage.Navigation.PushAsync(new Calificacion());
            // permisos();
         }
         #endregion

@@ -150,7 +150,17 @@ namespace ElGas.ViewModels
         private async void iralDetalle(object obj)
         {
             var compra = (ComprasRequest)obj;
-            await App.Navigator.PushAsync(new DetallePage(compra), true);
+
+            if (compra.Estado==1)
+            {
+                Settings.IdDistribuidor = compra.IdDistribuidor.Value;
+                await App.Navigator.PushAsync(new SeguimientoPage(), true);
+            }
+            else
+            {
+                await App.Navigator.PushAsync(new DetallePage(compra), true);
+            }
+            
             Debug.WriteLine(compra.IdCompra);
             
         }

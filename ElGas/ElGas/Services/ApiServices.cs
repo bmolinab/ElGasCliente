@@ -157,7 +157,56 @@ namespace ElGas.Services
 
             return null;
         }
-        
+
+
+        public async Task<ComprasRequest> CompraSinCalificarPorCliente()
+        {
+
+            if (CrossConnectivity.Current.IsConnected)
+            {
+                try
+                {
+                    var request = JsonConvert.SerializeObject(new Cliente {IdCliente=Settings.idCliente });
+                    var content = new StringContent(request, Encoding.UTF8, "application/json");
+                    var client = new HttpClient();
+                    client.BaseAddress = new Uri(Constants.BaseApiAddress);
+                    var url = "api/Compras/ListaCompraSinCalificarPorCliente";
+                    var response = await client.PostAsync(url, content);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return null;
+
+                    }
+
+
+                    
+                    var result = await response.Content.ReadAsStringAsync();
+                    var responseResult = JsonConvert.DeserializeObject<Response>(result);
+
+                    if (responseResult.IsSuccess==true)
+                    {
+                     return   JsonConvert.DeserializeObject<ComprasRequest>(responseResult.Result.ToString());
+                    }
+
+
+                    return null;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    return null;
+                }
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert(Mensaje.Titulo.Error, Mensaje.Contenido.SinInternet, Mensaje.TextoBoton.Aceptar);
+            }
+            return null;
+
+        }
+
+
+
         /// <summary>
         /// Obtiene los distribuidores cercanos
         /// </summary>

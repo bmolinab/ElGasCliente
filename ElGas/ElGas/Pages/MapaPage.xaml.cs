@@ -1,4 +1,6 @@
-﻿using ElGas.ViewModels;
+﻿using ElGas.Helpers;
+using ElGas.Services;
+using ElGas.ViewModels;
 using Plugin.Geolocator;
 using System;
 using System.Collections.Generic;
@@ -18,13 +20,8 @@ namespace ElGas.Pages
         MapaViewModel viewModel = new MapaViewModel();
         public MapaPage()
         {
-            BindingContext = viewModel;
-
             InitializeComponent();
+            BindingContext = viewModel;
         }
-
-
-     
-
     }
 }

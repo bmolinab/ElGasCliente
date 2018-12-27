@@ -12,7 +12,7 @@ using Xamarin.Forms.Xaml;
 namespace ElGas.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Calificacion : PopupPage
+	public partial class Calificacion : ContentPage
     {
         CalificacionViewModel viewModel;
 

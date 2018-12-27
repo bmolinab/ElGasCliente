@@ -1,8 +1,10 @@
 ﻿using ElGas.Helpers;
+using ElGas.Services;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ElGas.Pages
@@ -44,11 +46,11 @@ namespace ElGas.Pages
 
         protected override void OnAppearing()
         {
-           
 
-            Paginaprincipal();
+             Paginaprincipal();
 
-            MessagingCenter.Subscribe<string>("update", "Hi", (sender) => {
+            MessagingCenter.Subscribe<string>("update", "Hi", (sender) =>
+            {
                 Paginaprincipal();
             });
 
@@ -60,16 +62,33 @@ namespace ElGas.Pages
 
         public async void Paginaprincipal()
         {
+
             if (Settings.Pedidos)
             {
                 await App.Navigator.PushAsync(new SeguimientoPage());
-
             }
+            
+
             if (Settings.Calificar)
             {
-                var page = new Calificacion();
-                await PopupNavigation.PushAsync(page);
+                await App.Navigator.PushAsync(new Calificacion());
             }
+            else
+            {
+                var apiService = new ApiServices();
+
+                var result = await apiService.CompraSinCalificarPorCliente();
+
+                if (result != null)
+                {
+                    Settings.IdCompra = result.IdCompra;
+                    Settings.IdDistribuidor = result.IdDistribuidor.Value;
+                    await App.Navigator.PushAsync(new Calificacion());
+                }
+            }
+
+
+
         }
 
         protected override bool OnBackButtonPressed()
