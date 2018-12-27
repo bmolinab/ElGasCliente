@@ -199,6 +199,12 @@ namespace ElGas.ViewModels
                             Cliente.Direccion = String.Format("{0}, {1}, {2}, {3}", CalleUno, Numero, CalleDos, Sector);
                             Cliente.Habilitado = true;
                             Cliente.IdSector = SectorSeleccionado.IdSector;
+                            int OS = 0;
+                            if (Device.RuntimePlatform.Equals("iOS"))
+                            {
+                                OS = 1;
+                            }
+                            Cliente.SistemaOperativo = OS;
 
                             var isRegistered = await _apiServices.RegisterUserAsync
                             (Username, Password, ConfirmPassword, Cliente);

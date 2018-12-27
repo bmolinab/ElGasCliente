@@ -228,8 +228,14 @@ namespace ElGas.ViewModels
 
                 if (accesstoken != null)
                 {
+                    int OS = 0;
+                    if (Device.RuntimePlatform.Equals("iOS"))
+                    {
+                        OS = 1;
+                    }
+                   
                     Settings.AccessToken = accesstoken;
-                    var c = new Cliente { Correo = Profile.Email, DeviceID = Settings.DeviceID };
+                    var c = new Cliente { Correo = Profile.Email, DeviceID = Settings.DeviceID ,SistemaOperativo=OS};
                     var response = await ApiServices.InsertarAsync<Cliente>(c, new System.Uri(Constants.BaseApiAddress), "/api/Clientes/GetClientData");
                     var cliente = JsonConvert.DeserializeObject<Cliente>(response.Result.ToString());
                     Settings.idCliente = cliente.IdCliente;
