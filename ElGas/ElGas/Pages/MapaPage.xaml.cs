@@ -23,5 +23,21 @@ namespace ElGas.Pages
             InitializeComponent();
             BindingContext = viewModel;
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            if (Settings.CantidadSeguimientoPage==1)
+            {
+                Settings.CantidadSeguimientoPage = 0;
+
+            }
+
+            if (Settings.CantidadCalificacionPage == 1)
+            {
+                Settings.CantidadCalificacionPage = 0;
+
+            }
+        }
     }
 }

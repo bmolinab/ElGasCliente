@@ -1,4 +1,5 @@
-﻿using ElGas.ViewModels;
+﻿using ElGas.Helpers;
+using ElGas.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace ElGas.Pages
 
         public SeguimientoPage ()
 		{
+           
             viewModel = new SeguimientoViewModel();
             BindingContext = viewModel;
             InitializeComponent ();

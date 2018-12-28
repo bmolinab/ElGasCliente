@@ -30,7 +30,7 @@ namespace ElGas
             navigationService.SetMainPage();
         }
 
-    
+      
         protected override void OnStart ()
 		{
 			// Handle when your app starts
@@ -38,11 +38,13 @@ namespace ElGas
 
 		protected override void OnSleep ()
 		{
-			// Handle when your app sleeps
-		}
+          
+            // Handle when your app sleeps
+        }
 
 		protected override void OnResume ()
 		{
+            
 			// Handle when your app resumes
 		}
 	}

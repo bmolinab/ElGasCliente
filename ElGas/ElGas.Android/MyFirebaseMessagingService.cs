@@ -48,6 +48,8 @@ namespace ElGas.Droid
                 {
                     case "1":
                         Helpers.Settings.Pedidos = true;
+                        Helpers.Settings.Calificar = false;
+                        Helpers.Settings.CantidadSeguimientoPage = 0;
                         if (iddistribuidor != null && iddistribuidor!="")
                         {
                             Helpers.Settings.IdDistribuidor = int.Parse(iddistribuidor);

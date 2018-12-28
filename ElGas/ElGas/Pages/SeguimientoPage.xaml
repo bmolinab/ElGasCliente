@@ -21,6 +21,7 @@
                     <StackLayout>
                         <Label VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" TextColor="Black" FontAttributes="Bold"  Text="{Binding Distribuidor.Nombres}"></Label>
                         <Label VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" TextColor="Black" FontAttributes="Bold"  Text="{Binding Distribuidor.PlacaVehiculo}"></Label>
+                        <Label VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" TextColor="Black" FontAttributes="Bold"  Text="En breve se entregará su pedido"></Label>
                     </StackLayout>
                 </Frame>
             </StackLayout>

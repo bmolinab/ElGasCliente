@@ -4,6 +4,7 @@ using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -62,32 +63,66 @@ namespace ElGas.Pages
 
         public async void Paginaprincipal()
         {
-
-            if (Settings.Pedidos)
+            var i = this.Children.IndexOf(this.CurrentPage);
+            if (i == 0)
             {
-                await App.Navigator.PushAsync(new SeguimientoPage());
-            }
-            
 
-            if (Settings.Calificar)
-            {
-                await App.Navigator.PushAsync(new Calificacion());
-            }
-            else
-            {
-                var apiService = new ApiServices();
-
-                var result = await apiService.CompraSinCalificarPorCliente();
-
-                if (result != null)
+                if (Settings.Pedidos)
                 {
-                    Settings.IdCompra = result.IdCompra;
-                    Settings.IdDistribuidor = result.IdDistribuidor.Value;
-                    await App.Navigator.PushAsync(new Calificacion());
+                    Settings.CantidadCalificacionPage = 0;
+                    if (Settings.CantidadSeguimientoPage == 0)
+                    {
+                        Settings.CantidadSeguimientoPage = 1;
+                        await App.Navigator.PushAsync(new SeguimientoPage());
+                    }
+
                 }
+                else
+                {
+                    Settings.CantidadSeguimientoPage = 0;
+                }
+
+                if (Settings.Pedidos!=true)
+                {
+
+               
+                if (Settings.Calificar)
+                {
+                        if (Settings.CantidadCalificacionPage == 0)
+                        {
+                            Settings.CantidadCalificacionPage = 1;
+                            await App.Navigator.PushAsync(new Calificacion());
+                        }
+                        else
+                        {
+                            Settings.CantidadSeguimientoPage = 0;
+                        }
+
+                    }
+                else
+                {
+
+                    var apiService = new ApiServices();
+
+                    var result = await apiService.CompraSinCalificarPorCliente();
+
+                    if (result != null)
+                    {
+                            if (Settings.CantidadCalificacionPage == 0)
+                            {
+                                Settings.IdCompra = result.IdCompra;
+                                Settings.IdDistribuidor = result.IdDistribuidor.Value;
+                                await App.Navigator.PushAsync(new Calificacion());
+                            }
+                            else
+                            {
+                                Settings.CantidadSeguimientoPage = 0;
+                            }
+                        }
+                }
+                }
+
             }
-
-
 
         }
 
@@ -96,9 +131,21 @@ namespace ElGas.Pages
             if (paginaactual != "Inicio")
             {
                 Tbpage.CurrentPage = NavigatorM;
-
+               
                 return true;
             }
+
+            if (Settings.CantidadSeguimientoPage == 1)
+            {
+                Settings.CantidadSeguimientoPage = 0;
+            }
+
+            if (Settings.CantidadCalificacionPage == 1)
+            {
+                Settings.CantidadCalificacionPage = 0;
+            }
+
+
             return base.OnBackButtonPressed();
         }
     }

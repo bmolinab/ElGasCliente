@@ -39,6 +39,8 @@ namespace ElGas.Droid
                 Rg.Plugins.Popup.Popup.Init(this, bundle);
                 base.OnCreate(bundle);
                 Rg.Plugins.Popup.Popup.Init(this, bundle);
+                Helpers.Settings.CantidadSeguimientoPage = 0;
+                Helpers.Settings.CantidadCalificacionPage = 0;
                 if (Intent.Extras != null)
                 {
                     foreach (var key in Intent.Extras.KeySet())
@@ -67,6 +69,7 @@ namespace ElGas.Droid
         protected override void OnStart()
         {
             base.OnStart();
+           
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.AccessCoarseLocation) != Permission.Granted)
             {
                 ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation }, 0);
@@ -85,6 +88,9 @@ namespace ElGas.Droid
             base.OnActivityResult(requestCode, resultCode, intent);
             FacebookClientManager.OnActivityResult(requestCode, resultCode, intent);
         }
+
+
+        
     }
 }
 

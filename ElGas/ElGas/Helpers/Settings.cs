@@ -76,6 +76,32 @@ namespace ElGas.Helpers
             }
         }
 
+        public static int CantidadSeguimientoPage
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("CantidadSeguimientoPage", 0);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("CantidadSeguimientoPage", value);
+            }
+        }
+
+
+        public static int CantidadCalificacionPage
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("CantidadCalificacionPage", 0);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("CantidadCalificacionPage", value);
+            }
+        }
+
+
         public static int IdCompra
         {
             get
