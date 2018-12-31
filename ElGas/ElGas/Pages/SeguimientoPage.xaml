@@ -18,34 +18,60 @@
 
             <StackLayout BackgroundColor="Transparent"  Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="StartAndExpand" Padding="10" >
                 <Frame CornerRadius="4" BackgroundColor="White" >
-                    <StackLayout>
-                        <Label VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" TextColor="Black" FontAttributes="Bold"  Text="{Binding Distribuidor.Nombres}"></Label>
-                        <Label VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" TextColor="Black" FontAttributes="Bold"  Text="{Binding Distribuidor.PlacaVehiculo}"></Label>
-                        <Label VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="White" TextColor="Black" FontAttributes="Bold"  Text="En breve se entregará su pedido"></Label>
-                    </StackLayout>
+                    <Grid>
+  <Grid.RowDefinitions>
+    <RowDefinition Height="*" />
+    <RowDefinition Height="*" />
+     <RowDefinition Height="*" />              
+  </Grid.RowDefinitions>
+  <Grid.ColumnDefinitions>
+    <ColumnDefinition Width="*" />
+    <ColumnDefinition Width="3*" />
+  </Grid.ColumnDefinitions>
+                        <Image Source="ic_conductor.jpg" 
+                               WidthRequest = "40"
+                               HeightRequest="40"
+                               Grid.Row="0" 
+                               Grid.Column="2" 
+                               >  
+                        </Image>
+                        
+                        
+                         <Label Grid.Row="0" Grid.Column="1" BackgroundColor="White" TextColor="Black" FontAttributes="Bold"  Text="{Binding Distribuidor.Nombres}"></Label>
+                        <Label Grid.Row="1" Grid.Column="1" BackgroundColor="White" TextColor="Black" FontAttributes="Bold"  Text="{Binding Distribuidor.PlacaVehiculo}"></Label>
+                        <Label Grid.Row="2" Grid.Column="1" BackgroundColor="White" TextColor="Black" FontAttributes="Bold"  Text="{Binding TiempoEntrega}"></Label>
+
+</Grid>
+                  
                 </Frame>
             </StackLayout>
             <StackLayout BackgroundColor="Transparent"  Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="End" Padding="10" >
                 <Frame CornerRadius="4" BackgroundColor="Transparent" >
                     <StackLayout Orientation="Horizontal">
                     <Button 
-                        Text="  Contactar Distribuidor  " 
+                        Text=" Contactar Distribuidor  " 
+                        x:Name="Contactar"
+                            
                         VerticalOptions="End" 
                         HorizontalOptions="Start" 
                         BackgroundColor="#0072C6" 
                         TextColor="White" 
                         FontFamily="calibril.ttf#Calibri Light"
-                        Command="{Binding ContactCommand}"/>
+                        Command="{Binding ContactCommand}"
+                        />
+                     
 
-                    <Button Text="  Cancelar Pedido  " 
+                    <Button Text="Cancelar Pedido" 
                         Command="{Binding CancelCommand}"
                         BackgroundColor="Gray"
                         TextColor="White" 
                         VerticalOptions="End" 
                         HorizontalOptions="End" 
                         FontFamily="calibril.ttf#Calibri Light"
-                        >
-                    </Button>
+                          WidthRequest="{Binding Path=Width, Source={x:Reference Contactar}"
+                           />
+                        
+            
                     </StackLayout>
 
                 </Frame>

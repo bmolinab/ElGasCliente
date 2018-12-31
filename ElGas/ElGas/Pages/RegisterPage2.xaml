@@ -124,7 +124,7 @@
                 Text="{Binding Cliente.Telefono}" 
                 HeightRequest = "40"
             />
-                    <Entry IsVisible="{Binding IsVisible}" Placeholder="Sector" 
+                    <Entry IsVisible="{Binding IsVisible}" Placeholder="Referencia" 
                     Keyboard="Chat" 
                     FontFamily="calibril.ttf#Calibri Light"    
                     Text="{Binding Sector}" 

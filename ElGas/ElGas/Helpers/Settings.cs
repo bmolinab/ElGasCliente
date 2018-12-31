@@ -64,6 +64,18 @@ namespace ElGas.Helpers
             }
         }
 
+        public static string HoraEntrega
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault("HoraEntrega", "");
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue("HoraEntrega", value);
+            }
+        }
+
         public static int TanquesGas
         {
             get

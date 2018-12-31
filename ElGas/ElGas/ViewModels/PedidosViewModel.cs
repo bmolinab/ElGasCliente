@@ -114,15 +114,15 @@ namespace ElGas.ViewModels
                             item.icono = "cancelado.png";
                             break;
                         case 0:
-                            item.TituloPedido = "No atendido";
+                            item.TituloPedido = "Pendiente";
                             item.icono = "pendiente.png";
                             break;
                         case 1:
-                            item.TituloPedido = "Pendiente";
+                            item.TituloPedido = "Por Entregar";
                             item.icono = "aceptado.png";
                             break;
                         case 2:
-                            item.TituloPedido = "Exitoso";
+                            item.TituloPedido = "Entregado";
                             item.icono = "vendido.png";
                             break;
                     }
@@ -154,6 +154,7 @@ namespace ElGas.ViewModels
             if (compra.Estado==1)
             {
                 Settings.IdDistribuidor = compra.IdDistribuidor.Value;
+                Settings.HoraEntrega = compra.FechaPedido.Value.AddHours(1).ToShortTimeString();
                 await App.Navigator.PushAsync(new SeguimientoPage(), true);
             }
             else
