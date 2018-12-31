@@ -28,11 +28,27 @@
     <ColumnDefinition Width="*" />
     <ColumnDefinition Width="3*" />
   </Grid.ColumnDefinitions>
-                        <Image Source="ic_conductor.jpg" 
-                               WidthRequest = "40"
-                               HeightRequest="40"
+                        <Image Source="ic_conductor2.jpg" 
+                               WidthRequest = "25"
+                               HeightRequest="25"
                                Grid.Row="0" 
-                               Grid.Column="2" 
+                               Grid.Column="0" 
+                               >  
+                        </Image>
+                        
+                        <Image Source="ic_matricula.png" 
+                               WidthRequest = "25"
+                               HeightRequest="25"
+                               Grid.Row="1" 
+                               Grid.Column="0" 
+                               >  
+                        </Image>
+                        
+                         <Image Source="ic_tiempo.jpg" 
+                               WidthRequest = "25"
+                               HeightRequest="25"
+                               Grid.Row="2" 
+                               Grid.Column="0" 
                                >  
                         </Image>
                         
