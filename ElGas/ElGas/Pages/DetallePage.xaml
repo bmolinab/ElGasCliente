@@ -1,50 +1,99 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tk="clr-namespace:TK.CustomMap;assembly=TK.CustomMap"
              x:Class="ElGas.Pages.DetallePage">
     <ContentPage.Content>
 
-        <Grid 
-                RowSpacing="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="2*" />
-            </Grid.RowDefinitions>
+        <StackLayout Orientation="Vertical">
+            
 
-            <tk:TKCustomMap   
-                VerticalOptions="EndAndExpand" 
-                Pins="{Binding Locations}" 
+             <tk:TKCustomMap 
+                x:Name="Mapa"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                MinimumHeightRequest="300"  
+                MinimumWidthRequest="300"
                 IsClusteringEnabled="False"
                 MapRegion="{Binding CenterSearch}"
+                Pins="{Binding Locations}" 
+                HasZoomEnabled="True"
                 IsShowingUser="True"
-                MapType="Street" 
-                Grid.Row="0">
-            </tk:TKCustomMap>
+                  IsRegionChangeAnimated="True"        
+                 
+                MapType="Street"                
+                />
 
-            <ScrollView Grid.Row="1">
-            <StackLayout  Margin="10">
-                    <StackLayout Orientation="Vertical"  VerticalOptions="EndAndExpand" >
-                    <Label Text="Dirección: " FontAttributes="Bold"  FontSize="Medium"></Label>
-                    <Label Text="{Binding Direccion}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
-                </StackLayout>
-
-                    <StackLayout Orientation="Vertical"  VerticalOptions="EndAndExpand" >
-                        <Label Text="Estado del Pedido: " FontAttributes="Bold"  FontSize="Medium"></Label>
-                    <Label Text="{Binding EstadoPedido}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
-                </StackLayout>
-                    <StackLayout Orientation="Vertical"  VerticalOptions="EndAndExpand" >
-                        <Label Text="Fecha del Pedido: " FontAttributes="Bold"  FontSize="Medium"></Label>
-                    <Label Text="{Binding FechaCompra}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
-                </StackLayout>
-                    <StackLayout Orientation="Vertical"  VerticalOptions="EndAndExpand" >
-                        <Label Text="Cantidad de Cilindros: " FontAttributes="Bold"  FontSize="Medium"></Label>
-                        <Label Text="{Binding  CantidadCompra}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
-                    </StackLayout>
-                    <Button Text="Cancelar el pedido" 
+            
+                <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+    <RowDefinition Height="50" />
+    <RowDefinition Height="25" />
+     <RowDefinition Height="25" /> 
+     <RowDefinition Height="25" /> 
+  </Grid.RowDefinitions>
+  <Grid.ColumnDefinitions>
+    <ColumnDefinition Width="*" />
+    <ColumnDefinition Width="3*" />
+  </Grid.ColumnDefinitions>
+                        <Image Source="ic_direccion.png" 
+                               WidthRequest = "25"
+                               HeightRequest="25"
+                               Grid.Row="0" 
+                               Grid.Column="0" 
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               >  
+                        </Image>
+                        
+                        <Image Source="ic_tiempo.jpg" 
+                               WidthRequest = "25"
+                               HeightRequest="25"
+                               Grid.Row="1" 
+                               Grid.Column="0" 
+                               HorizontalOptions="CenterAndExpand"
+                               >  
+                        </Image>
+                        
+                         <Image Source="ic_calendario.png" 
+                               WidthRequest = "25"
+                               HeightRequest="25"
+                               Grid.Row="2" 
+                               Grid.Column="0" 
+                                HorizontalOptions="CenterAndExpand"
+                               >  
+                        </Image>
+                    
+                    <Image Source="ic_tanque.png" 
+                               WidthRequest = "25"
+                               HeightRequest="25"
+                               Grid.Row="3" 
+                               Grid.Column="0" 
+                               HorizontalOptions="CenterAndExpand"
+                               >  
+                        </Image>
+                        
+                        
+                          <Label Grid.Row="0" Grid.Column="1" Text="{Binding Direccion}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+              
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding EstadoPedido}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding FechaCompra}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                
+                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding  CantidadCompra}" FontFamily="calibril.ttf#Calibri Light" FontSize="Medium"></Label>
+                   
+                    
+</Grid>
+                
+                   
+                    
+                    
+                    <Button 
+                        Grid.Row="2"
+                        Text=" Cancelar " 
                         BackgroundColor="Gray"
                         TextColor="White" 
-                        VerticalOptions="EndAndExpand" 
+                        VerticalOptions="CenterAndExpand" 
                         HorizontalOptions="Center" 
                         FontFamily="calibril.ttf#Calibri Light"
                         IsVisible="{Binding isCancelable}"
@@ -52,11 +101,10 @@
 
                 </Button>
 
-            </StackLayout>
-            </ScrollView>
+           
+          
 
-
-        </Grid>
+        </StackLayout>
 
     </ContentPage.Content>
 

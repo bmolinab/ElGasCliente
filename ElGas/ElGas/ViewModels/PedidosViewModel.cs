@@ -129,7 +129,7 @@ namespace ElGas.ViewModels
 
 
                     //item.TituloPedido+= " "+fecha.ToString("yyyy-MM-dd"); 
-                    item.FechaTexto = fecha.ToString("yyyy-MMM-dd   hh:mm");
+                    item.FechaTexto = fecha.ToString("yyyy-MMM-dd   HH:mm");
                     ListaCompra.Add(item);
 
                 }

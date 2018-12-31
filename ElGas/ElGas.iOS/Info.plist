@@ -24,8 +24,6 @@
 	<string>El Gas</string>
 	<key>CFBundleIdentifier</key>
 	<string>digitalstrategy.com.ec.ElGas</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
@@ -58,8 +56,6 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>CFBundleShortVersionString</key>
-	<string>1.9</string>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UIBackgroundModes</key>
@@ -71,5 +67,9 @@
 	<string>Esta aplicación necesita acceso a tu bluetooth</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>Esta aplicación necesita permiso para usar tu calendario</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.0</string>
+	<key>CFBundleVersion</key>
+	<string>2.0</string>
 </dict>
 </plist>

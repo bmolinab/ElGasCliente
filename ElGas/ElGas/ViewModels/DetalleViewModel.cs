@@ -156,27 +156,27 @@ namespace ElGas.ViewModels
                 switch (comprasRequest.Estado)
                 {
                     case -1:
-                        EstadoPedido = "Compra Cancelada";
+                        EstadoPedido = "Cancelado";
                         isCancelable = false;
                         break;
                     case 0:
-                        EstadoPedido = "Compra no atendida";
+                        EstadoPedido = "No atendido";
                         isCancelable = true;
                         break;
                     case 1:
-                        EstadoPedido = "Compra en atención";
+                        EstadoPedido = "Pendiente";
                         isCancelable = true;
                         break;
                     case 2:
-                        EstadoPedido = "Compra Finalizada";
+                        EstadoPedido = "Entregado";
                         isCancelable = false;
                         break;
 
                 }
 
-                var fecha = TimeZoneInfo.ConvertTime(comprasRequest.FechaPedido.Value.Date, TimeZoneInfo.Local);
+                var fecha = TimeZoneInfo.ConvertTime(comprasRequest.FechaPedido.Value, TimeZoneInfo.Local);
 
-                FechaCompra = fecha.ToString("yyyy-MM-dd");
+                FechaCompra = fecha.ToString("yyyy-MM-dd") + " " + comprasRequest.FechaPedido.Value.ToShortTimeString();
                 CantidadCompra = Compra.Cantidad.ToString();
                 ValorCompra = Compra.ValorTotal.ToString();
 

@@ -61,15 +61,15 @@
                   
                 </Frame>
             </StackLayout>
-            <StackLayout BackgroundColor="Transparent"  Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="End" Padding="10" >
+            <StackLayout BackgroundColor="Transparent"  Orientation="Horizontal" HorizontalOptions="CenterAndExpand" VerticalOptions="End" Padding="10" >
                 <Frame CornerRadius="4" BackgroundColor="Transparent" >
                     <StackLayout Orientation="Horizontal">
                     <Button 
-                        Text=" Contactar Distribuidor  " 
+                        Text=" Contactar  " 
                         x:Name="Contactar"
                             
                         VerticalOptions="End" 
-                        HorizontalOptions="Start" 
+                        HorizontalOptions="CenterAndExpand"
                         BackgroundColor="#0072C6" 
                         TextColor="White" 
                         FontFamily="calibril.ttf#Calibri Light"
@@ -77,12 +77,12 @@
                         />
                      
 
-                    <Button Text="Cancelar Pedido" 
+                    <Button Text="Cancelar" 
                         Command="{Binding CancelCommand}"
                         BackgroundColor="Gray"
                         TextColor="White" 
                         VerticalOptions="End" 
-                        HorizontalOptions="End" 
+                        HorizontalOptions="CenterAndExpand" 
                         FontFamily="calibril.ttf#Calibri Light"
                           WidthRequest="{Binding Path=Width, Source={x:Reference Contactar}"
                            />

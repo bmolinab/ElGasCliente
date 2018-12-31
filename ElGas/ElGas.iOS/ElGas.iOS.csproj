@@ -293,6 +293,9 @@
     <BundleResource Include="Resources\ic_matricula.png" />
     <BundleResource Include="Resources\ic_conductor2.jpg" />
     <BundleResource Include="Resources\ic_tiempo.jpg" />
+    <BundleResource Include="Resources\ic_calendario.png" />
+    <BundleResource Include="Resources\ic_direccion.png" />
+    <BundleResource Include="Resources\ic_tanque.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\vendido.png" />

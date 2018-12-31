@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage 
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
@@ -8,12 +8,12 @@
     x:Class="ElGas.Pages.Calificacion">
     <StackLayout VerticalOptions="Center" HorizontalOptions="FillAndExpand" Padding="20, 20, 20, 20" BackgroundColor="White">
 
-        <Label IsVisible="{Binding IsVisible}" Text="Notificación"
+        <Label IsVisible="{Binding IsVisible}" Text="Nos interesa tu opinión"
                FontAttributes="Bold"
-               FontSize="Large"
+               FontSize="Medium"
                 VerticalOptions="Start" 
-                HorizontalOptions="Start"  FontFamily="calibril.ttf#Calibri Light" />
-        <Label IsVisible="{Binding IsVisible}" Text="Gracias por confiar en nosotros, por favor califique el servicio brindado"   
+                HorizontalOptions="CenterAndExpand"  FontFamily="calibril.ttf#Calibri Light" />
+        <Label IsVisible="{Binding IsVisible}" Text="¿Cómo lo hicimos?"   
                 LineBreakMode="WordWrap"
                 VerticalOptions="Start" 
                 HorizontalOptions="Start"  FontFamily="calibril.ttf#Calibri Light"  />
@@ -45,7 +45,7 @@
 
         <Button IsVisible="{Binding IsVisible}" HorizontalOptions="Center" 
                 VerticalOptions="End" 
-                Text="ACEPTAR" 
+                Text="  Aceptar  " 
                 Command="{Binding CalificarCommand}"
                  FontFamily="calibril.ttf#Calibri Light"
         >
