@@ -56,6 +56,22 @@ namespace ElGas.ViewModels
             }
         }
 
+        public string tiempoEntrega;
+        public string TiempoEntrega
+        {
+            get { return tiempoEntrega; }
+            set
+            {
+                if (this.tiempoEntrega != value)
+                {
+
+                    this.tiempoEntrega = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("TiempoEntrega"));
+                }
+            }
+        }
+
+
         public ObservableCollection<DistribuidorFirebase> camiones;
         public ObservableCollection<DistribuidorFirebase> Camiones
         {
@@ -163,7 +179,7 @@ namespace ElGas.ViewModels
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert("Problemas", string.Format("Tenemos problemas para cancelarsu pedido de {0} tanque(s), trabajamos para solucionarlo", Settings.TanquesGas), "Aceptar");
+                    await App.Current.MainPage.DisplayAlert("Problemas", string.Format("Tenemos problemas para cancelar su pedido de {0} tanque(s), trabajamos para solucionarlo", Settings.TanquesGas), "Aceptar");
                     //Settear las variables globales
                     Settings.Pedidos = false;
                     Settings.IdCompra = 0;
@@ -180,8 +196,10 @@ namespace ElGas.ViewModels
             var response = await ApiServices.InsertarAsync<Distribuidor>(d, new System.Uri(Constants.BaseApiAddress), "/api/Distribuidors/GetDistribuidorID");
             Distribuidor = JsonConvert.DeserializeObject<Distribuidor>(response.Result.ToString());
 
-            Distribuidor.Nombres = string.Format("{0} {1}","Su pedido fue atendido por:",Distribuidor.Nombres);
-            Distribuidor.PlacaVehiculo = string.Format("{0} {1}", "Placa del vehículo:", Distribuidor.PlacaVehiculo);
+            Distribuidor.Nombres = string.Format("{0} {1}",Distribuidor.Nombres, Distribuidor.Apellidos);
+            Distribuidor.PlacaVehiculo = string.Format("{0}", Distribuidor.PlacaVehiculo);
+            TiempoEntrega = string.Format("Aprox. {0}", Settings.HoraEntrega);
+
             #region Forma Firebase
 
             Locations.Clear();

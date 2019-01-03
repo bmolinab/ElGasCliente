@@ -172,7 +172,7 @@ namespace ElGas.ViewModels
                     {
                         await loadParametros();
                     });
-                    await LoadVendedores();
+                    Task.Run(() => this.LoadVendedores()).Wait();
                 }
                 IsBusy = false;
             }
@@ -307,8 +307,12 @@ namespace ElGas.ViewModels
         {
             try
             {
+
                 //     await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
                 var status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+
+               
+
                 if (status != PermissionStatus.Granted)
                 {
                     if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
@@ -316,8 +320,11 @@ namespace ElGas.ViewModels
                         Debug.WriteLine("Need location", "Gunna need that location", "OK");
                     }
 
-                    var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
-                    status = results[Permission.Location];
+                    if (Device.RuntimePlatform != Device.iOS)
+                    {
+                        var results = await CrossPermissions.Current.RequestPermissionsAsync(Permission.Location);
+                        status = results[Permission.Location];
+                    }
                 }
 
                 if (status == PermissionStatus.Granted)
@@ -331,18 +338,22 @@ namespace ElGas.ViewModels
 
 
 
-
-
-                var locator = CrossGeolocator.Current;
-                locator.DesiredAccuracy = 10;//DesiredAccuracy.Value;
-                Debug.WriteLine("Consiguiendo localización...");
-                var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(3), null, true);
-                if (position == null)
+                if (Device.RuntimePlatform != Device.iOS)
                 {
-                    Debug.WriteLine("null gps :(");
-                    return;
+
+                    var locator = CrossGeolocator.Current;
+
+
+                    locator.DesiredAccuracy = 10;//DesiredAccuracy.Value;
+                    Debug.WriteLine("Consiguiendo localización...");
+                    var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(3), null, true);
+                    if (position == null)
+                    {
+                        Debug.WriteLine("null gps :(");
+                        return;
+                    }
+                    CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(position.Latitude, position.Longitude)), Distance.FromMiles(.5)));
                 }
-                CenterSearch = (MapSpan.FromCenterAndRadius((new TK.CustomMap.Position(position.Latitude, position.Longitude)), Distance.FromMiles(.5)));
                 #region Forma Antigua
 
                 //var Distribuidores = await apiService.DistribuidoresCercanos(new Models.Posicion { Latitud = position.Latitude, Longitud = position.Longitude });

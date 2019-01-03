@@ -348,6 +348,12 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\OkBtn.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\SalirBtn.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\UserBtn.png" />
+    <AndroidResource Include="Resources\drawable\ic_conductor.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_conductor.jpg" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_conductor.jpg" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_conductor.jpg" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_conductor.jpg" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_conductor.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElGas\ElGas.csproj">

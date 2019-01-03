@@ -289,6 +289,10 @@
     <BundleResource Include="Resources\AlarmBtn.png" />
     <BundleResource Include="Resources\UserBtn.png" />
     <BundleResource Include="Resources\casaimg.png" />
+    <BundleResource Include="Resources\ic_conductor.jpg" />
+    <BundleResource Include="Resources\ic_matricula.png" />
+    <BundleResource Include="Resources\ic_conductor2.jpg" />
+    <BundleResource Include="Resources\ic_tiempo.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\vendido.png" />
