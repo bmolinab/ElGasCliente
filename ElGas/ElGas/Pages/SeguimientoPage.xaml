@@ -84,7 +84,7 @@
                         VerticalOptions="End" 
                         HorizontalOptions="End" 
                         FontFamily="calibril.ttf#Calibri Light"
-                          WidthRequest="{Binding Path=Width, Source={x:Reference Contactar}"
+                          WidthRequest="{Binding Path=Width, Source={x:Reference Contactar }}"
                            />
                         
             
